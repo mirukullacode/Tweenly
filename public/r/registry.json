@@ -1,0 +1,925 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "motioncn",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "use-reduced-motion",
+      "type": "registry:hook",
+      "title": "useReducedMotion",
+      "description": "Returns true when the user prefers reduced motion.",
+      "files": [
+        {
+          "path": "registry/new-york/hooks/use-reduced-motion.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "fade-in",
+      "type": "registry:component",
+      "title": "Fade In",
+      "description": "Scroll-triggered fade with direction, distance, easing, scale and blur options.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/fade-in/fade-in.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "text-reveal",
+      "type": "registry:component",
+      "title": "Text Reveal",
+      "description": "Word-by-word or character-by-character reveal with blur and stagger.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/text-reveal/text-reveal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typewriter",
+      "type": "registry:component",
+      "title": "Typewriter",
+      "description": "Types and deletes a list of phrases with a blinking cursor.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/typewriter/typewriter.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "word-rotate",
+      "type": "registry:component",
+      "title": "Word Rotate",
+      "description": "Cycles through words with slide, fade, blur or flip transitions.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/word-rotate/word-rotate.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "shimmer-text",
+      "type": "registry:component",
+      "title": "Shimmer Text",
+      "description": "A light band that sweeps across text on a loop.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/shimmer-text/shimmer-text.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-ticker",
+      "type": "registry:component",
+      "title": "Number Ticker",
+      "description": "Counts up to a value when scrolled into view, with formatting options.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/number-ticker/number-ticker.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fill-button",
+      "type": "registry:component",
+      "title": "Fill Button",
+      "description": "Hover/focus button with a GSAP clip-path fill sweep. Configurable direction, duration and ease.",
+      "dependencies": [
+        "gsap"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/fill-button/fill-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "magnetic",
+      "type": "registry:component",
+      "title": "Magnetic",
+      "description": "Wrap anything to make it drift toward the cursor on a spring.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/magnetic/magnetic.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tilt-card",
+      "type": "registry:component",
+      "title": "Tilt Card",
+      "description": "3D perspective tilt that follows the pointer, with optional glare.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/tilt-card/tilt-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "spotlight-card",
+      "type": "registry:component",
+      "title": "Spotlight Card",
+      "description": "Card with a radial spotlight and glowing border that track the cursor.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/spotlight-card/spotlight-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stagger",
+      "type": "registry:component",
+      "title": "Stagger",
+      "description": "Reveals its children one after another as they enter the viewport.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/stagger/stagger.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:component",
+      "title": "Marquee",
+      "description": "Infinite, seamless scrolling row or column of content.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/marquee/marquee.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sticky-cards",
+      "type": "registry:component",
+      "title": "Sticky Cards",
+      "description": "A stack of same-size cards pinned on scroll. The front card lifts away, then the next, one by one.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/cards/sticky-cards.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-text-reveal",
+      "type": "registry:component",
+      "title": "Scroll Text Reveal",
+      "description": "Pins the section and reveals text word by word as you scroll; the page resumes once the reveal completes.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/scroll-text-reveal/scroll-text-reveal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "horizontal-scroll",
+      "type": "registry:component",
+      "title": "Horizontal Scroll",
+      "description": "Pins a row of images and scrolls it sideways with the page, then releases to normal scroll.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/horizontal-scroll/horizontal-scroll.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-reveal",
+      "type": "registry:component",
+      "title": "Image Reveal",
+      "description": "Images fly in from their own direction as they scroll into view.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/image-reveal/image-reveal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ascii-image",
+      "type": "registry:component",
+      "title": "ASCII Image",
+      "description": "Renders any image as ASCII art on a canvas, with a glittering pixel trail under the cursor.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ascii-image/ascii-image.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-media",
+      "type": "registry:component",
+      "title": "Hover Media",
+      "description": "Inline keyword that reveals a floating image or video that follows the cursor.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/hover-media/hover-media.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "cursor",
+      "type": "registry:component",
+      "title": "Cursor",
+      "description": "Custom cursors: ring, dot, blend, crosshair, sparkle trail, sunflower and rose.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/cursor/cursor.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:component",
+      "title": "Loader",
+      "description": "Three loading animations: bouncing dots, equalizer bars and an orbit spinner.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/loader/loader.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "download-button",
+      "type": "registry:component",
+      "title": "Download Button",
+      "description": "Button that morphs from Download to a live progress fill and a drawn check mark.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/download-button/download-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-fan",
+      "type": "registry:component",
+      "title": "Image Fan",
+      "description": "One image rises from below, then the rest slide out from under it into an overlapping fan.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/image-fan/image-fan.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-arc",
+      "type": "registry:component",
+      "title": "Image Arc",
+      "description": "Images on a half-circle wheel that turns on its own or with the scroll.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/image-arc/image-arc.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "expand-gallery",
+      "type": "registry:component",
+      "title": "Expand Gallery",
+      "description": "A row of small thumbnails where each one grows large in turn as you scroll.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/expand-gallery/expand-gallery.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-focus",
+      "type": "registry:component",
+      "title": "Scroll Focus",
+      "description": "A column of images where the one in the center grows, with a title list that stays in sync.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/scroll-focus/scroll-focus.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "shine-button",
+      "type": "registry:component",
+      "title": "Shine Button",
+      "description": "Pill button with a light beam circling its edge and a soft sheen on hover.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/shine-button/shine-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ripple-button",
+      "type": "registry:component",
+      "title": "Ripple Button",
+      "description": "Material-style ripples that expand from the exact point you press.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ripple-button/ripple-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hold-button",
+      "type": "registry:component",
+      "title": "Hold Button",
+      "description": "Press and hold to confirm destructive actions. A fill sweeps across while held.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/hold-button/hold-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slide-button",
+      "type": "registry:component",
+      "title": "Slide Button",
+      "description": "Slide-to-confirm track with a draggable knob, shimmering label and keyboard support.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/slide-button/slide-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "like-button",
+      "type": "registry:component",
+      "title": "Like Button",
+      "description": "Heart toggle with a spring pop, ring burst, particles and a rolling counter.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/like-button/like-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented Control",
+      "description": "Tabs with a springy pill that slides behind the active option, with arrow-key navigation.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/segmented-control/segmented-control.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-stepper",
+      "type": "registry:component",
+      "title": "Number Stepper",
+      "description": "Minus / plus stepper whose digits roll individually, with hold-to-repeat and a shake at the limits.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/number-stepper/number-stepper.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "elastic-switch",
+      "type": "registry:component",
+      "title": "Elastic Switch",
+      "description": "Toggle whose knob stretches while pressed and springs across with overshoot, with optional sun / moon icons.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/elastic-switch/elastic-switch.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "expand-input",
+      "type": "registry:component",
+      "title": "Expand Input",
+      "description": "A pill button that morphs into an email field, then a spinner and a drawn check on submit.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/expand-input/expand-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "type": "registry:component",
+      "title": "Rating",
+      "description": "Star rating with a sweeping hover fill, half stars, and a springy pop with sparkles on select.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/rating/rating.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "navbar",
+      "type": "registry:component",
+      "title": "Navbar",
+      "description": "Five minimal, animated navigation bars: glass pill, scroll morph, sliding underline, dynamic island mega-menu and full-screen overlay.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/navbar/navbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "table-of-contents",
+      "type": "registry:component",
+      "title": "Table of Contents",
+      "description": "Scroll-synced \"On This Page\" sidebar with a plane that flies along the heading trail, a sliding rail, or a spotlight list.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/table-of-contents/table-of-contents.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:component",
+      "title": "OTP Input",
+      "description": "Verification code input with springy digits, a gliding focus ring and animated success and error states.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/otp-input/otp-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-line",
+      "type": "registry:component",
+      "title": "Chart Line",
+      "description": "Multi-series line and area chart from plain row data, with draw-in lines, halftone fills, a snapping crosshair tooltip and a toggleable legend.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-line/chart-line.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-progress",
+      "type": "registry:component",
+      "title": "Chart Progress",
+      "description": "Progress toward a real target: a wavy, grainy fill over a hatched remainder, with a thermometer marker, quota line and stacked segments.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-progress/chart-progress.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-radial",
+      "type": "registry:component",
+      "title": "Chart Radial",
+      "description": "Donut, pie or gauge from your rows with sweep-in slices, legend toggling with re-flow, hover explode and a live center total.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-radial/chart-radial.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-dots",
+      "type": "registry:component",
+      "title": "Chart Dots",
+      "description": "Dot matrix of filled versus hatched units with a partial last dot, spring wave in fill order, and a huge count-up figure.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-dots/chart-dots.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "preloader",
+      "type": "registry:component",
+      "title": "Preloader",
+      "description": "Full-screen loader with a counting percentage and rotating quotes that reveals the page at 100%.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/preloader/preloader.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-kit",
+      "type": "registry:lib",
+      "title": "Chart Kit",
+      "description": "Shared theme, scales, formatters, textures, card, legend and tooltip used by motioncn charts.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/lib/chart-kit.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "chart-bar",
+      "type": "registry:component",
+      "title": "Chart Bar",
+      "description": "Grouped or stacked bar chart, vertical or horizontal, with springy staggered growth, textured series, hover highlight and a toggleable legend.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-bar/chart-bar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-rings",
+      "type": "registry:component",
+      "title": "Chart Rings",
+      "description": "Concentric activity-style progress rings with per-row goals, springy staggered fills, counting values and second-lap overshoot.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-rings/chart-rings.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-radar",
+      "type": "registry:component",
+      "title": "Chart Radar",
+      "description": "Spider chart comparing textured series across axes, with a drawn-in grid, polygons springing from the center and axis tooltips.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-radar/chart-radar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-kpi",
+      "type": "registry:component",
+      "title": "Chart KPI",
+      "description": "Stat card with a count-up headline, delta pill, halftone sparkline with scrubbing, and an optional goal bar.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-kpi/chart-kpi.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart-heatmap",
+      "type": "registry:component",
+      "title": "Chart Heatmap",
+      "description": "GitHub-style contribution calendar with hatched empty days, a diagonal reveal wave, and hover tooltips.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/chart-kit.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/chart-heatmap/chart-heatmap.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

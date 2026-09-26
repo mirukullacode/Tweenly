@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "title": "Loader",
+  "description": "Three loading animations: bouncing dots, equalizer bars and an orbit spinner.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/loader/loader.tsx",
+      "content": "\"use client\"\r\n\r\nimport { motion, useReducedMotion } from \"motion/react\"\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nexport type LoaderVariant = \"dots\" | \"bars\" | \"orbit\"\r\n\r\nexport interface LoaderProps {\r\n  /** Animation style. Default: \"dots\" */\r\n  variant?: LoaderVariant\r\n  /** Overall size in px. Default: 40 */\r\n  size?: number\r\n  /** Color (any CSS color). Default: \"currentColor\" */\r\n  color?: string\r\n  /** Seconds per cycle. Lower = faster. Default: 1 */\r\n  speed?: number\r\n  /** Number of dots or bars. Default: 3 for dots, 5 for bars */\r\n  count?: number\r\n  /** Accessible label. Default: \"Loading\" */\r\n  label?: string\r\n  className?: string\r\n}\r\n\r\nexport function Loader({\r\n  variant = \"dots\",\r\n  size = 40,\r\n  color = \"currentColor\",\r\n  speed = 1,\r\n  count,\r\n  label = \"Loading\",\r\n  className,\r\n}: LoaderProps) {\r\n  const reduced = useReducedMotion()\r\n  const repeat = reduced ? 0 : Infinity\r\n  const n = count ?? (variant === \"bars\" ? 5 : 3)\r\n\r\n  return (\r\n    <span\r\n      role=\"status\"\r\n      aria-label={label}\r\n      className={cn(\"inline-flex items-center justify-center\", className)}\r\n      style={{ width: size, height: size, color }}\r\n    >\r\n      {variant === \"dots\" && (\r\n        <span className=\"flex items-center\" style={{ gap: size * 0.12 }}>\r\n          {Array.from({ length: n }, (_, i) => (\r\n            <motion.span\r\n              key={i}\r\n              className=\"rounded-full bg-current\"\r\n              style={{ width: size * 0.2, height: size * 0.2 }}\r\n              animate={{ y: [0, -size * 0.22, 0], opacity: [0.35, 1, 0.35] }}\r\n              transition={{ duration: speed, repeat, ease: \"easeInOut\", delay: (i / n) * speed * 0.5 }}\r\n            />\r\n          ))}\r\n        </span>\r\n      )}\r\n\r\n      {variant === \"bars\" && (\r\n        <span className=\"flex h-full items-center\" style={{ gap: size * 0.08 }}>\r\n          {Array.from({ length: n }, (_, i) => (\r\n            <motion.span\r\n              key={i}\r\n              className=\"rounded-full bg-current\"\r\n              style={{ width: size * 0.1, height: \"100%\", originY: 0.5 }}\r\n              animate={{ scaleY: [0.3, 1, 0.3], opacity: [0.5, 1, 0.5] }}\r\n              transition={{ duration: speed, repeat, ease: \"easeInOut\", delay: (i / n) * speed * 0.6 }}\r\n            />\r\n          ))}\r\n        </span>\r\n      )}\r\n\r\n      {variant === \"orbit\" && (\r\n        <span className=\"relative size-full\">\r\n          {/* track */}\r\n          <span className=\"absolute inset-0 rounded-full border-2 border-current opacity-15\" />\r\n          {/* sweeping arc */}\r\n          <motion.span\r\n            className=\"absolute inset-0 rounded-full border-2 border-transparent border-t-current\"\r\n            animate={{ rotate: 360 }}\r\n            transition={{ duration: speed, repeat, ease: \"linear\" }}\r\n          />\r\n          {/* two satellites orbiting in opposite directions */}\r\n          {[1, -1].map((dir) => (\r\n            <motion.span\r\n              key={dir}\r\n              className=\"absolute inset-[22%]\"\r\n              animate={{ rotate: dir * 360 }}\r\n              transition={{ duration: speed * 1.6, repeat, ease: \"easeInOut\" }}\r\n            >\r\n              <span\r\n                className=\"absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current\"\r\n                style={{ width: size * 0.14, height: size * 0.14 }}\r\n              />\r\n            </motion.span>\r\n          ))}\r\n        </span>\r\n      )}\r\n    </span>\r\n  )\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

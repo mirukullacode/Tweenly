@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-reduced-motion",
+  "title": "useReducedMotion",
+  "description": "Returns true when the user prefers reduced motion.",
+  "files": [
+    {
+      "path": "registry/new-york/hooks/use-reduced-motion.ts",
+      "content": "\"use client\"\n\nimport { useSyncExternalStore } from \"react\"\n\nconst QUERY = \"(prefers-reduced-motion: reduce)\"\n\nfunction subscribe(onChange: () => void) {\n  const mq = window.matchMedia(QUERY)\n  mq.addEventListener(\"change\", onChange)\n  return () => mq.removeEventListener(\"change\", onChange)\n}\n\nexport function useReducedMotion() {\n  return useSyncExternalStore(\n    subscribe,\n    () => window.matchMedia(QUERY).matches,\n    () => false\n  )\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typewriter",
+  "title": "Typewriter",
+  "description": "Types and deletes a list of phrases with a blinking cursor.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/typewriter/typewriter.tsx",
+      "content": "\"use client\"\r\n\r\nimport { useEffect, useState } from \"react\"\r\nimport { useReducedMotion } from \"motion/react\"\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nexport interface TypewriterProps {\r\n  /** Words or phrases to type, in order. */\r\n  words: string[]\r\n  /** Milliseconds per typed character. Default: 70 */\r\n  typeSpeed?: number\r\n  /** Milliseconds per deleted character. Default: 40 */\r\n  deleteSpeed?: number\r\n  /** Pause after a word is fully typed, in ms. Default: 1400 */\r\n  pause?: number\r\n  /** Cycle through the words forever. Default: true */\r\n  loop?: boolean\r\n  /** Show a blinking cursor. Default: true */\r\n  cursor?: boolean\r\n  /** Character used for the cursor. Default: \"|\" */\r\n  cursorChar?: string\r\n  className?: string\r\n  cursorClassName?: string\r\n}\r\n\r\nexport function Typewriter({\r\n  words,\r\n  typeSpeed = 70,\r\n  deleteSpeed = 40,\r\n  pause = 1400,\r\n  loop = true,\r\n  cursor = true,\r\n  cursorChar = \"|\",\r\n  className,\r\n  cursorClassName,\r\n}: TypewriterProps) {\r\n  const reduced = useReducedMotion()\r\n  const [index, setIndex] = useState(0)\r\n  const [text, setText] = useState(\"\")\r\n  const [deleting, setDeleting] = useState(false)\r\n\r\n  const word = words[index % words.length] ?? \"\"\r\n  const isLast = index === words.length - 1\r\n\r\n  useEffect(() => {\r\n    if (reduced) return\r\n\r\n    // Finished typing the current word\r\n    if (!deleting && text === word) {\r\n      if (isLast && !loop) return\r\n      const t = setTimeout(() => setDeleting(true), pause)\r\n      return () => clearTimeout(t)\r\n    }\r\n\r\n    const t = setTimeout(() => {\r\n      if (!deleting) {\r\n        setText(word.slice(0, text.length + 1))\r\n        return\r\n      }\r\n      const next = text.slice(0, -1)\r\n      setText(next)\r\n      // Finished deleting: move to the next word\r\n      if (next === \"\") {\r\n        setDeleting(false)\r\n        setIndex((i) => (i + 1) % words.length)\r\n      }\r\n    }, deleting ? deleteSpeed : typeSpeed)\r\n    return () => clearTimeout(t)\r\n  }, [text, deleting, word, isLast, loop, pause, typeSpeed, deleteSpeed, words.length, reduced])\r\n\r\n  return (\r\n    <span className={cn(\"inline-flex items-baseline\", className)} aria-label={words.join(\", \")}>\r\n      <span aria-hidden=\"true\" className=\"whitespace-pre\">\r\n        {reduced ? words[0] : text}\r\n      </span>\r\n      {cursor && (\r\n        <span\r\n          aria-hidden=\"true\"\r\n          className={cn(\"ml-0.5 animate-[mc-blink_1s_steps(1)_infinite]\", cursorClassName)}\r\n        >\r\n          {cursorChar}\r\n        </span>\r\n      )}\r\n      <style>{`@keyframes mc-blink{50%{opacity:0}}`}</style>\r\n    </span>\r\n  )\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

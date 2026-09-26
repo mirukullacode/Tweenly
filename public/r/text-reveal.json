@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-reveal",
+  "title": "Text Reveal",
+  "description": "Word-by-word or character-by-character reveal with blur and stagger.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/text-reveal/text-reveal.tsx",
+      "content": "\"use client\"\n\nimport { Fragment } from \"react\"\nimport { motion, useReducedMotion } from \"motion/react\"\nimport type { Variants } from \"motion/react\"\n\nexport type TextRevealSplit = \"word\" | \"char\"\nexport type TextRevealDirection = \"up\" | \"down\" | \"none\"\n\nexport interface TextRevealProps {\n  /** The text to animate. */\n  text: string\n  /** Animate each word or each character. Default: \"word\" */\n  split?: TextRevealSplit\n  /** Direction each piece travels from. Default: \"up\" */\n  direction?: TextRevealDirection\n  /** Delay between pieces, in seconds. Default: 0.06 */\n  stagger?: number\n  /** Duration of each piece, in seconds. Default: 0.5 */\n  duration?: number\n  /** Delay before the first piece starts, in seconds. Default: 0 */\n  delay?: number\n  /** Starting blur in px. Default: 8 */\n  blur?: number\n  /** Travel distance in px. Default: 16 */\n  distance?: number\n  /** Animate only the first time it enters view. Default: true */\n  once?: boolean\n  /** Element to render as. Default: \"p\" */\n  as?: \"p\" | \"h1\" | \"h2\" | \"h3\" | \"span\"\n  className?: string\n}\n\nexport function TextReveal({\n  text,\n  split = \"word\",\n  direction = \"up\",\n  stagger = 0.06,\n  duration = 0.5,\n  delay = 0,\n  blur = 8,\n  distance = 16,\n  once = true,\n  as = \"p\",\n  className,\n}: TextRevealProps) {\n  const reduced = useReducedMotion()\n  const Tag = motion[as]\n\n  const offset = reduced || direction === \"none\" ? 0 : direction === \"up\" ? distance : -distance\n\n  const container: Variants = {\n    hidden: {},\n    visible: { transition: { staggerChildren: reduced ? 0 : stagger, delayChildren: delay } },\n  }\n\n  const piece: Variants = {\n    hidden: { opacity: 0, y: offset, filter: `blur(${reduced ? 0 : blur}px)` },\n    visible: {\n      opacity: 1,\n      y: 0,\n      filter: \"blur(0px)\",\n      transition: { duration: reduced ? 0.2 : duration, ease: [0.16, 1, 0.3, 1] },\n    },\n  }\n\n  const words = text.split(\" \")\n\n  return (\n    <Tag\n      className={className}\n      initial=\"hidden\"\n      whileInView=\"visible\"\n      viewport={{ once, amount: 0.3 }}\n      variants={container}\n      aria-label={text}\n    >\n      {words.map((word, wi) => (\n        <Fragment key={wi}>\n          <span aria-hidden=\"true\" className=\"inline-block whitespace-nowrap\">\n            {split === \"word\" ? (\n              <motion.span className=\"inline-block\" variants={piece}>\n                {word}\n              </motion.span>\n            ) : (\n              Array.from(word).map((char, ci) => (\n                <motion.span key={ci} className=\"inline-block\" variants={piece}>\n                  {char}\n                </motion.span>\n              ))\n            )}\n          </span>\n          {wi < words.length - 1 && \" \"}\n        </Fragment>\n      ))}\n    </Tag>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

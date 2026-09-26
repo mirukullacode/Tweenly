@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shimmer-text",
+  "title": "Shimmer Text",
+  "description": "A light band that sweeps across text on a loop.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/shimmer-text/shimmer-text.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface ShimmerTextProps {\n  children: string\n  /** Seconds for one sweep across the text. Default: 2 */\n  duration?: number\n  /** Width of the highlight band, in px. Default: 60 */\n  spread?: number\n  /** Pause between sweeps, in seconds. Default: 0.4 */\n  repeatDelay?: number\n  /** Base text color (any CSS color). Default: muted foreground */\n  baseColor?: string\n  /** Highlight color (any CSS color). Default: foreground */\n  shimmerColor?: string\n  className?: string\n}\n\nexport function ShimmerText({\n  children,\n  duration = 2,\n  spread = 60,\n  repeatDelay = 0.4,\n  baseColor = \"var(--muted-foreground)\",\n  shimmerColor = \"var(--foreground)\",\n  className,\n}: ShimmerTextProps) {\n  const reduced = useReducedMotion()\n\n  return (\n    <motion.span\n      className={cn(\"inline-block bg-clip-text text-transparent\", className)}\n      style={{\n        backgroundImage: `linear-gradient(90deg, transparent calc(50% - ${spread}px), ${shimmerColor} 50%, transparent calc(50% + ${spread}px)), linear-gradient(${baseColor}, ${baseColor})`,\n        backgroundSize: \"250% 100%, auto\",\n        backgroundRepeat: \"no-repeat\",\n      }}\n      initial={{ backgroundPosition: \"100% center, 0 0\" }}\n      animate={reduced ? undefined : { backgroundPosition: \"0% center, 0 0\" }}\n      transition={{ duration, repeat: Infinity, repeatDelay, ease: \"linear\" }}\n    >\n      {children}\n    </motion.span>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

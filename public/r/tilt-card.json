@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tilt-card",
+  "title": "Tilt Card",
+  "description": "3D perspective tilt that follows the pointer, with optional glare.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/tilt-card/tilt-card.tsx",
+      "content": "\"use client\"\n\nimport { useRef } from \"react\"\nimport {\n  motion,\n  useMotionTemplate,\n  useMotionValue,\n  useReducedMotion,\n  useSpring,\n  useTransform,\n} from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface TiltCardProps {\n  children: React.ReactNode\n  /** Maximum rotation in degrees. Default: 12 */\n  maxTilt?: number\n  /** CSS perspective in px. Lower = more dramatic. Default: 900 */\n  perspective?: number\n  /** Scale while hovered. Default: 1.03 */\n  scale?: number\n  /** Show a light glare that follows the cursor. Default: true */\n  glare?: boolean\n  /** Glare opacity, 0 to 1. Default: 0.25 */\n  glareOpacity?: number\n  /** Invert the tilt direction. Default: false */\n  reverse?: boolean\n  className?: string\n}\n\nexport function TiltCard({\n  children,\n  maxTilt = 12,\n  perspective = 900,\n  scale = 1.03,\n  glare = true,\n  glareOpacity = 0.25,\n  reverse = false,\n  className,\n}: TiltCardProps) {\n  const ref = useRef<HTMLDivElement>(null)\n  const reduced = useReducedMotion()\n\n  // Pointer position, normalised to 0..1 within the card\n  const px = useMotionValue(0.5)\n  const py = useMotionValue(0.5)\n  const hover = useMotionValue(0)\n\n  const spring = { stiffness: 220, damping: 20 }\n  const dir = reverse ? -1 : 1\n  const rotateX = useSpring(useTransform(py, [0, 1], [maxTilt * dir, -maxTilt * dir]), spring)\n  const rotateY = useSpring(useTransform(px, [0, 1], [-maxTilt * dir, maxTilt * dir]), spring)\n  const s = useSpring(useTransform(hover, [0, 1], [1, scale]), spring)\n\n  const gx = useTransform(px, (v) => `${v * 100}%`)\n  const gy = useTransform(py, (v) => `${v * 100}%`)\n  const glareBg = useMotionTemplate`radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,${glareOpacity}), transparent 60%)`\n  const glareAlpha = useSpring(hover, spring)\n\n  const onPointerMove = (e: React.PointerEvent) => {\n    if (reduced || !ref.current) return\n    const rect = ref.current.getBoundingClientRect()\n    px.set((e.clientX - rect.left) / rect.width)\n    py.set((e.clientY - rect.top) / rect.height)\n    hover.set(1)\n  }\n\n  const reset = () => {\n    px.set(0.5)\n    py.set(0.5)\n    hover.set(0)\n  }\n\n  return (\n    <div style={{ perspective }} className=\"inline-block\">\n      <motion.div\n        ref={ref}\n        onPointerMove={onPointerMove}\n        onPointerLeave={reset}\n        style={{ rotateX, rotateY, scale: s, transformStyle: \"preserve-3d\" }}\n        className={cn(\"relative overflow-hidden rounded-2xl will-change-transform\", className)}\n      >\n        {children}\n        {glare && (\n          <motion.div\n            aria-hidden=\"true\"\n            className=\"pointer-events-none absolute inset-0\"\n            style={{ background: glareBg, opacity: glareAlpha }}\n          />\n        )}\n      </motion.div>\n    </div>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

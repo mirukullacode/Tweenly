@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fade-in",
+  "title": "Fade In",
+  "description": "Scroll-triggered fade with direction, distance, easing, scale and blur options.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/use-reduced-motion.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/fade-in/fade-in.tsx",
+      "content": "\"use client\"\r\n\r\nimport { motion } from \"motion/react\"\r\nimport type { Transition } from \"motion/react\"\r\nimport { useReducedMotion } from \"@/registry/new-york/hooks/use-reduced-motion\"\r\n\r\nexport type FadeInDirection = \"up\" | \"down\" | \"left\" | \"right\" | \"none\"\r\nexport type FadeInEase = \"smooth\" | \"snappy\" | \"linear\" | \"spring\"\r\n\r\nexport interface FadeInProps {\r\n  children: React.ReactNode\r\n  /** Direction the element travels while appearing. Default: \"up\" */\r\n  direction?: FadeInDirection\r\n  /** Travel distance in px. Default: 24 */\r\n  distance?: number\r\n  /** Animation length in seconds (lower = faster). Default: 0.6 */\r\n  duration?: number\r\n  /** Delay before starting, in seconds. Default: 0 */\r\n  delay?: number\r\n  /** Easing preset. Default: \"smooth\" */\r\n  ease?: FadeInEase\r\n  /** Starting scale (1 = no scale). Default: 1 */\r\n  scale?: number\r\n  /** Starting blur in px (0 = no blur). Default: 0 */\r\n  blur?: number\r\n  /** Animate only the first time it enters view. Default: true */\r\n  once?: boolean\r\n  /** How much of the element must be visible, 0 to 1. Default: 0.2 */\r\n  amount?: number\r\n  className?: string\r\n}\r\n\r\nconst EASINGS: Record<\"smooth\" | \"snappy\" | \"linear\", [number, number, number, number]> = {\r\n  smooth: [0.16, 1, 0.3, 1],\r\n  snappy: [0.4, 0, 0.2, 1],\r\n  linear: [0, 0, 1, 1],\r\n}\r\n\r\nfunction getOffset(direction: FadeInDirection, distance: number) {\r\n  switch (direction) {\r\n    case \"up\":\r\n      return { x: 0, y: distance }\r\n    case \"down\":\r\n      return { x: 0, y: -distance }\r\n    case \"left\":\r\n      return { x: distance, y: 0 }\r\n    case \"right\":\r\n      return { x: -distance, y: 0 }\r\n    default:\r\n      return { x: 0, y: 0 }\r\n  }\r\n}\r\n\r\nexport function FadeIn({\r\n  children,\r\n  direction = \"up\",\r\n  distance = 24,\r\n  duration = 0.6,\r\n  delay = 0,\r\n  ease = \"smooth\",\r\n  scale = 1,\r\n  blur = 0,\r\n  once = true,\r\n  amount = 0.2,\r\n  className,\r\n}: FadeInProps) {\r\n  const reduced = useReducedMotion()\r\n\r\n  // Reduced motion: keep a short opacity fade, drop all movement.\r\n  const offset = reduced ? { x: 0, y: 0 } : getOffset(direction, distance)\r\n  const startScale = reduced ? 1 : scale\r\n  const startBlur = reduced ? 0 : blur\r\n\r\n  const hidden = {\r\n    opacity: 0,\r\n    x: offset.x,\r\n    y: offset.y,\r\n    scale: startScale,\r\n    ...(startBlur > 0 ? { filter: `blur(${startBlur}px)` } : {}),\r\n  }\r\n\r\n  const visible = {\r\n    opacity: 1,\r\n    x: 0,\r\n    y: 0,\r\n    scale: 1,\r\n    ...(startBlur > 0 ? { filter: \"blur(0px)\" } : {}),\r\n  }\r\n\r\n  let transition: Transition\r\n  if (reduced) {\r\n    transition = { duration: 0.2 }\r\n  } else if (ease === \"spring\") {\r\n    transition = { type: \"spring\", stiffness: 120, damping: 18, delay }\r\n  } else {\r\n    transition = { duration, delay, ease: EASINGS[ease] }\r\n  }\r\n\r\n  return (\r\n    <motion.div\r\n      className={className}\r\n      initial={hidden}\r\n      whileInView={visible}\r\n      viewport={{ once, amount }}\r\n      transition={transition}\r\n    >\r\n      {children}\r\n    </motion.div>\r\n  )\r\n}",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

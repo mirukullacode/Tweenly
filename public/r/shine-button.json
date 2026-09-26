@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shine-button",
+  "title": "Shine Button",
+  "description": "Pill button with a light beam circling its edge and a soft sheen on hover.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/shine-button/shine-button.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface ShineButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children?: React.ReactNode\n  /** Color of the light that runs around the edge. Default: \"#ff6a2b\" */\n  beamColor?: string\n  /** Seconds for the beam to complete one lap. Default: 3 */\n  duration?: number\n  /** Sweep a soft sheen across the face on hover. Default: true */\n  sheen?: boolean\n  /** Filled or outlined face. Default: \"solid\" */\n  variant?: \"solid\" | \"outline\"\n}\n\nexport function ShineButton({\n  children,\n  beamColor = \"#ff6a2b\",\n  duration = 3,\n  sheen = true,\n  variant = \"solid\",\n  className,\n  type = \"button\",\n  ...props\n}: ShineButtonProps) {\n  const reduced = useReducedMotion()\n  const solid = variant === \"solid\"\n\n  return (\n    <button\n      type={type}\n      {...props}\n      className={cn(\n        \"group relative isolate inline-flex h-11 items-center justify-center overflow-hidden rounded-full p-[1.5px] text-sm font-medium outline-none transition-transform active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50\",\n        solid ? \"bg-foreground/80 text-background\" : \"bg-border text-foreground\",\n        className\n      )}\n    >\n      {/* rotating beam, masked to the edge by the face below */}\n      <motion.span\n        aria-hidden=\"true\"\n        className=\"absolute left-1/2 top-1/2 -z-10 aspect-square w-[max(200%,12rem)]\"\n        style={{\n          x: \"-50%\",\n          y: \"-50%\",\n          background: `conic-gradient(from 0deg, transparent 0deg, transparent 250deg, ${beamColor} 330deg, transparent 360deg)`,\n        }}\n        animate={reduced ? { rotate: 0 } : { rotate: 360 }}\n        transition={reduced ? { duration: 0 } : { duration, repeat: Infinity, ease: \"linear\" }}\n      />\n      <span\n        className={cn(\n          \"relative flex h-full items-center gap-2 overflow-hidden rounded-full px-6\",\n          solid ? \"bg-foreground\" : \"bg-background\"\n        )}\n      >\n        {sheen && !reduced && (\n          <span\n            aria-hidden=\"true\"\n            className=\"pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-full skew-x-[-20deg] bg-gradient-to-r from-transparent via-current to-transparent opacity-0 transition-[translate,opacity] duration-700 ease-out group-hover:translate-x-[250%] group-hover:opacity-15\"\n          />\n        )}\n        <span className=\"relative flex items-center gap-2\">{children}</span>\n      </span>\n    </button>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

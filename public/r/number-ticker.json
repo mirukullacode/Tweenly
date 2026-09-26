@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-ticker",
+  "title": "Number Ticker",
+  "description": "Counts up to a value when scrolled into view, with formatting options.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/number-ticker/number-ticker.tsx",
+      "content": "\"use client\"\n\nimport { useEffect, useRef } from \"react\"\nimport { animate, useInView, useReducedMotion } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface NumberTickerProps {\n  /** Final value. */\n  value: number\n  /** Starting value. Default: 0 */\n  from?: number\n  /** Animation length in seconds. Default: 2 */\n  duration?: number\n  /** Delay before counting starts, in seconds. Default: 0 */\n  delay?: number\n  /** Number of decimal places. Default: 0 */\n  decimals?: number\n  /** Text rendered before the number. Default: \"\" */\n  prefix?: string\n  /** Text rendered after the number. Default: \"\" */\n  suffix?: string\n  /** Group thousands using the locale separator. Default: true */\n  separator?: boolean\n  /** Count only the first time it enters view. Default: true */\n  once?: boolean\n  className?: string\n}\n\nexport function NumberTicker({\n  value,\n  from = 0,\n  duration = 2,\n  delay = 0,\n  decimals = 0,\n  prefix = \"\",\n  suffix = \"\",\n  separator = true,\n  once = true,\n  className,\n}: NumberTickerProps) {\n  const ref = useRef<HTMLSpanElement>(null)\n  const inView = useInView(ref, { once, amount: 0.5 })\n  const reduced = useReducedMotion()\n\n  useEffect(() => {\n    const el = ref.current\n    if (!el) return\n\n    const format = (n: number) =>\n      prefix +\n      n.toLocaleString(undefined, {\n        minimumFractionDigits: decimals,\n        maximumFractionDigits: decimals,\n        useGrouping: separator,\n      }) +\n      suffix\n\n    if (!inView) {\n      el.textContent = format(from)\n      return\n    }\n    if (reduced) {\n      el.textContent = format(value)\n      return\n    }\n\n    const controls = animate(from, value, {\n      duration,\n      delay,\n      ease: [0.16, 1, 0.3, 1],\n      onUpdate: (n) => (el.textContent = format(n)),\n    })\n    return () => controls.stop()\n  }, [inView, reduced, value, from, duration, delay, decimals, prefix, suffix, separator])\n\n  return (\n    <span ref={ref} className={cn(\"inline-block tabular-nums\", className)}>\n      {prefix + from.toFixed(decimals) + suffix}\n    </span>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

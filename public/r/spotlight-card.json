@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spotlight-card",
+  "title": "Spotlight Card",
+  "description": "Card with a radial spotlight and glowing border that track the cursor.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/spotlight-card/spotlight-card.tsx",
+      "content": "\"use client\"\r\n\r\nimport { motion, useMotionTemplate, useMotionValue, useSpring } from \"motion/react\"\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nexport interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {\r\n  children: React.ReactNode\r\n  /** Spotlight radius in px. Default: 280 */\r\n  size?: number\r\n  /** Spotlight color (any CSS color). Default: 10% foreground */\r\n  color?: string\r\n  /** Also light up the card border. Default: true */\r\n  border?: boolean\r\n  /** Border highlight color. Default: 50% foreground */\r\n  borderColor?: string\r\n}\r\n\r\nexport function SpotlightCard({\r\n  children,\r\n  size = 280,\r\n  color = \"color-mix(in oklab, var(--foreground) 10%, transparent)\",\r\n  border = true,\r\n  borderColor = \"color-mix(in oklab, var(--foreground) 50%, transparent)\",\r\n  className,\r\n  onPointerMove,\r\n  onPointerEnter,\r\n  onPointerLeave,\r\n  ...props\r\n}: SpotlightCardProps) {\r\n  const x = useMotionValue(-size)\r\n  const y = useMotionValue(-size)\r\n  const opacity = useSpring(0, { stiffness: 200, damping: 30 })\r\n\r\n  const fill = useMotionTemplate`radial-gradient(${size}px circle at ${x}px ${y}px, ${color}, transparent 70%)`\r\n  const ring = useMotionTemplate`radial-gradient(${size * 0.8}px circle at ${x}px ${y}px, ${borderColor}, transparent 70%)`\r\n\r\n  return (\r\n    <div\r\n      {...props}\r\n      className={cn(\r\n        \"group relative overflow-hidden rounded-2xl border bg-card text-card-foreground\",\r\n        className\r\n      )}\r\n      onPointerMove={(e) => {\r\n        const rect = e.currentTarget.getBoundingClientRect()\r\n        x.set(e.clientX - rect.left)\r\n        y.set(e.clientY - rect.top)\r\n        onPointerMove?.(e)\r\n      }}\r\n      onPointerEnter={(e) => {\r\n        opacity.set(1)\r\n        onPointerEnter?.(e)\r\n      }}\r\n      onPointerLeave={(e) => {\r\n        opacity.set(0)\r\n        onPointerLeave?.(e)\r\n      }}\r\n    >\r\n      {border && (\r\n        // Masked to a 1px ring so only the border lights up\r\n        <motion.div\r\n          aria-hidden=\"true\"\r\n          className=\"pointer-events-none absolute inset-0 rounded-[inherit] p-px\"\r\n          style={{\r\n            background: ring,\r\n            opacity,\r\n            WebkitMask: \"linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)\",\r\n            mask: \"linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)\",\r\n          }}\r\n        />\r\n      )}\r\n      <motion.div\r\n        aria-hidden=\"true\"\r\n        className=\"pointer-events-none absolute inset-0\"\r\n        style={{ background: fill, opacity }}\r\n      />\r\n      <div className=\"relative\">{children}</div>\r\n    </div>\r\n  )\r\n}\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

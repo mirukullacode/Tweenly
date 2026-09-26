@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stagger",
+  "title": "Stagger",
+  "description": "Reveals its children one after another as they enter the viewport.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/stagger/stagger.tsx",
+      "content": "\"use client\"\n\nimport { Children } from \"react\"\nimport { motion, useReducedMotion } from \"motion/react\"\nimport type { Variants } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport type StaggerDirection = \"up\" | \"down\" | \"left\" | \"right\" | \"scale\"\n\nexport interface StaggerProps {\n  children: React.ReactNode\n  /** Where each child enters from. Default: \"up\" */\n  direction?: StaggerDirection\n  /** Delay between children, in seconds. Default: 0.08 */\n  stagger?: number\n  /** Duration of each child, in seconds. Default: 0.5 */\n  duration?: number\n  /** Delay before the first child, in seconds. Default: 0 */\n  delay?: number\n  /** Travel distance in px. Default: 20 */\n  distance?: number\n  /** Animate only the first time it enters view. Default: true */\n  once?: boolean\n  className?: string\n  /** Class applied to each child wrapper. */\n  itemClassName?: string\n}\n\nfunction hiddenState(direction: StaggerDirection, distance: number) {\n  switch (direction) {\n    case \"up\":\n      return { y: distance }\n    case \"down\":\n      return { y: -distance }\n    case \"left\":\n      return { x: distance }\n    case \"right\":\n      return { x: -distance }\n    case \"scale\":\n      return { scale: 0.85 }\n  }\n}\n\nexport function Stagger({\n  children,\n  direction = \"up\",\n  stagger = 0.08,\n  duration = 0.5,\n  delay = 0,\n  distance = 20,\n  once = true,\n  className,\n  itemClassName,\n}: StaggerProps) {\n  const reduced = useReducedMotion()\n\n  const container: Variants = {\n    hidden: {},\n    visible: { transition: { staggerChildren: reduced ? 0 : stagger, delayChildren: delay } },\n  }\n\n  const item: Variants = {\n    hidden: { opacity: 0, ...(reduced ? {} : hiddenState(direction, distance)) },\n    visible: {\n      opacity: 1,\n      x: 0,\n      y: 0,\n      scale: 1,\n      transition: { duration: reduced ? 0.2 : duration, ease: [0.16, 1, 0.3, 1] },\n    },\n  }\n\n  return (\n    <motion.div\n      className={className}\n      initial=\"hidden\"\n      whileInView=\"visible\"\n      viewport={{ once, amount: 0.2 }}\n      variants={container}\n    >\n      {Children.map(children, (child) => (\n        <motion.div className={cn(itemClassName)} variants={item}>\n          {child}\n        </motion.div>\n      ))}\n    </motion.div>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

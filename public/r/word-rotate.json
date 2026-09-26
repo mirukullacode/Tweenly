@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "word-rotate",
+  "title": "Word Rotate",
+  "description": "Cycles through words with slide, fade, blur or flip transitions.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/word-rotate/word-rotate.tsx",
+      "content": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\nimport { AnimatePresence, motion, useReducedMotion } from \"motion/react\"\nimport type { TargetAndTransition } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\nexport type WordRotateEffect = \"slide\" | \"fade\" | \"blur\" | \"flip\"\n\nexport interface WordRotateProps {\n  /** Words to cycle through. */\n  words: string[]\n  /** Time each word stays visible, in ms. Default: 2200 */\n  interval?: number\n  /** Transition style between words. Default: \"slide\" */\n  effect?: WordRotateEffect\n  /** Transition duration, in seconds. Default: 0.4 */\n  duration?: number\n  className?: string\n}\n\nconst EFFECTS: Record<\n  WordRotateEffect,\n  { initial: TargetAndTransition; animate: TargetAndTransition; exit: TargetAndTransition }\n> = {\n  slide: {\n    initial: { y: \"100%\", opacity: 0 },\n    animate: { y: \"0%\", opacity: 1 },\n    exit: { y: \"-100%\", opacity: 0 },\n  },\n  fade: {\n    initial: { opacity: 0 },\n    animate: { opacity: 1 },\n    exit: { opacity: 0 },\n  },\n  blur: {\n    initial: { opacity: 0, filter: \"blur(8px)\", scale: 0.96 },\n    animate: { opacity: 1, filter: \"blur(0px)\", scale: 1 },\n    exit: { opacity: 0, filter: \"blur(8px)\", scale: 1.04 },\n  },\n  flip: {\n    initial: { rotateX: 90, opacity: 0 },\n    animate: { rotateX: 0, opacity: 1 },\n    exit: { rotateX: -90, opacity: 0 },\n  },\n}\n\nexport function WordRotate({\n  words,\n  interval = 2200,\n  effect = \"slide\",\n  duration = 0.4,\n  className,\n}: WordRotateProps) {\n  const reduced = useReducedMotion()\n  const [index, setIndex] = useState(0)\n\n  useEffect(() => {\n    if (words.length < 2) return\n    const id = setInterval(() => setIndex((i) => (i + 1) % words.length), interval)\n    return () => clearInterval(id)\n  }, [words.length, interval])\n\n  const variant = reduced ? EFFECTS.fade : EFFECTS[effect]\n\n  return (\n    <span\n      className={cn(\"relative inline-flex overflow-hidden align-bottom\", className)}\n      style={{ perspective: effect === \"flip\" ? 600 : undefined }}\n    >\n      <AnimatePresence mode=\"popLayout\" initial={false}>\n        <motion.span\n          key={index}\n          className=\"inline-block whitespace-nowrap\"\n          initial={variant.initial}\n          animate={variant.animate}\n          exit={variant.exit}\n          transition={{ duration, ease: [0.16, 1, 0.3, 1] }}\n        >\n          {words[index]}\n        </motion.span>\n      </AnimatePresence>\n    </span>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

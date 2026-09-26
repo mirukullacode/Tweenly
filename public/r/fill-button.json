@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fill-button",
+  "title": "Fill Button",
+  "description": "Hover/focus button with a GSAP clip-path fill sweep. Configurable direction, duration and ease.",
+  "dependencies": [
+    "gsap"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/use-reduced-motion.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/fill-button/fill-button.tsx",
+      "content": "\"use client\"\r\n\r\nimport { useEffect, useRef } from \"react\"\r\nimport gsap from \"gsap\"\r\nimport { useReducedMotion } from \"@/registry/new-york/hooks/use-reduced-motion\"\r\n\r\nexport type FillDirection = \"up\" | \"down\" | \"left\" | \"right\"\r\n\r\nexport interface FillButtonProps\r\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n  /** Direction the fill sweeps toward. Default: \"up\" */\r\n  direction?: FillDirection\r\n  /** Sweep length in seconds. Default: 0.45 */\r\n  duration?: number\r\n  /** Any GSAP ease string, e.g. \"power3.out\", \"elastic.out(1, 0.6)\". Default: \"power3.out\" */\r\n  ease?: string\r\n}\r\n\r\n// clip-path insets are: top right bottom left\r\nconst HIDDEN: Record<FillDirection, string> = {\r\n  up: \"inset(100% 0% 0% 0%)\", // rises from the bottom edge\r\n  down: \"inset(0% 0% 100% 0%)\", // drops from the top edge\r\n  left: \"inset(0% 0% 0% 100%)\", // sweeps from the right edge\r\n  right: \"inset(0% 100% 0% 0%)\", // sweeps from the left edge\r\n}\r\nconst SHOWN = \"inset(0% 0% 0% 0%)\"\r\n\r\nexport function FillButton({\r\n  children,\r\n  direction = \"up\",\r\n  duration = 0.45,\r\n  ease = \"power3.out\",\r\n  className = \"\",\r\n  type = \"button\",\r\n  onMouseEnter,\r\n  onMouseLeave,\r\n  onFocus,\r\n  onBlur,\r\n  ...props\r\n}: FillButtonProps) {\r\n  const fillRef = useRef<HTMLSpanElement>(null)\r\n  const reduced = useReducedMotion()\r\n\r\n  // Kill any running sweep when the button unmounts\r\n  useEffect(() => {\r\n    const fill = fillRef.current\r\n    return () => {\r\n      gsap.killTweensOf(fill)\r\n    }\r\n  }, [])\r\n\r\n  const sweep = (clipPath: string) => {\r\n    gsap.to(fillRef.current, {\r\n      clipPath,\r\n      duration: reduced ? 0 : duration,\r\n      ease,\r\n      overwrite: true,\r\n    })\r\n  }\r\n\r\n  return (\r\n    <button\r\n      {...props}\r\n      type={type}\r\n      className={`relative inline-flex items-center justify-center overflow-hidden rounded-full border border-foreground px-6 py-3 text-sm font-medium text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:pointer-events-none disabled:opacity-50 ${className}`}\r\n      onMouseEnter={(e) => {\r\n        sweep(SHOWN)\r\n        onMouseEnter?.(e)\r\n      }}\r\n      onMouseLeave={(e) => {\r\n        sweep(HIDDEN[direction])\r\n        onMouseLeave?.(e)\r\n      }}\r\n      onFocus={(e) => {\r\n        sweep(SHOWN)\r\n        onFocus?.(e)\r\n      }}\r\n      onBlur={(e) => {\r\n        sweep(HIDDEN[direction])\r\n        onBlur?.(e)\r\n      }}\r\n    >\r\n      <span>{children}</span>\r\n\r\n      {/* Inverted copy, revealed by the clip-path animation */}\r\n      <span\r\n        ref={fillRef}\r\n        aria-hidden=\"true\"\r\n        className=\"absolute inset-0 flex items-center justify-center bg-foreground text-background\"\r\n        style={{ clipPath: HIDDEN[direction] }}\r\n      >\r\n        {children}\r\n      </span>\r\n    </button>\r\n  )\r\n}",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

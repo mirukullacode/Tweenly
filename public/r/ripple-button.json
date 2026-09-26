@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ripple-button",
+  "title": "Ripple Button",
+  "description": "Material-style ripples that expand from the exact point you press.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ripple-button/ripple-button.tsx",
+      "content": "\"use client\"\n\nimport { useRef, useState } from \"react\"\nimport { motion, useReducedMotion } from \"motion/react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface Ripple {\n  id: number\n  x: number\n  y: number\n  size: number\n}\n\nexport interface RippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  children?: React.ReactNode\n  /** Ripple color (any CSS color). Default: \"currentColor\" */\n  rippleColor?: string\n  /** Seconds each ripple takes to expand and fade. Default: 0.6 */\n  duration?: number\n  /** Visual style. Default: \"solid\" */\n  variant?: \"solid\" | \"outline\" | \"ghost\"\n}\n\nconst variants = {\n  solid: \"bg-foreground text-background\",\n  outline: \"border bg-background text-foreground hover:bg-accent\",\n  ghost: \"text-foreground hover:bg-accent\",\n}\n\nexport function RippleButton({\n  children,\n  rippleColor = \"currentColor\",\n  duration = 0.6,\n  variant = \"solid\",\n  className,\n  type = \"button\",\n  onPointerDown,\n  onKeyDown,\n  ...props\n}: RippleButtonProps) {\n  const reduced = useReducedMotion()\n  const [ripples, setRipples] = useState<Ripple[]>([])\n  const nextId = useRef(0)\n\n  const spawn = (el: HTMLElement, clientX?: number, clientY?: number) => {\n    const rect = el.getBoundingClientRect()\n    const x = clientX === undefined ? rect.width / 2 : clientX - rect.left\n    const y = clientY === undefined ? rect.height / 2 : clientY - rect.top\n    // Radius that reaches the farthest corner from the press point\n    const size = 2 * Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y))\n    const id = nextId.current++\n    setRipples((r) => [...r, { id, x, y, size }])\n  }\n\n  const remove = (id: number) => setRipples((r) => r.filter((ripple) => ripple.id !== id))\n\n  return (\n    <button\n      type={type}\n      {...props}\n      onPointerDown={(e) => {\n        onPointerDown?.(e)\n        if (e.button === 0) spawn(e.currentTarget, e.clientX, e.clientY)\n      }}\n      onKeyDown={(e) => {\n        onKeyDown?.(e)\n        if ((e.key === \"Enter\" || e.key === \" \") && !e.repeat) spawn(e.currentTarget)\n      }}\n      className={cn(\n        \"relative isolate inline-flex h-11 items-center justify-center gap-2 overflow-hidden rounded-full px-6 text-sm font-medium outline-none transition-[transform,background-color] duration-200 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50\",\n        variants[variant],\n        className\n      )}\n    >\n      <span aria-hidden=\"true\" className=\"pointer-events-none absolute inset-0 -z-10\">\n        {ripples.map((r) => (\n          <motion.span\n            key={r.id}\n            className=\"absolute rounded-full\"\n            style={{\n              left: r.x - r.size / 2,\n              top: r.y - r.size / 2,\n              width: r.size,\n              height: r.size,\n              background: rippleColor,\n            }}\n            initial={reduced ? { opacity: 0.2, scale: 1 } : { opacity: 0.3, scale: 0 }}\n            animate={{ opacity: 0, scale: 1 }}\n            transition={{\n              scale: { duration, ease: [0.2, 0.7, 0.3, 1] },\n              opacity: { duration: reduced ? 0.3 : duration * 1.1, ease: \"easeOut\" },\n            }}\n            onAnimationComplete={() => remove(r.id)}\n          />\n        ))}\n    </span>\n      {children}\n    </button>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

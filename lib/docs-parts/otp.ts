@@ -1,0 +1,35 @@
+import { classNameProp, num, type ComponentDoc } from "@/lib/docs-types"
+
+export const otpDocs: ComponentDoc[] = [
+  {
+    slug: "otp-input",
+    name: "OTP Input",
+    exportName: "OtpInput",
+    description: "Verification code input with springy digits, a gliding focus ring and animated success and error states.",
+    category: "Forms",
+    file: "registry/new-york/otp-input/otp-input.tsx",
+    dependencies: ["motion"],
+    staticProps: [`verify={(code) => code === "123456"}`],
+    isNew: true,
+    props: [
+      { name: "variant", type: '"boxes" | "line"', default: "boxes", description: "Rounded boxes, or minimal underlines with large digits.", control: { type: "select", options: ["boxes", "line"] } },
+      { name: "length", type: "number", default: 6, description: "Number of characters in the code.", control: num(4, 8, 1) },
+      { name: "value", type: "string", description: "Controlled value." },
+      { name: "defaultValue", type: "string", default: "", description: "Initial value when uncontrolled." },
+      { name: "onChange", type: "(value: string) => void", description: "Called on every change with the sanitized value." },
+      { name: "onComplete", type: "(code: string) => void", description: "Called once every slot is filled." },
+      { name: "verify", type: "(code: string) => Promise<boolean> | boolean", description: "Checks the completed code. Shows a loading shimmer while pending, then success or error automatically." },
+      { name: "status", type: '"idle" | "loading" | "success" | "error"', description: "Controlled status. Overrides the internal verify state." },
+      { name: "masked", type: "boolean", default: false, description: "Show dots instead of characters.", control: { type: "boolean" } },
+      { name: "pattern", type: '"numeric" | "alphanumeric"', default: "numeric", description: "Accepted characters. Alphanumeric input is uppercased.", control: { type: "select", options: ["numeric", "alphanumeric"] } },
+      { name: "autoFocus", type: "boolean", default: false, description: "Focus the input on mount." },
+      { name: "disabled", type: "boolean", default: false, description: "Disable input." },
+      { name: "successColor", type: "string", default: "#22c55e", description: "Color of the success state.", control: { type: "color" } },
+      { name: "errorColor", type: "string", default: "#ef4444", description: "Color of the error state.", control: { type: "color" } },
+      { name: "resetOnError", type: "boolean", default: true, description: "Clear the code right-to-left and refocus after an error.", control: { type: "boolean" } },
+      { name: "collapseOnSuccess", type: "boolean", default: true, description: "Boxes variant: collapse the slots into a check badge on success.", control: { type: "boolean" } },
+      { name: "label", type: "string", default: "Verification code", description: "Accessible label for the input." },
+      classNameProp,
+    ],
+  },
+]
