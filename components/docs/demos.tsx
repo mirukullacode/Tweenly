@@ -29,6 +29,9 @@ import { footerDemos } from "./demos/footer"
 import { faqConfettiDemos } from "./demos/faq-confetti"
 import { transitionsDemos } from "./demos/transitions"
 import { feedsDemos } from "./demos/feeds"
+import { cardsDemos } from "./demos/cards"
+import { notFoundDemos } from "./demos/not-found"
+import { envelopeDemos } from "./demos/envelope"
 import { FadeIn, type FadeInProps } from "@/registry/new-york/fade-in/fade-in"
 import { TextReveal, type TextRevealProps } from "@/registry/new-york/text-reveal/text-reveal"
 import { Typewriter, type TypewriterProps } from "@/registry/new-york/typewriter/typewriter"
@@ -415,4 +418,7 @@ export const demos: Record<string, (props: DemoProps) => React.ReactNode> = {
   ...faqConfettiDemos,
   ...transitionsDemos,
   ...feedsDemos,
+  ...cardsDemos,
+  ...notFoundDemos,
+  ...envelopeDemos,
 }

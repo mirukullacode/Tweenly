@@ -13,6 +13,9 @@ import { footerDocs } from "./docs-parts/footer"
 import { faqConfettiDocs } from "./docs-parts/faq-confetti"
 import { transitionsDocs } from "./docs-parts/transitions"
 import { feedsDocs } from "./docs-parts/feeds"
+import { cardsDocs } from "./docs-parts/cards"
+import { notFoundDocs } from "./docs-parts/not-found"
+import { envelopeDocs } from "./docs-parts/envelope"
 import { latestRelease } from "./changelog"
 
 export type { Category, ComponentDoc, Control, DataRow, PropDoc, PropValue } from "./docs-types"
@@ -740,7 +743,7 @@ const baseComponents: ComponentDoc[] = [
 ]
 
 // Component groups kept in their own files
-const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs, footerDocs, faqConfettiDocs, transitionsDocs, feedsDocs]
+const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs, footerDocs, faqConfettiDocs, transitionsDocs, feedsDocs, cardsDocs, notFoundDocs, envelopeDocs]
 
 export const components: ComponentDoc[] = [...baseComponents, ...parts.flat()]
 
@@ -755,6 +758,7 @@ export const categories: Category[] = [
   "Media",
   "Scroll",
   "Layout",
+  "Cards",
   "Sections",
 ]
 

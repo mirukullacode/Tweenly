@@ -1060,6 +1060,87 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "envelope",
+      "type": "registry:component",
+      "title": "Envelope",
+      "description": "Animated envelope UI: a composer where the letter folds into the envelope, gets sealed and flies off, plus a presentational envelope that opens to reveal any content.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react",
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/envelope/envelope.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "not-found",
+      "type": "registry:component",
+      "title": "404",
+      "description": "Five playful 404 sections with a giant status code hero: cursor-following eyeball, flashlight reveal, throwable tiles, orbiting moon and a decoding error log.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/not-found/not-found.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "product-card",
+      "type": "registry:component",
+      "title": "Product Card",
+      "description": "Full-bleed product card with a swipeable image carousel, glass pills, rolling price and an add-to-cart button that morphs into a quantity stepper.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/product-card/product-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stamp-card",
+      "type": "registry:component",
+      "title": "Stamp Card",
+      "description": "Collectible postage stamp with perforated edges, 3D tilt and glare, an inked postmark animation and a fanned StampSheet.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/stamp-card/stamp-card.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

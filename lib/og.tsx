@@ -444,7 +444,36 @@ function SectionsMotif() {
   )
 }
 
+// A fanned hand of three cards, the front one in accent
+function CardsMotif() {
+  const cards = [
+    { l: 60, t: 70, r: -12, front: false },
+    { l: 110, t: 52, r: 0, front: false },
+    { l: 160, t: 70, r: 12, front: true },
+  ]
+  return (
+    <Canvas>
+      {cards.map((c, i) => (
+        <div
+          key={i}
+          style={abs({
+            left: c.l,
+            top: c.t,
+            width: 130,
+            height: 190,
+            borderRadius: 18,
+            transform: `rotate(${c.r}deg)`,
+            border: `1px solid ${c.front ? "rgba(255,77,18,0.6)" : og.faint}`,
+            background: c.front ? "rgba(255,77,18,0.2)" : "rgba(255,255,255,0.04)",
+          })}
+        />
+      ))}
+    </Canvas>
+  )
+}
+
 const MOTIFS: Record<Category, () => ReactNode> = {
+  Cards: CardsMotif,
   Text: TextMotif,
   Buttons: ButtonsMotif,
   Interactive: InteractiveMotif,
