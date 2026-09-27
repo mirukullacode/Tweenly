@@ -3,7 +3,11 @@ import { CodeBlock } from "@/components/docs/code-block"
 import { DocPage, InlineCode, P, Section, Step, Steps } from "@/components/docs/doc-page"
 import { siteConfig } from "@/lib/docs"
 
-export const metadata: Metadata = { title: "Installation" }
+export const metadata: Metadata = {
+  title: "Installation",
+  description: "Add tweenly components to a shadcn/ui project with the CLI and set up the @tweenly registry namespace.",
+  alternates: { canonical: "/docs/installation" },
+}
 
 export default function InstallationPage() {
   const url = siteConfig.url
@@ -11,7 +15,7 @@ export default function InstallationPage() {
   return (
     <DocPage
       title="Installation"
-      description="motioncn components install like any shadcn component. They drop into your project as source files you can read and edit."
+      description="tweenly components install like any shadcn component. They drop into your project as source files you can read and edit."
     >
       <Section title="With the shadcn CLI">
         <Steps>
@@ -43,16 +47,16 @@ export default function Page() {
 
       <Section title="Namespaced registry">
         <P>
-          Register motioncn once in <InlineCode>components.json</InlineCode> and add components by name.
+          Register tweenly once in <InlineCode>components.json</InlineCode> and add components by name.
         </P>
         <CodeBlock
           code={`{
   "registries": {
-    "@motioncn": "${url}/r/{name}.json"
+    "@tweenly": "${url}/r/{name}.json"
   }
 }`}
         />
-        <CodeBlock code="npx shadcn@latest add @motioncn/fade-in @motioncn/marquee" lineNumbers={false} />
+        <CodeBlock code="npx shadcn@latest add @tweenly/fade-in @tweenly/marquee" lineNumbers={false} />
       </Section>
 
       <Section title="Manual">

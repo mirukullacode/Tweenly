@@ -9,15 +9,39 @@ import { chartsCartesianDocs } from "./docs-parts/charts-cartesian"
 import { chartsPolarDocs } from "./docs-parts/charts-polar"
 import { chartsStatsDocs } from "./docs-parts/charts-stats"
 import { preloaderDocs } from "./docs-parts/preloader"
+import { footerDocs } from "./docs-parts/footer"
+import { faqConfettiDocs } from "./docs-parts/faq-confetti"
+import { transitionsDocs } from "./docs-parts/transitions"
+import { feedsDocs } from "./docs-parts/feeds"
+import { latestRelease } from "./changelog"
 
 export type { Category, ComponentDoc, Control, DataRow, PropDoc, PropValue } from "./docs-types"
 
 export const siteConfig = {
-  name: "motioncn",
+  name: "tweenly",
   description:
     "Beautifully crafted animated components. Tweak them live, copy the code, and own it.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  tagline: "The motion layer for shadcn/ui",
+  /** owner/repo on GitHub; powers the star button and source links. */
+  repo: process.env.NEXT_PUBLIC_GITHUB_REPO ?? "mirukullacode/tweenly",
+  /** X / Twitter handle without the @, used in share cards. Leave empty to omit. */
+  twitter: process.env.NEXT_PUBLIC_TWITTER_HANDLE ?? "",
+  keywords: [
+    "shadcn",
+    "shadcn/ui",
+    "react animation",
+    "animated components",
+    "framer motion",
+    "motion",
+    "gsap",
+    "tailwind",
+    "next.js",
+    "ui library",
+  ],
 }
+
+export const githubUrl = `https://github.com/${siteConfig.repo}`
 
 const className: PropDoc = classNameProp
 
@@ -38,7 +62,7 @@ const baseComponents: ComponentDoc[] = [
     category: "Text",
     file: "registry/new-york/fade-in/fade-in.tsx",
     dependencies: ["motion"],
-    children: `<div className="rounded-2xl border p-8">Hello, motioncn</div>`,
+    children: `<div className="rounded-2xl border p-8">Hello, tweenly</div>`,
     props: [
       { name: "children", type: "ReactNode", required: true, description: "Content to reveal." },
       {
@@ -716,7 +740,7 @@ const baseComponents: ComponentDoc[] = [
 ]
 
 // Component groups kept in their own files
-const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs]
+const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs, footerDocs, faqConfettiDocs, transitionsDocs, feedsDocs]
 
 export const components: ComponentDoc[] = [...baseComponents, ...parts.flat()]
 
@@ -731,11 +755,13 @@ export const categories: Category[] = [
   "Media",
   "Scroll",
   "Layout",
+  "Sections",
 ]
 
-export const docsNav = [
+export const docsNav: { title: string; href: string; badge?: string }[] = [
   { title: "Introduction", href: "/docs" },
   { title: "Installation", href: "/docs/installation" },
+  { title: "Changelog", href: "/changelog", badge: latestRelease.version },
 ]
 
 export function getComponent(slug: string) {
@@ -799,7 +825,7 @@ export function usageCode(doc: ComponentDoc, values: Record<string, PropValue>) 
     : `${open}${open.endsWith("\n") ? "" : " "}/>`
 
   // Preambles that look like code go above the component; plain text wraps the JSX inline
-  const codePreamble = !!doc.preamble && /^(const|let|import|\/\/|function)\b/.test(doc.preamble.trim())
+  const codePreamble = !!doc.preamble && /^(?:(?:const|let|import|function)\b|\/\/)/.test(doc.preamble.trim())
   const body =
     doc.preamble && !codePreamble
       ? `<p>\n  ${doc.preamble}{" "}\n  ${jsx.replace(/\n/g, "\n  ")}\n</p>`

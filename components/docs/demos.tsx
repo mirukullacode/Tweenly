@@ -25,6 +25,10 @@ import { chartsCartesianDemos } from "./demos/charts-cartesian"
 import { chartsPolarDemos } from "./demos/charts-polar"
 import { chartsStatsDemos } from "./demos/charts-stats"
 import { preloaderDemos } from "./demos/preloader"
+import { footerDemos } from "./demos/footer"
+import { faqConfettiDemos } from "./demos/faq-confetti"
+import { transitionsDemos } from "./demos/transitions"
+import { feedsDemos } from "./demos/feeds"
 import { FadeIn, type FadeInProps } from "@/registry/new-york/fade-in/fade-in"
 import { TextReveal, type TextRevealProps } from "@/registry/new-york/text-reveal/text-reveal"
 import { Typewriter, type TypewriterProps } from "@/registry/new-york/typewriter/typewriter"
@@ -141,7 +145,7 @@ const baseDemos: Record<string, (props: DemoProps) => React.ReactNode> = {
         <div className="mb-8 grid size-9 place-items-center rounded-xl bg-foreground text-background">
           <Sparkles className="size-4" />
         </div>
-        <p className="font-medium">Hello, motioncn</p>
+        <p className="font-medium">Hello, tweenly</p>
         <p className="mt-1 text-sm text-muted-foreground">Tweak the controls and watch it replay.</p>
       </div>
     </FadeIn>
@@ -407,4 +411,8 @@ export const demos: Record<string, (props: DemoProps) => React.ReactNode> = {
   ...chartsPolarDemos,
   ...chartsStatsDemos,
   ...preloaderDemos,
+  ...footerDemos,
+  ...faqConfettiDemos,
+  ...transitionsDemos,
+  ...feedsDemos,
 }

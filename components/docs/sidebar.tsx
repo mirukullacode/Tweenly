@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
         <span className="absolute size-3 translate-x-[3px] translate-y-[3px] rounded-full bg-brand" />
         <span className="absolute size-3 -translate-x-[3px] -translate-y-[3px] rounded-full bg-background mix-blend-difference" />
       </span>
-      motioncn
+      tweenly
     </Link>
   )
 }
@@ -56,6 +56,11 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           {docsNav.map((item) => (
             <NavLink key={item.href} href={item.href} active={pathname === item.href} onNavigate={onNavigate}>
               {item.title}
+              {item.badge && (
+                <span className="rounded-full bg-brand/12 px-1.5 py-px font-mono text-[10px] font-medium text-brand">
+                  v{item.badge}
+                </span>
+              )}
             </NavLink>
           ))}
         </div>

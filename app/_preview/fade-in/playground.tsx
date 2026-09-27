@@ -111,7 +111,7 @@ export function FadeInPlayground() {
           blur={blur}
         >
           <div className="rounded-xl border bg-background px-8 py-6 text-xl font-semibold shadow-sm">
-            Hello, motioncn
+            Hello, tweenly
           </div>
         </FadeIn>
       </div>

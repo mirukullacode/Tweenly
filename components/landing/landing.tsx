@@ -3,20 +3,24 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, type Variants } from "motion/react"
-import { ArrowRight, ArrowUpRight, Copy as CopyIcon, MousePointerClick, SlidersHorizontal } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Compass, Copy as CopyIcon, MousePointerClick, SlidersHorizontal } from "lucide-react"
 import { CopyButton } from "@/components/docs/copy-button"
 import { Logo } from "@/components/docs/sidebar"
 import { ThemeToggle } from "@/components/docs/theme-toggle"
 import { Showcase } from "@/components/docs/showcase"
 import { Bento } from "./bento"
-import { categories, components, siteConfig } from "@/lib/docs"
+import { categories, components, githubUrl, siteConfig } from "@/lib/docs"
+import { track } from "@/lib/analytics"
+import { GithubStars } from "@/components/site/github-stars"
+import { TOUR_HOME } from "@/lib/tour"
+import { NewsletterForm } from "@/components/site/newsletter-form"
 import { Preloader } from "@/registry/new-york/preloader/preloader"
 import { WordRotate } from "@/registry/new-york/word-rotate/word-rotate"
 import { FadeIn } from "@/registry/new-york/fade-in/fade-in"
 import { Marquee } from "@/registry/new-york/marquee/marquee"
 
 const QUOTES = [
-  { text: "Motion is the language of change.", author: "motioncn" },
+  { text: "Motion is the language of change.", author: "tweenly" },
   { text: "Details are not the details. They make the design.", author: "Charles Eames" },
   { text: "Good design is as little design as possible.", author: "Dieter Rams" },
 ]
@@ -87,6 +91,7 @@ function Header({ ready }: { ready: boolean }) {
           >
             Components
           </Link>
+          <GithubStars from="landing-header" className="mx-1 hidden sm:inline-flex" />
           <ThemeToggle />
           <Link
             href="/docs/installation"
@@ -160,8 +165,19 @@ function Hero({ state }: { state: "hidden" | "visible" }) {
               <span className="select-none opacity-50">$ </span>
               {command}
             </code>
-            <CopyButton value={command} className="size-8 rounded-full" />
+            <CopyButton value={command} onCopy={() => track("copy_hero_install")} className="size-8 rounded-full" />
           </div>
+        </motion.div>
+
+        <motion.div variants={rise} custom={4.5} className="mt-5">
+          <Link
+            href={TOUR_HOME}
+            className="group inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <Compass className="size-3.5 text-brand transition-transform duration-500 group-hover:rotate-[135deg]" />
+            New here? Take the 30-second tour
+            <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </motion.div>
 
         <motion.dl
@@ -263,6 +279,7 @@ function FinalCta() {
           Start building
           <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </Link>
+        <NewsletterForm source="landing" className="mt-16 text-left" />
       </FadeIn>
     </section>
   )
@@ -277,6 +294,10 @@ function Footer() {
         <div className="flex gap-5">
           <Link href="/docs" className="hover:text-foreground">Docs</Link>
           <Link href="/docs/installation" className="hover:text-foreground">Installation</Link>
+          <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
+          <a href={githubUrl} target="_blank" rel="noreferrer" onClick={() => track("github_click", { from: "landing-footer" })} className="hover:text-foreground">
+            GitHub
+          </a>
         </div>
       </div>
     </footer>

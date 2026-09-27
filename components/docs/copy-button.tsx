@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { Check, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export function CopyButton({ value, className }: { value: string; className?: string }) {
+export function CopyButton({ value, className, onCopy }: { value: string; className?: string; onCopy?: () => void }) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -18,7 +18,12 @@ export function CopyButton({ value, className }: { value: string; className?: st
     <button
       type="button"
       aria-label={copied ? "Copied" : "Copy code"}
-      onClick={() => navigator.clipboard.writeText(value).then(() => setCopied(true))}
+      onClick={() =>
+        navigator.clipboard.writeText(value).then(() => {
+          setCopied(true)
+          onCopy?.()
+        })
+      }
       className={cn(
         "grid size-8 place-items-center rounded-lg border bg-panel/80 text-muted-foreground backdrop-blur transition-colors hover:text-foreground",
         className

@@ -33,6 +33,7 @@ export type Category =
   | "Media"
   | "Scroll"
   | "Layout"
+  | "Sections"
 
 export interface ComponentDoc {
   slug: string

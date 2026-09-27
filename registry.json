@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "motioncn",
+  "name": "tweenly",
   "homepage": "http://localhost:3000",
   "items": [
     {
@@ -812,7 +812,7 @@
       "name": "chart-kit",
       "type": "registry:lib",
       "title": "Chart Kit",
-      "description": "Shared theme, scales, formatters, textures, card, legend and tooltip used by motioncn charts.",
+      "description": "Shared theme, scales, formatters, textures, card, legend and tooltip used by tweenly charts.",
       "dependencies": [
         "motion"
       ],
@@ -917,6 +917,146 @@
       "files": [
         {
           "path": "registry/new-york/chart-heatmap/chart-heatmap.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "confetti",
+      "type": "registry:component",
+      "title": "Confetti",
+      "description": "High-performance canvas confetti with burst, cannons, fireworks, rain and stream presets. Includes confetti(), useConfetti, ConfettiButton and Confetti.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/confetti/confetti.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "faq",
+      "type": "registry:component",
+      "title": "FAQ",
+      "description": "Animated FAQ accordion in four styles (minimal, cards, numbered, split) with height-auto reveals, a live filter and keyboard navigation.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/faq/faq.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "footer",
+      "type": "registry:component",
+      "title": "Footer",
+      "description": "Four premium, minimal animated footers: sticky reveal, giant kinetic wordmark, classic columns with newsletter, and an expanding curtain panel with a magnetic CTA.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react",
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/footer/footer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "notification-feed",
+      "type": "registry:component",
+      "title": "Notification Feed",
+      "description": "Layout-animated notifications as a stack, inbox list, dynamic island or timeline cards, with swipe to dismiss, pausable timers and a useNotifications hook.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/notification-feed/notification-feed.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "page-loader",
+      "type": "registry:component",
+      "title": "Page Loader",
+      "description": "Website intro loader orchestrated with GSAP timelines, with stairs, odometer counter, greeting words, iris and blinds exits.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/page-loader/page-loader.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "page-transition",
+      "type": "registry:component",
+      "title": "Page Transition",
+      "description": "App Router page transitions: a provider, TransitionLink and usePageTransition hook with curtain, stairs, iris, slide and blinds variants.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/page-transition/page-transition.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "swipe-row",
+      "type": "registry:component",
+      "title": "Swipe Row",
+      "description": "Swipeable list rows with iOS-style reveal actions, full-swipe commits and floating cards, with layout-animated removal.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/swipe-row/swipe-row.tsx",
           "type": "registry:component"
         }
       ]

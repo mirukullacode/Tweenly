@@ -1,4 +1,4 @@
-# motioncn
+# tweenly
 
 Animated React components you install with the shadcn CLI. You get the source code, so you can change anything.
 
@@ -169,4 +169,6 @@ public/r/                   Built registry output
 2. Set `NEXT_PUBLIC_SITE_URL` to the production URL. The registry build replaces `http://localhost:3000` with this value in every registry dependency URL.
 3. Run `npm run build`. Components are then available at `https://<your-domain>/r/<name>.json`.
 
-[PUBLISHING.md](PUBLISHING.md) covers the full process: testing the registry, setting up a namespace (`@motioncn/<name>`), and listing it in the official shadcn registry directory.
+Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups). Enable Vercel Analytics in your project settings to collect page views and events.
+
+[PUBLISHING.md](PUBLISHING.md) covers the full process: testing the registry, setting up a namespace (`@tweenly/<name>`), and listing it in the official shadcn registry directory.

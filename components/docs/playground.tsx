@@ -21,6 +21,8 @@ import {
   type PropValue,
 } from "@/lib/docs"
 import { cn } from "@/lib/utils"
+import { track } from "@/lib/analytics"
+import { announceInstall } from "@/components/site/star-prompt"
 import { CodeBlock } from "./code-block"
 import { CopyButton } from "./copy-button"
 import { PropControl } from "./controls"
@@ -97,6 +99,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
             "relative isolate h-[62svh] overflow-hidden rounded-3xl border bg-stage lg:absolute lg:inset-0 lg:h-auto",
             fullscreen && "h-auto flex-1"
           )}
+          data-tour="stage"
         >
           <div className="mc-dots pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_75%)]" />
 
@@ -109,7 +112,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
           </div>
 
           {/* dock */}
-          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-0.5 rounded-full border bg-panel/85 p-1 shadow-lg shadow-black/10 backdrop-blur-xl">
+          <div data-tour="dock" className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-0.5 rounded-full border bg-panel/85 p-1 shadow-lg shadow-black/10 backdrop-blur-xl">
             <GripVertical className="mx-1 size-3.5 text-muted-foreground/50" />
             <IconButton label="Replay" onClick={() => setRun((r) => r + 1)}>
               <RotateCcw className="size-3.5" />
@@ -142,6 +145,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, x: 16, filter: "blur(4px)" }}
               transition={{ duration: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
+              data-tour="controls"
               className="z-20 flex flex-col overflow-hidden rounded-3xl border bg-panel lg:absolute lg:bottom-3 lg:right-3 lg:top-3 lg:w-64 lg:rounded-2xl lg:bg-panel/85 lg:shadow-xl lg:shadow-black/10 lg:backdrop-blur-xl"
             >
               <div className="flex h-11 shrink-0 items-center justify-between border-b pl-4 pr-1.5">
@@ -220,10 +224,14 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
             ))}
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col p-3">
+          <div data-tour="code" className="flex min-h-0 flex-1 flex-col p-3">
             {tab === "usage" && (
               <div className="flex min-h-0 flex-1 flex-col gap-3">
-                <CodeBlock code={code} className="max-lg:max-h-[60vh] lg:flex-1" />
+                <CodeBlock
+                  code={code}
+                  onCopy={() => track("copy_code", { slug, tab: "usage" })}
+                  className="max-lg:max-h-[60vh] lg:flex-1"
+                />
                 <p className="px-1 text-[12px] text-muted-foreground">
                   Updates live as you change the controls. Only non-default props are included.
                 </p>
@@ -234,7 +242,11 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
                 <p className="px-1 font-mono text-[11.5px] text-muted-foreground">
                   components/{doc.file.split("/").pop()}
                 </p>
-                <CodeBlock code={source} className="max-lg:max-h-[70vh] lg:flex-1" />
+                <CodeBlock
+                  code={source}
+                  onCopy={() => track("copy_code", { slug, tab: "source" })}
+                  className="max-lg:max-h-[70vh] lg:flex-1"
+                />
               </div>
             )}
             {tab === "api" && <ApiTable props={doc.props} dependencies={doc.dependencies} />}
@@ -259,7 +271,7 @@ function InstallBar({ slug }: { slug: string }) {
   const command = `${PMS[pm]} ${registryUrl(slug)}`
 
   return (
-    <div className="mx-3 mb-3 overflow-hidden rounded-2xl border bg-inset">
+    <div data-tour="install" className="mx-3 mb-3 overflow-hidden rounded-2xl border bg-inset">
       <div className="flex items-center justify-between border-b px-3">
         <div className="flex">
           {(Object.keys(PMS) as PM[]).map((k) => (
@@ -277,14 +289,31 @@ function InstallBar({ slug }: { slug: string }) {
             </button>
           ))}
         </div>
-        <span className="text-[11px] text-muted-foreground">Install</span>
+        <a
+          href={`https://v0.dev/chat/api/open?url=${encodeURIComponent(registryUrl(slug))}`}
+          target="_blank"
+          rel="noreferrer"
+          data-tour="v0"
+          onClick={() => track("open_v0", { slug })}
+          title="Open this component in v0"
+          className="-mr-1 flex h-6 items-center gap-1 rounded-full px-2 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        >
+          Open in <span className="font-semibold tracking-tight text-foreground">v0</span>
+        </a>
       </div>
       <div className="flex items-center gap-2 py-1.5 pl-3 pr-1.5">
         <code className="mc-scroll flex-1 overflow-x-auto whitespace-nowrap py-1 font-mono text-[12px]">
           <span className="select-none text-muted-foreground">$ </span>
           {command}
         </code>
-        <CopyButton value={command} className="shrink-0" />
+        <CopyButton
+          value={command}
+          onCopy={() => {
+            track("copy_install", { slug, pm })
+            announceInstall()
+          }}
+          className="shrink-0"
+        />
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Playground } from "@/components/docs/playground"
 import { components, getComponent } from "@/lib/docs"
+import { componentJsonLd, componentMetadata, jsonLdString } from "@/lib/seo"
 
 export const dynamicParams = false
 
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/docs/components/[slug]">): Promise<Metadata> {
   const doc = getComponent((await params).slug)
-  return doc ? { title: doc.name, description: doc.description } : {}
+  return doc ? componentMetadata(doc) : {}
 }
 
 export default async function ComponentPage({ params }: PageProps<"/docs/components/[slug]">) {
@@ -29,5 +30,10 @@ export default async function ComponentPage({ params }: PageProps<"/docs/compone
     .replace(/@\/registry\/new-york\/hooks\//g, "@/hooks/")
     .replace(/@\/registry\/new-york\/lib\//g, "@/lib/")
 
-  return <Playground slug={slug} source={source} />
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(componentJsonLd(doc)) }} />
+      <Playground slug={slug} source={source} />
+    </>
+  )
 }

@@ -6,6 +6,9 @@ import { Menu, PanelLeft, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo, SidebarNav } from "./sidebar"
 import { ThemeToggle } from "./theme-toggle"
+import { GithubStars } from "@/components/site/github-stars"
+import { GuidedTour, TourButton } from "@/components/site/guided-tour"
+import { StarPrompt } from "@/components/site/star-prompt"
 
 export function DocsShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true)
@@ -15,6 +18,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-dvh flex-col bg-background lg:h-dvh lg:flex-row lg:overflow-hidden">
       {/* Desktop sidebar */}
       <aside
+        data-tour="sidebar"
         className={cn(
           "hidden shrink-0 flex-col transition-[margin] duration-300 ease-[cubic-bezier(.2,.8,.2,1)] lg:flex",
           "w-64",
@@ -27,6 +31,10 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
         </div>
         <div className="mc-scroll flex-1 overflow-y-auto px-4 pt-4">
           <SidebarNav />
+        </div>
+        <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
+          <GithubStars from="sidebar" />
+          <TourButton label="Tour" />
         </div>
       </aside>
 
@@ -83,6 +91,9 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
                   <X className="size-4" />
                 </button>
               </div>
+              <div className="flex items-center gap-2 px-2 pb-2 pt-1">
+                <GithubStars from="mobile-menu" />
+              </div>
               <div className="pt-2">
                 <SidebarNav onNavigate={() => setMobileOpen(false)} />
               </div>
@@ -92,6 +103,9 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       <main className="flex min-w-0 flex-1 flex-col p-2 sm:p-3 lg:min-h-0">{children}</main>
+
+      <GuidedTour />
+      <StarPrompt />
     </div>
   )
 }

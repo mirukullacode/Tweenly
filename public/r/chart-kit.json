@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "chart-kit",
   "title": "Chart Kit",
-  "description": "Shared theme, scales, formatters, textures, card, legend and tooltip used by motioncn charts.",
+  "description": "Shared theme, scales, formatters, textures, card, legend and tooltip used by tweenly charts.",
   "dependencies": [
     "motion"
   ],

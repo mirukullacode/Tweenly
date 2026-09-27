@@ -1,10 +1,16 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowUpRight, Copy, Accessibility, SlidersHorizontal } from "lucide-react"
+import { ArrowUpRight, Compass, Copy, Accessibility, SlidersHorizontal } from "lucide-react"
 import { DocPage, P, Section } from "@/components/docs/doc-page"
 import { categories, components } from "@/lib/docs"
+import { TOUR_HOME } from "@/lib/tour"
+import { NewsletterForm } from "@/components/site/newsletter-form"
 
-export const metadata: Metadata = { title: "Introduction" }
+export const metadata: Metadata = {
+  title: "Introduction",
+  description: "What tweenly is, how it works and every animated component it ships, grouped by category.",
+  alternates: { canonical: "/docs" },
+}
 
 const PRINCIPLES = [
   {
@@ -28,7 +34,7 @@ export default function IntroductionPage() {
   return (
     <DocPage
       title="Introduction"
-      description="motioncn is a collection of animated React components built on Motion and GSAP, distributed as a shadcn registry. Try every prop live, then copy the exact code you tuned."
+      description="tweenly is a collection of animated React components built on Motion and GSAP, distributed as a shadcn registry. Try every prop live, then copy the exact code you tuned."
     >
       <div className="grid gap-3 sm:grid-cols-3">
         {PRINCIPLES.map(({ icon: Icon, title, body }) => (
@@ -39,6 +45,22 @@ export default function IntroductionPage() {
           </div>
         ))}
       </div>
+
+      <Link
+        href={TOUR_HOME}
+        className="group flex items-center justify-between gap-4 rounded-2xl border bg-inset p-4 transition-colors hover:bg-accent"
+      >
+        <span className="flex items-center gap-3">
+          <span className="grid size-9 place-items-center rounded-xl bg-brand/12 text-brand">
+            <Compass className="size-4" />
+          </span>
+          <span>
+            <span className="block text-[14px] font-medium">New here? Take the 30-second tour</span>
+            <span className="block text-[13px] text-muted-foreground">See the preview, controls, code and install flow on a real component.</span>
+          </span>
+        </span>
+        <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+      </Link>
 
       <Section title="How it works">
         <P>
@@ -69,6 +91,9 @@ export default function IntroductionPage() {
           </div>
         </Section>
       ))}
+      <div className="rounded-2xl border bg-inset p-5">
+        <NewsletterForm source="docs-intro" />
+      </div>
     </DocPage>
   )
 }
