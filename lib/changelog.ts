@@ -13,6 +13,18 @@ export interface ChangelogEntry {
 // Newest first. The first entry drives the "New" badge in the sidebar.
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.3.0",
+    date: "2026-09-27",
+    title: "Cards, envelopes and 404 pages",
+    summary:
+      "A new Cards category, an envelope that sends and reveals messages, and a 404 section that makes getting lost a little more fun.",
+    added: ["product-card", "stamp-card", "envelope", "envelope-reveal", "not-found"],
+    changes: [
+      "The site now has its own 404 page, built with the new component.",
+      "Share images have a motif for the Cards category.",
+    ],
+  },
+  {
     version: "0.2.0",
     date: "2026-09-27",
     title: "Tweenly, page transitions and sections",

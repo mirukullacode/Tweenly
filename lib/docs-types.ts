@@ -33,6 +33,7 @@ export type Category =
   | "Media"
   | "Scroll"
   | "Layout"
+  | "Cards"
   | "Sections"
 
 export interface ComponentDoc {
