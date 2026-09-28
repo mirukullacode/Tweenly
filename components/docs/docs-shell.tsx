@@ -9,6 +9,7 @@ import { ThemeToggle } from "./theme-toggle"
 import { GithubStars } from "@/components/site/github-stars"
 import { GuidedTour, TourButton } from "@/components/site/guided-tour"
 import { StarPrompt } from "@/components/site/star-prompt"
+import { CommandMenu, SearchTrigger } from "./command-menu"
 
 export function DocsShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true)
@@ -29,7 +30,10 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
           <Logo />
           <ThemeToggle />
         </div>
-        <div className="mc-scroll flex-1 overflow-y-auto px-4 pt-4">
+        <div className="px-4 pt-3">
+          <SearchTrigger />
+        </div>
+        <div className="mc-scroll flex-1 overflow-y-auto px-4 pt-5">
           <SidebarNav />
         </div>
         <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
@@ -51,6 +55,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur lg:hidden">
         <Logo />
         <div className="flex items-center gap-1">
+          <SearchTrigger compact />
           <ThemeToggle />
           <button
             type="button"
@@ -94,7 +99,10 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
               <div className="flex items-center gap-2 px-2 pb-2 pt-1">
                 <GithubStars from="mobile-menu" />
               </div>
-              <div className="pt-2">
+              <div className="px-2 pt-2">
+                <SearchTrigger />
+              </div>
+              <div className="pt-4">
                 <SidebarNav onNavigate={() => setMobileOpen(false)} />
               </div>
             </motion.aside>
@@ -104,6 +112,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
 
       <main className="flex min-w-0 flex-1 flex-col p-2 sm:p-3 lg:min-h-0">{children}</main>
 
+      <CommandMenu />
       <GuidedTour />
       <StarPrompt />
     </div>

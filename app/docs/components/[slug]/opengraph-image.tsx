@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og"
 import { components, getComponent, siteConfig } from "@/lib/docs"
-import { og, OG_SIZE, OgFrame, OgMotif, OgWordmark, truncate } from "@/lib/og"
+import { og, OG_SIZE, OgFrame, OgMotif, OgShadcnBadge, OgWordmark, truncate } from "@/lib/og"
 
 export const alt = `${siteConfig.name} component`
 export const size = OG_SIZE
@@ -56,7 +56,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "space-between", flex: 1, padding: "76px 88px 76px 0" }}>
           <OgWordmark size={36} />
           {doc ? <OgMotif category={doc.category} /> : <div style={{ display: "flex" }} />}
-          <div style={{ display: "flex", height: 52 }} />
+          <OgShadcnBadge size={17} />
         </div>
       </OgFrame>
     ),

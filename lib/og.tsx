@@ -491,3 +491,85 @@ export function OgMotif({ category }: { category: Category }) {
   const Motif = MOTIFS[category] ?? LayoutMotif
   return <Motif />
 }
+
+/** The shadcn/ui mark: two diagonal strokes. */
+export function OgShadcnMark({ size = 28, color = og.fg }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 256 256" fill="none">
+      <path d="M208 128L128 208" stroke={color} strokeWidth="28" strokeLinecap="round" />
+      <path d="M192 40L40 192" stroke={color} strokeWidth="28" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/** Pill that says where tweenly lives: the shadcn/ui registry directory. */
+export function OgShadcnBadge({ size = 20 }: { size?: number }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: size * 0.6,
+        height: size * 2.5,
+        padding: `0 ${size * 1.1}px 0 ${size * 0.5}px`,
+        borderRadius: 999,
+        border: `1px solid ${og.faint}`,
+        background: "rgba(255,255,255,0.04)",
+        fontSize: size,
+        color: og.fg,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: size * 1.7,
+          height: size * 1.7,
+          borderRadius: 999,
+          background: og.fg,
+        }}
+      >
+        <OgShadcnMark size={size} color={og.bg} />
+      </div>
+      <div style={{ display: "flex", gap: size * 0.3 }}>
+        <span style={{ color: og.muted }}>in the</span>
+        <span>shadcn/ui registry</span>
+      </div>
+    </div>
+  )
+}
+
+/** A square easing into an orange circle, leaving its in-between frames behind. */
+export function OgOnionSkin({ width = 520, box = 120 }: { width?: number; box?: number }) {
+  const frames = 11
+  const ease = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t))
+  return (
+    <div style={{ position: "relative", display: "flex", width, height: box * 1.6 }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: box * 0.8, height: 1, display: "flex", background: og.line }} />
+      {Array.from({ length: frames }, (_, i) => {
+        const t = i / (frames - 1)
+        const e = ease(t)
+        const last = i === frames - 1
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: e * (width - box),
+              top: box * 0.3,
+              width: box,
+              height: box,
+              display: "flex",
+              borderRadius: box * (0.22 + t * 0.28),
+              border: last ? "none" : `1.5px solid rgba(237,237,237,${0.12 + t * 0.2})`,
+              background: last ? og.accent : "transparent",
+              boxShadow: last ? "0 20px 80px rgba(255,77,18,0.55)" : "none",
+              transform: `rotate(${e * 180}deg)`,
+            }}
+          />
+        )
+      })}
+    </div>
+  )
+}

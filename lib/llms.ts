@@ -30,22 +30,22 @@ function installSection() {
 
 tweenly is a shadcn/ui registry. Components are copied into your project (no runtime package). Requires a project already set up with shadcn/ui and Tailwind CSS.
 
-Add a component by URL:
+tweenly is listed in the shadcn registry directory, so the CLI resolves the \`@tweenly\` namespace with no setup:
+
+\`\`\`bash
+npx shadcn@latest add @tweenly/<slug>
+\`\`\`
+
+The full registry URL also works:
 
 \`\`\`bash
 npx shadcn@latest add ${base}/r/<slug>.json
 \`\`\`
 
-Or register the \`@tweenly\` namespace once in \`components.json\`:
+For AI agents, the shadcn MCP server can browse and install tweenly components. Run \`npx shadcn@latest mcp init --client claude\` (or \`cursor\`, \`vscode\`, \`codex\`) and add the namespace to \`components.json\` so the server can search it:
 
 \`\`\`json
 ${namespaceConfig}
-\`\`\`
-
-then install by name:
-
-\`\`\`bash
-npx shadcn@latest add @tweenly/<slug>
 \`\`\`
 
 Components land in \`@/components/<slug>\` and their npm dependencies (for example \`motion\`) are installed automatically.`
@@ -116,9 +116,9 @@ ${deps}
 Install:
 
 \`\`\`bash
-npx shadcn@latest add ${registryUrl(doc.slug)}
-# or, with the @tweenly namespace configured
 npx shadcn@latest add @tweenly/${doc.slug}
+# or by URL
+npx shadcn@latest add ${registryUrl(doc.slug)}
 \`\`\`
 
 Props:

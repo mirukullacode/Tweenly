@@ -6,6 +6,8 @@ import { track as vercelTrack } from "@vercel/analytics"
  */
 export type AnalyticsEvent =
   | { name: "copy_install"; props: { slug: string; pm: string } }
+  | { name: "install_tab"; props: { method: string } }
+  | { name: "copy_install_terminal"; props: { method: string } }
   | { name: "copy_code"; props: { slug: string; tab: string } }
   | { name: "copy_hero_install"; props?: undefined }
   | { name: "open_v0"; props: { slug: string } }
