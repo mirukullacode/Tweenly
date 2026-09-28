@@ -1,85 +1,138 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { motion, type Variants } from "motion/react"
-import { ArrowRight, ArrowUpRight, Compass, Copy as CopyIcon, MousePointerClick, SlidersHorizontal } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+import { ArrowRight, ArrowUpRight, Compass } from "lucide-react"
 import { CopyButton } from "@/components/docs/copy-button"
 import { Logo } from "@/components/docs/sidebar"
 import { ThemeToggle } from "@/components/docs/theme-toggle"
-import { Showcase } from "@/components/docs/showcase"
 import { Bento } from "./bento"
+import { Catalogue } from "./catalogue"
+import { InstallTerminal } from "./install-terminal"
+import { OnionSkin } from "./onion-skin"
+import { ShaderGradient } from "./shader-gradient"
+import { SmoothScroll } from "./smooth-scroll"
 import { categories, components, githubUrl, siteConfig } from "@/lib/docs"
 import { track } from "@/lib/analytics"
 import { GithubStars } from "@/components/site/github-stars"
 import { TOUR_HOME } from "@/lib/tour"
 import { NewsletterForm } from "@/components/site/newsletter-form"
-import { Preloader } from "@/registry/new-york/preloader/preloader"
-import { WordRotate } from "@/registry/new-york/word-rotate/word-rotate"
-import { FadeIn } from "@/registry/new-york/fade-in/fade-in"
+import { CommandMenu, SearchTrigger } from "@/components/docs/command-menu"
+import { Preloader, type PreloaderQuote } from "@/registry/new-york/preloader/preloader"
+import { Magnetic } from "@/registry/new-york/magnetic/magnetic"
 import { Marquee } from "@/registry/new-york/marquee/marquee"
+import { FadeIn } from "@/registry/new-york/fade-in/fade-in"
+import { Footer } from "@/registry/new-york/footer/footer"
 
-const QUOTES = [
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
+// One of these plays per visit, picked at random
+const QUOTES: PreloaderQuote[] = [
   { text: "Motion is the language of change.", author: "tweenly" },
   { text: "Details are not the details. They make the design.", author: "Charles Eames" },
   { text: "Good design is as little design as possible.", author: "Dieter Rams" },
+  { text: "Animation is not the art of drawings that move but the art of movements that are drawn.", author: "Norman McLaren" },
+  { text: "Design is not just what it looks like. Design is how it works.", author: "Steve Jobs" },
+  { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" },
+  { text: "What happens between each frame is more important than what exists on each frame.", author: "Norman McLaren" },
+  { text: "The details are not the details. They are the product.", author: "tweenly" },
+  { text: "Make it work, make it right, make it move.", author: "tweenly" },
 ]
-
-const EASE = [0.16, 1, 0.3, 1] as const
-
-const rise: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-  visible: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.9, ease: EASE, delay: 0.1 + i * 0.08 },
-  }),
-}
 
 export function Landing() {
   const [ready, setReady] = useState(false)
-  const state = ready ? "visible" : "hidden"
+  const [quote, setQuote] = useState<PreloaderQuote[]>([])
+
+  // Picked after mount so the server and client render the same markup
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setQuote([QUOTES[Math.floor(Math.random() * QUOTES.length)]]))
+    return () => cancelAnimationFrame(id)
+  }, [])
+
+  useEffect(() => {
+    if (ready) ScrollTrigger.refresh()
+  }, [ready])
 
   return (
-    <Preloader quotes={QUOTES} duration={2.6} onComplete={() => setReady(true)}>
-      <div className="min-h-dvh overflow-x-clip bg-background">
+    <Preloader quotes={quote} duration={2.6} onComplete={() => setReady(true)}>
+      <SmoothScroll enabled={ready} />
+      <div className="relative z-10 overflow-x-clip bg-background">
         <Header ready={ready} />
-        <Hero state={state} />
+        <Hero ready={ready} />
         <ComponentMarquee />
-        <section className="mx-auto max-w-6xl px-6">
-          <SectionHeading
-            eyebrow="New"
-            title="Charts, inputs and controls."
-            description="Everything below is live. Type a code, flip a switch, hover a chart."
-          />
-          <FadeIn distance={32} blur={8}>
+        <OnionSkin />
+        <Catalogue total={components.length} />
+        <section className="mx-auto max-w-6xl px-6 pb-32">
+          <SectionHeading eyebrow="Playground" title="Touch everything." description="Type a code, flip a switch, hover a chart. Nothing here is a screenshot." />
+          <FadeIn distance={40} blur={10}>
             <Bento />
           </FadeIn>
         </section>
-        <section className="mx-auto max-w-6xl px-6 pb-28">
-          <SectionHeading eyebrow="Showcase" title="Built to be touched." />
-          <FadeIn distance={32} blur={8}>
-            <Showcase />
-          </FadeIn>
-        </section>
-        <HowItWorks />
-        <FinalCta />
-        <Footer />
+        <Install />
+        <FinalCta ready={ready} />
       </div>
+      <Footer
+        variant="sticky-reveal"
+        brand="tweenly"
+        description="Animated React components you install with the shadcn CLI and own forever."
+        columns={[
+          {
+            title: "Library",
+            links: [
+              { label: "Components", href: "/docs/components/fade-in" },
+              { label: "Installation", href: "/docs/installation" },
+              { label: "Changelog", href: "/changelog", badge: "New" },
+            ],
+          },
+          {
+            title: "Popular",
+            links: [
+              { label: "Text Reveal", href: "/docs/components/text-reveal" },
+              { label: "Charts", href: "/docs/components/chart-line" },
+              { label: "Preloader", href: "/docs/components/preloader" },
+            ],
+          },
+          {
+            title: "Resources",
+            links: [
+              { label: "Docs", href: "/docs" },
+              { label: "llms.txt", href: "/llms.txt" },
+              { label: "GitHub", href: githubUrl },
+            ],
+          },
+        ]}
+        socials={[
+          { label: "GitHub", href: githubUrl },
+          { label: "X", href: "https://x.com/MIrukulla" },
+          { label: "LinkedIn", href: "https://www.linkedin.com/in/irumanjunath/" },
+        ]}
+        newsletter={false}
+        cta={{ label: "Start building", href: "/docs/components/fade-in" }}
+        copyright="tweenly. MIT licensed."
+        legal={[]}
+      />
+      <CommandMenu />
     </Preloader>
   )
 }
 
 function Header({ ready }: { ready: boolean }) {
+  const ref = useRef<HTMLElement>(null)
+
+  useGSAP(
+    () => {
+      if (!ready) return
+      gsap.fromTo(ref.current, { yPercent: -140, y: 0 }, { yPercent: 0, y: 0, duration: 1.1, ease: "expo.out", delay: 0.5 })
+    },
+    { dependencies: [ready] }
+  )
+
   return (
-    <motion.header
-      initial={{ y: -24, opacity: 0 }}
-      animate={ready ? { y: 0, opacity: 1 } : undefined}
-      transition={{ duration: 0.8, ease: EASE }}
-      className="fixed inset-x-0 top-0 z-50"
-    >
-      <div className="mx-auto mt-3 flex h-12 max-w-6xl items-center justify-between rounded-full border bg-background/70 pl-4 pr-1.5 backdrop-blur-xl sm:mx-6 xl:mx-auto">
+    <header ref={ref} className="fixed inset-x-0 top-0 z-50" style={{ transform: "translateY(-140%)" }}>
+      <div className="mx-auto mt-3 flex h-12 max-w-6xl items-center justify-between rounded-full border bg-background/60 pl-4 pr-1.5 backdrop-blur-xl sm:mx-6 xl:mx-auto">
         <Logo />
         <nav className="flex items-center gap-0.5 text-[13.5px]">
           <Link href="/docs" className="hidden rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground sm:block">
@@ -91,6 +144,7 @@ function Header({ ready }: { ready: boolean }) {
           >
             Components
           </Link>
+          <SearchTrigger compact />
           <GithubStars from="landing-header" className="mx-1 hidden sm:inline-flex" />
           <ThemeToggle />
           <Link
@@ -101,117 +155,161 @@ function Header({ ready }: { ready: boolean }) {
           </Link>
         </nav>
       </div>
-    </motion.header>
+    </header>
   )
 }
 
-function Hero({ state }: { state: "hidden" | "visible" }) {
-  const command = `npx shadcn@latest add ${siteConfig.url}/r/text-reveal.json`
+const HEADLINE = ["Motion for", "the in-between."]
+
+function SplitLine({ text, className }: { text: string; className?: string }) {
+  return (
+    <span className={`block overflow-hidden pb-[0.08em] ${className ?? ""}`} aria-hidden="true">
+      {text.split(" ").map((word, wi) => (
+        <span key={wi} className="inline-block whitespace-nowrap">
+          {Array.from(word).map((c, ci) => (
+            <span key={ci} data-char className="inline-block will-change-transform" style={{ transform: "translateY(110%)" }}>
+              {c}
+            </span>
+          ))}
+          {wi < text.split(" ").length - 1 && <span className="inline-block">&nbsp;</span>}
+        </span>
+      ))}
+    </span>
+  )
+}
+
+function Hero({ ready }: { ready: boolean }) {
+  const ref = useRef<HTMLElement>(null)
+  const command = "npx shadcn@latest add @tweenly/text-reveal"
+
+  useGSAP(
+    () => {
+      if (!ready) return
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      const chars = gsap.utils.toArray<HTMLElement>("[data-char]")
+
+      if (reduced) {
+        gsap.set(chars, { yPercent: 0, y: 0 })
+        gsap.set("[data-hero-fade]", { opacity: 1, y: 0 })
+        return
+      }
+
+      // Intro: letters rise with a little rotation and random lag, like they were thrown
+      gsap
+        .timeline({ delay: 0.15 })
+        .fromTo(
+          chars,
+          { yPercent: 110, y: 0, rotate: 8 },
+          { yPercent: 0, rotate: 0, duration: 1.5, ease: "expo.out", stagger: { each: 0.028, from: "start" } }
+        )
+        .fromTo("[data-hero-fade]", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.08 }, "-=1.05")
+
+      // Scroll out: every letter drifts at its own speed and dissolves
+      const drift = gsap.timeline({
+        scrollTrigger: { trigger: ref.current, start: "top top", end: "bottom top", scrub: 0.6 },
+      })
+      chars.forEach((c, i) => {
+        drift.to(
+          c,
+          {
+            y: () => -gsap.utils.random(80, 320),
+            rotate: () => gsap.utils.random(-18, 18),
+            opacity: 0,
+            filter: "blur(10px)",
+            ease: "power2.in",
+            duration: 1,
+          },
+          (i % 7) * 0.04
+        )
+      })
+      drift.to("[data-hero-fade]", { opacity: 0, y: -60, ease: "power1.in", duration: 0.6 }, 0)
+    },
+    { scope: ref, dependencies: [ready] }
+  )
 
   return (
-    <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden px-6 pb-16 pt-32">
-      {/* grid + glow */}
-      <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_60%_55%_at_50%_40%,#000_30%,transparent_80%)]" />
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[18%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-brand/20 blur-[120px]"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={state === "visible" ? { opacity: 1, scale: [1, 1.08, 1], x: ["-50%", "-46%", "-50%"] } : undefined}
-        transition={{ opacity: { duration: 1.2 }, scale: { duration: 12, repeat: Infinity, ease: "easeInOut" }, x: { duration: 12, repeat: Infinity, ease: "easeInOut" } }}
-      />
+    <section ref={ref} className="relative flex min-h-dvh flex-col justify-end overflow-hidden px-6 pb-10 pt-32 sm:px-12">
+      <ShaderGradient visible={ready} />
+      <div className="relative mx-auto w-full max-w-6xl">
+        <Link
+          href="/docs"
+          data-hero-fade
+          className="group inline-flex items-center gap-2 rounded-full border bg-background/40 py-1 pl-1 pr-3 text-[12.5px] text-muted-foreground opacity-0 backdrop-blur-md transition-colors hover:text-foreground"
+        >
+          <span className="rounded-full bg-foreground px-2 py-0.5 font-medium text-background">New</span>
+          Now in the shadcn registry directory
+          <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+        </Link>
 
-      <motion.div initial="hidden" animate={state} className="relative flex max-w-4xl flex-col items-center text-center">
-        <motion.div variants={rise} custom={0}>
-          <Link
-            href="/docs"
-            className="group flex items-center gap-2 rounded-full border bg-background/60 py-1 pl-1 pr-3 text-[12.5px] text-muted-foreground backdrop-blur transition-colors hover:text-foreground"
-          >
-            <span className="rounded-full bg-brand px-2 py-0.5 font-medium text-white">New</span>
-            {components.length} components across {categories.length} categories
-            <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </motion.div>
-
-        <h1 className="mt-8 text-[clamp(2.75rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.045em]">
-          <motion.span variants={rise} custom={1} className="block">
-            Motion components
-          </motion.span>
-          <motion.span variants={rise} custom={2} className="block">
-            <span className="text-muted-foreground">that feel </span>
-            <WordRotate
-              words={["alive.", "effortless.", "considered.", "yours."]}
-              effect="blur"
-              interval={2400}
-              className="text-brand"
-            />
-          </motion.span>
+        <h1
+          aria-label={HEADLINE.join(" ")}
+          className="mt-6 text-[clamp(3.25rem,11.5vw,11rem)] font-semibold leading-[0.86] tracking-[-0.06em]"
+        >
+          <SplitLine text={HEADLINE[0]} />
+          <SplitLine text={HEADLINE[1]} />
         </h1>
 
-        <motion.p variants={rise} custom={3} className="mt-7 max-w-xl text-balance text-[16px] leading-relaxed text-muted-foreground">
-          {siteConfig.description} Built on Motion and GSAP, installed with the shadcn CLI.
-        </motion.p>
+        <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+          <div data-hero-fade className="opacity-0">
+            <p className="max-w-md text-balance text-[16px] leading-relaxed text-foreground/75">
+              {components.length} animated React components across {categories.length} categories. Built on Motion and GSAP,
+              installed with the shadcn CLI, owned by you.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <Magnetic strength={0.25}>
+                <Link
+                  href="/docs/components/fade-in"
+                  className="group flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background"
+                >
+                  Browse components
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Magnetic>
+              <Link
+                href={TOUR_HOME}
+                className="group inline-flex h-12 items-center gap-1.5 rounded-full border bg-background/40 px-5 text-[13.5px] backdrop-blur-md transition-colors hover:bg-background/70"
+              >
+                <Compass className="size-3.5 text-brand transition-transform duration-500 group-hover:rotate-[135deg]" />
+                30-second tour
+              </Link>
+            </div>
+          </div>
 
-        <motion.div variants={rise} custom={4} className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/docs/components/fade-in"
-            className="group relative flex h-11 items-center gap-2 overflow-hidden rounded-full bg-foreground px-6 text-sm font-medium text-background"
-          >
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            Browse components
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-          <div className="flex h-11 items-center gap-2 rounded-full border bg-background/60 pl-4 pr-1.5 backdrop-blur">
-            <code className="max-w-[240px] truncate font-mono text-[12.5px] text-muted-foreground sm:max-w-none">
+          <div data-hero-fade className="flex h-12 items-center gap-2 rounded-full border bg-background/40 pl-4 pr-1.5 opacity-0 backdrop-blur-md">
+            <code className="max-w-[260px] truncate font-mono text-[12.5px] text-foreground/70 sm:max-w-[360px]">
               <span className="select-none opacity-50">$ </span>
               {command}
             </code>
-            <CopyButton value={command} onCopy={() => track("copy_hero_install")} className="size-8 rounded-full" />
+            <CopyButton value={command} onCopy={() => track("copy_hero_install")} className="size-9 rounded-full" />
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div variants={rise} custom={4.5} className="mt-5">
-          <Link
-            href={TOUR_HOME}
-            className="group inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Compass className="size-3.5 text-brand transition-transform duration-500 group-hover:rotate-[135deg]" />
-            New here? Take the 30-second tour
-            <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </motion.div>
-
-        <motion.dl
-          variants={rise}
-          custom={5}
-          className="mt-16 grid grid-cols-3 divide-x overflow-hidden rounded-2xl border bg-background/50 backdrop-blur"
-        >
-          {[
-            [`${components.length}+`, "Components"],
-            ["100%", "Copy & own"],
-            ["0", "Runtime lock-in"],
-          ].map(([v, l]) => (
-            <div key={l} className="flex flex-col-reverse px-6 py-4 sm:px-10">
-              <dt className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{l}</dt>
-              <dd className="text-2xl font-semibold tracking-tight tabular-nums">{v}</dd>
-            </div>
-          ))}
-        </motion.dl>
-      </motion.div>
+        <div data-hero-fade className="mt-12 flex items-center justify-between border-t border-foreground/10 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/60 opacity-0">
+          <span className="flex items-center gap-3">
+            <span className="relative block h-6 w-px overflow-hidden bg-foreground/15">
+              <span className="absolute inset-x-0 top-0 h-2 animate-[scroll-cue_1.8s_cubic-bezier(0.65,0,0.35,1)_infinite] bg-foreground" />
+            </span>
+            Scroll
+          </span>
+          <span className="hidden sm:block">Copy · Paste · Own</span>
+          <span>MIT · {siteConfig.name}</span>
+        </div>
+      </div>
     </section>
   )
 }
 
 function ComponentMarquee() {
   return (
-    <div className="border-y py-5">
-      <Marquee duration={60} gap={40}>
+    <div className="border-y py-6">
+      <Marquee duration={70} gap={48}>
         {components.map((c) => (
           <Link
             key={c.slug}
             href={`/docs/components/${c.slug}`}
-            className="flex items-center gap-2 whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="flex items-center gap-3 whitespace-nowrap font-[family-name:var(--font-display)] text-3xl uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
           >
-            <span className="size-1 rounded-full bg-brand" />
+            <span className="size-1.5 rounded-full bg-brand" />
             {c.name}
           </Link>
         ))}
@@ -222,84 +320,73 @@ function ComponentMarquee() {
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
-    <FadeIn blur={6} distance={16} className="mb-12 pt-28 text-center">
+    <FadeIn blur={6} distance={16} className="mb-14 pt-32">
       <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">{eyebrow}</p>
-      <h2 className="mt-3 text-[clamp(2rem,4.5vw,3.25rem)] font-semibold tracking-[-0.035em]">{title}</h2>
-      {description && <p className="mx-auto mt-3 max-w-lg text-muted-foreground">{description}</p>}
+      <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-[0.9] tracking-[-0.05em]">{title}</h2>
+        {description && <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground md:text-right">{description}</p>}
+      </div>
     </FadeIn>
   )
 }
 
-const STEPS = [
-  { icon: MousePointerClick, title: "Pick a component", body: "Every component has a live stage. Hover it, scroll it, break it." },
-  { icon: SlidersHorizontal, title: "Tune it live", body: "Drag the controls. The usage snippet rewrites itself with only the props you changed." },
-  { icon: CopyIcon, title: "Install and own it", body: "One shadcn command drops the source into your project. No package, no lock-in." },
-]
-
-function HowItWorks() {
+function Install() {
   return (
     <section className="border-t">
-      <div className="mx-auto max-w-6xl px-6 pb-28">
-        <SectionHeading eyebrow="How it works" title="From idea to shipped in a minute." />
-        <div className="grid gap-3 md:grid-cols-3">
-          {STEPS.map(({ icon: Icon, title, body }, i) => (
-            <FadeIn key={title} delay={i * 0.08} distance={20} blur={6}>
-              <div className="group h-full rounded-3xl border bg-card p-7 transition-colors hover:bg-accent/40">
-                <div className="flex items-center justify-between">
-                  <div className="grid size-10 place-items-center rounded-xl border bg-background">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="font-mono text-[11px] text-muted-foreground">0{i + 1}</span>
-                </div>
-                <h3 className="mt-10 text-lg font-semibold tracking-tight">{title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{body}</p>
-              </div>
-            </FadeIn>
+      <div className="mx-auto max-w-6xl px-6 pb-32">
+        <SectionHeading
+          eyebrow="Install"
+          title="Ship it your way."
+          description="From your terminal, from your agent, or by hand. Every path ends with plain source code in your repo."
+        />
+        <FadeIn distance={32} blur={8}>
+          <InstallTerminal />
+        </FadeIn>
+        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+          {[
+            ["0", "runtime packages", "Components are files you own, not a dependency you update."],
+            ["1", "command", "No components.json edits. tweenly is in the shadcn registry directory."],
+            ["llms.txt", "for agents", "Every prop and usage example, in plain text for any model."],
+          ].map(([value, label, body]) => (
+            <div key={label} className="rounded-2xl border bg-card/40 p-5">
+              <dt className="flex items-baseline gap-2">
+                <span className="text-2xl font-semibold tracking-tight">{value}</span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{label}</span>
+              </dt>
+              <dd className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">{body}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   )
 }
 
-function FinalCta() {
+function FinalCta({ ready }: { ready: boolean }) {
   return (
-    <section className="relative overflow-hidden border-t">
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-64 max-w-3xl rounded-full bg-brand/15 blur-[100px]" />
-      <FadeIn blur={8} distance={24} className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-32 text-center">
-        <h2 className="text-[clamp(2.25rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.045em]">
-          Make your interface
-          <br />
-          <span className="text-muted-foreground">move with intent.</span>
-        </h2>
-        <Link
-          href="/docs/components/fade-in"
-          className="group mt-10 flex h-12 items-center gap-2 rounded-full bg-foreground px-7 text-sm font-medium text-background"
-        >
-          Start building
-          <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </Link>
-        <NewsletterForm source="landing" className="mt-16 text-left" />
-      </FadeIn>
-    </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="border-t">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-[13px] text-muted-foreground sm:flex-row">
-        <Logo />
-        <p>Built with Motion, GSAP and the shadcn registry.</p>
-        <div className="flex gap-5">
-          <Link href="/docs" className="hover:text-foreground">Docs</Link>
-          <Link href="/docs/installation" className="hover:text-foreground">Installation</Link>
-          <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
-          <a href={githubUrl} target="_blank" rel="noreferrer" onClick={() => track("github_click", { from: "landing-footer" })} className="hover:text-foreground">
-            GitHub
-          </a>
-        </div>
+    <section className="px-3 pb-3 sm:px-6 sm:pb-6">
+      <div className="relative isolate overflow-hidden rounded-[32px] border">
+        <ShaderGradient visible={ready} seed={7.3} speed={0.8} />
+        <FadeIn blur={10} distance={32} className="relative flex flex-col items-center px-6 py-36 text-center">
+          <h2 className="text-[clamp(3rem,10vw,9rem)] font-semibold leading-[0.85] tracking-[-0.06em]">
+            Make it
+            <br />
+            move.
+          </h2>
+          <Magnetic strength={0.3}>
+            <Link
+              href="/docs/components/fade-in"
+              className="group mt-12 flex h-14 items-center gap-2 rounded-full bg-foreground px-8 text-[15px] font-medium text-background"
+            >
+              Start building
+              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </Magnetic>
+          <div className="mt-16 w-full max-w-md rounded-3xl border bg-background/50 p-5 text-left backdrop-blur-xl">
+            <NewsletterForm source="landing" />
+          </div>
+        </FadeIn>
       </div>
-    </footer>
+    </section>
   )
 }

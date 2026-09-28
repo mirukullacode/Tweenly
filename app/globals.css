@@ -313,3 +313,9 @@
 .tweenly-tour .driver-popover-navigation-btns { gap: 6px; }
 .tweenly-tour .driver-popover-btn-disabled { display: none !important; }
 .driver-active-element { transition: box-shadow 0.3s; }
+
+/* ---------------------------------------------------------------- landing */
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}

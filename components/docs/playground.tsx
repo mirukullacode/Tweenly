@@ -14,6 +14,7 @@ import {
 import {
   getComponent,
   initialValues,
+  registryItem,
   registryUrl,
   usageCode,
   type Control,
@@ -268,7 +269,7 @@ type PM = keyof typeof PMS
 
 function InstallBar({ slug }: { slug: string }) {
   const [pm, setPm] = useState<PM>("pnpm")
-  const command = `${PMS[pm]} ${registryUrl(slug)}`
+  const command = `${PMS[pm]} ${registryItem(slug)}`
 
   return (
     <div data-tour="install" className="mx-3 mb-3 overflow-hidden rounded-2xl border bg-inset">

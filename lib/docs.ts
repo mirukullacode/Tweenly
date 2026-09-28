@@ -29,7 +29,7 @@ export const siteConfig = {
   /** owner/repo on GitHub; powers the star button and source links. */
   repo: process.env.NEXT_PUBLIC_GITHUB_REPO ?? "mirukullacode/tweenly",
   /** X / Twitter handle without the @, used in share cards. Leave empty to omit. */
-  twitter: process.env.NEXT_PUBLIC_TWITTER_HANDLE ?? "",
+  twitter: process.env.NEXT_PUBLIC_TWITTER_HANDLE ?? "MIrukulla",
   keywords: [
     "shadcn",
     "shadcn/ui",
@@ -790,6 +790,11 @@ export function importPath(doc: ComponentDoc) {
 
 export function registryUrl(slug: string) {
   return `${siteConfig.url}/r/${slug}.json`
+}
+
+/** Name the shadcn CLI resolves through its registry directory, no URL or config needed. */
+export function registryItem(slug: string) {
+  return `@tweenly/${slug}`
 }
 
 function formatRow(row: DataRow) {

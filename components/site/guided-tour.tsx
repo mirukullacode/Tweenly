@@ -32,7 +32,16 @@ function buildSteps(): DriveStep[] {
       selector: '[data-tour="sidebar"]',
       popover: {
         title: "Browse by category",
-        description: "Text, buttons, charts, scroll effects, whole page sections. New components are marked as they ship.",
+        description: "Components are grouped by category. Open a group to see what's inside; the newest ones are marked.",
+        side: "right",
+        align: "start",
+      },
+    },
+    {
+      selector: '[data-tour="search"]',
+      popover: {
+        title: "Or just search",
+        description: "Press ⌘K (Ctrl K on Windows) or / anywhere to jump to any component, even by a prop name like \"stagger\".",
         side: "right",
         align: "start",
       },
