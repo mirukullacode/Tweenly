@@ -1,0 +1,50 @@
+import { classNameProp, num, type ComponentDoc } from "@/lib/docs-types"
+
+export const carouselDocs: ComponentDoc[] = [
+  {
+    slug: "curved-carousel",
+    name: "Curved Carousel",
+    exportName: "CurvedCarousel",
+    description:
+      "Posters on a 3D cylinder. The first image starts full-bleed and shrinks into the ring, then scrolling turns the cylinder card by card. Also works with drag or slow auto rotation.",
+    category: "Media",
+    file: "registry/new-york/curved-carousel/curved-carousel.tsx",
+    dependencies: ["gsap", "@gsap/react"],
+    isNew: true,
+    preamble: `// Drop your images into public/gallery/. Missing files fall back to color posters.
+const images = [
+  { src: "/gallery/01.jpg", title: "Opening Night", caption: "Main stage, 21:00" },
+  { src: "/gallery/02.jpg", title: "Neon Garden", caption: "Light installation" },
+  { src: "/gallery/03.jpg", title: "Bass Pier", caption: "Late set by the water" },
+  { src: "/gallery/04.jpg", title: "Sunrise Club", caption: "Ambient until dawn" },
+  { src: "/gallery/05.jpg", title: "Street Food", caption: "Forty stalls, one square" },
+]`,
+    staticProps: ["images={images}"],
+    props: [
+      { name: "images", type: "{ src: string; alt?: string; title?: string; caption?: string }[]", required: true, description: "Images in order. The first one plays the intro. Missing files show a color poster with the title." },
+      { name: "mode", type: '"scroll" | "drag" | "auto"', default: "scroll", description: "Scroll pins and scrubs with the page, drag spins with inertia, auto rotates slowly and pauses on hover.", control: { type: "select", options: ["scroll", "drag", "auto"] } },
+      { name: "intro", type: "boolean", default: true, description: "Start with the first image covering the section, then shrink it into the ring.", control: { type: "boolean" } },
+      { name: "introShape", type: '"rounded" | "circle"', default: "rounded", description: "Circle morphs through a small circle on the way from full-bleed to card.", control: { type: "select", options: ["rounded", "circle"] } },
+      { name: "curve", type: '"inside" | "outside"', default: "inside", description: "Inside wraps the cards around the viewer, outside curves them away like a drum.", control: { type: "select", options: ["inside", "outside"] } },
+      { name: "radius", type: "number", default: 2.2, description: "Cylinder radius in card widths. Lower curves harder.", control: num(0.8, 6, 0.1) },
+      { name: "cardWidth", type: "number", default: 24, description: "Card width as % of the section width, capped by its height.", control: num(12, 50, 1, "%") },
+      { name: "cardAspect", type: "string", default: "3 / 4", description: "Card aspect ratio, width / height.", control: { type: "select", options: ["3 / 4", "2 / 3", "4 / 5", "1 / 1", "16 / 9"] } },
+      { name: "gap", type: "number", default: 24, description: "Space between cards along the curve.", control: num(0, 80, 2, "px") },
+      { name: "perspective", type: "number", default: 1400, description: "Perspective distance. Lower exaggerates depth.", control: num(600, 3000, 50, "px") },
+      { name: "tilt", type: "number", default: 1, description: "How strongly side cards turn, as a multiple of the cylinder angle. 0 keeps them flat.", control: num(0, 2, 0.05) },
+      { name: "visible", type: "number", default: 3, description: "Cards visible on each side of the center card.", control: num(1, 6, 1) },
+      { name: "dim", type: "number", default: 0.55, description: "Darkening of side cards, 0 to 1.", control: num(0, 1, 0.05) },
+      { name: "cardRadius", type: "number", default: 18, description: "Card corner radius.", control: num(0, 48, 1, "px") },
+      { name: "scrollLength", type: "number", default: 6, description: "Scroll mode: section heights of scrolling for the whole sequence.", control: num(2, 16, 0.5) },
+      { name: "snap", type: "boolean", default: false, description: "Settle on the nearest card when scrolling or dragging stops.", control: { type: "boolean" } },
+      { name: "speed", type: "number", default: 0.15, description: "Auto mode: cards per second.", control: num(0.02, 1, 0.01) },
+      { name: "showCaptions", type: "boolean", default: true, description: "Show number, title and caption on the center card.", control: { type: "boolean" } },
+      { name: "background", type: "string", default: "#0a0a0a", description: "Section background.", control: { type: "color" } },
+      { name: "height", type: "string", default: "100cqh", description: "Section height. 100cqh fills the nearest size container, or the viewport." },
+      { name: "scroller", type: "HTMLElement | null", description: "Scroll container to track in scroll mode. Omit for the window; null waits for it to mount." },
+      { name: "onIntroComplete", type: "() => void", description: "Called when the intro finishes and the carousel takes over." },
+      { name: "onIndexChange", type: "(index: number) => void", description: "Called with the index of the image that becomes the center card." },
+      classNameProp,
+    ],
+  },
+]

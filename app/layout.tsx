@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Barlow_Condensed, Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { rootMetadata } from "@/lib/seo";
+import { RouteLoader } from "@/components/site/route-loader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col">
         {children}
+        <RouteLoader />
         <Analytics />
       </body>
     </html>

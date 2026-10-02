@@ -32,6 +32,13 @@ import { feedsDemos } from "./demos/feeds"
 import { cardsDemos } from "./demos/cards"
 import { notFoundDemos } from "./demos/not-found"
 import { envelopeDemos } from "./demos/envelope"
+import { smoothScrollDemos } from "./demos/smooth-scroll"
+import { heroBgDemos } from "./demos/hero-bg"
+import { carouselDemos } from "./demos/carousel"
+import { arcTimelineDemos } from "./demos/arc-timeline"
+import { authDemos } from "./demos/auth"
+import { showcaseKitDemos } from "./demos/showcase-kit"
+import { aiDemos } from "./demos/ai"
 import { FadeIn, type FadeInProps } from "@/registry/new-york/fade-in/fade-in"
 import { TextReveal, type TextRevealProps } from "@/registry/new-york/text-reveal/text-reveal"
 import { Typewriter, type TypewriterProps } from "@/registry/new-york/typewriter/typewriter"
@@ -421,4 +428,11 @@ export const demos: Record<string, (props: DemoProps) => React.ReactNode> = {
   ...cardsDemos,
   ...notFoundDemos,
   ...envelopeDemos,
+  ...smoothScrollDemos,
+  ...heroBgDemos,
+  ...carouselDemos,
+  ...arcTimelineDemos,
+  ...authDemos,
+  ...showcaseKitDemos,
+  ...aiDemos,
 }

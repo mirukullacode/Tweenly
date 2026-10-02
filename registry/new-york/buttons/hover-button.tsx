@@ -44,20 +44,16 @@ export function HoverButton({
 
   const reduced = useReducedMotion()
 
-  const { contextSafe } = useGSAP({
-    scope: rootRef,
-  })
-
-  const sweep = contextSafe((clipPath: string) => {
+  // Plain function: tweens are short-lived and overwrite each other, so no GSAP context is needed
+  const sweep = (clipPath: string) => {
     if (!fillRef.current) return
-
     gsap.to(fillRef.current, {
       clipPath,
       duration: reduced ? 0 : duration,
       ease,
       overwrite: true,
     })
-  })
+  }
 
   return (
     <button

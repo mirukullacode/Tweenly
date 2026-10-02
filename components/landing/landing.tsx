@@ -17,6 +17,8 @@ import { ShaderGradient } from "./shader-gradient"
 import { SmoothScroll } from "./smooth-scroll"
 import { categories, components, githubUrl, siteConfig } from "@/lib/docs"
 import { track } from "@/lib/analytics"
+import { features } from "@/lib/features"
+import { LogoMark } from "@/components/site/logo-mark"
 import { GithubStars } from "@/components/site/github-stars"
 import { TOUR_HOME } from "@/lib/tour"
 import { NewsletterForm } from "@/components/site/newsletter-form"
@@ -77,6 +79,7 @@ export function Landing() {
       <Footer
         variant="sticky-reveal"
         brand="tweenly"
+        logo={<LogoMark tile={false} className="size-5" />}
         description="Animated React components you install with the shadcn CLI and own forever."
         columns={[
           {
@@ -85,6 +88,7 @@ export function Landing() {
               { label: "Components", href: "/docs/components/fade-in" },
               { label: "Installation", href: "/docs/installation" },
               { label: "Changelog", href: "/changelog", badge: "New" },
+              ...(features.sponsors ? [{ label: "Sponsor", href: "/sponsor" }] : []),
             ],
           },
           {
