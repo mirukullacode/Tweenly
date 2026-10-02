@@ -1,5 +1,6 @@
 import {
   ArrowDownUp,
+  Sparkles,
   BellRing,
   ChartColumn,
   FileText,
@@ -27,6 +28,7 @@ export const CATEGORY_ICONS: Record<Category, LucideIcon> = {
   Media: Image,
   Scroll: ArrowDownUp,
   Layout: LayoutGrid,
+  AI: Sparkles,
   Cards: WalletCards,
   Sections: PanelsTopLeft,
 }

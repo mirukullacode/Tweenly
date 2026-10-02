@@ -33,6 +33,7 @@ export type Category =
   | "Media"
   | "Scroll"
   | "Layout"
+  | "AI"
   | "Cards"
   | "Sections"
 

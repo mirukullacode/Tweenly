@@ -1,6 +1,22 @@
-# tweenly
+<div align="center">
+  <img src="public/logo.svg" alt="tweenly logo" width="72" height="72" />
+  <h1>tweenly</h1>
+  <p><strong>The motion layer for shadcn/ui.</strong> Animated React components you install with the shadcn CLI and own forever.</p>
+  <p>
+    <a href="https://trytweenly.vercel.app">Website</a> ·
+    <a href="https://trytweenly.vercel.app/docs">Docs</a> ·
+    <a href="https://trytweenly.vercel.app/docs/ai-agents">Use with AI agents</a> ·
+    <a href="CONTRIBUTING.md">Contributing</a>
+  </p>
+  <p>
+    <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0a0a0a?style=flat-square" />
+    <img alt="shadcn registry" src="https://img.shields.io/badge/shadcn-registry-0a0a0a?style=flat-square" />
+    <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-0a0a0a?style=flat-square&logo=nextdotjs" />
+    <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-ff4d12?style=flat-square" />
+  </p>
+</div>
 
-Animated React components you install with the shadcn CLI. You get the source code, so you can change anything.
+You get the source code, so you can change anything.
 
 Every component has a docs page with a live demo. You can adjust its props in the controls panel, and the code panel updates to match. The components are copied into your project, and there is no package to keep updated.
 
@@ -169,6 +185,18 @@ public/r/                   Built registry output
 2. Set `NEXT_PUBLIC_SITE_URL` to the production URL. The registry build replaces `http://localhost:3000` with this value in every registry dependency URL.
 3. Run `npm run build`. Components are then available at `https://<your-domain>/r/<name>.json`.
 
-Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups). Enable Vercel Analytics in your project settings to collect page views and events.
+Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups). Sponsorships through [Dodo Payments](https://dodopayments.com) use `DODO_PAYMENTS_API_KEY`, `DODO_PAYMENTS_ENVIRONMENT`, `DODO_PAYMENTS_WEBHOOK_KEY` and four product IDs; see [PUBLISHING.md](PUBLISHING.md). Enable Vercel Analytics in your project settings to collect page views and events.
 
 [PUBLISHING.md](PUBLISHING.md) covers the full process: testing the registry, setting up a namespace (`@tweenly/<name>`), and listing it in the official shadcn registry directory.
+
+## Using tweenly with AI agents
+
+Run `npx shadcn@latest mcp init --client claude` (or `cursor`, `vscode`, `codex`, `opencode`), add the `@tweenly` registry to `components.json`, and ask your agent for a component in plain words. Agents without MCP can read [`/llms.txt`](https://trytweenly.vercel.app/llms.txt). Details are on the [AI agents page](https://trytweenly.vercel.app/docs/ai-agents).
+
+## Contributing
+
+Contributions are welcome: bug reports, docs fixes and new components. Start with [CONTRIBUTING.md](CONTRIBUTING.md). AI coding agents follow the rules in [AGENTS.md](AGENTS.md). Please read the [Code of Conduct](CODE_OF_CONDUCT.md), and report security issues privately as described in [SECURITY.md](SECURITY.md).
+
+## License
+
+[MIT](LICENSE)

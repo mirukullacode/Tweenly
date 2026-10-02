@@ -1,6 +1,7 @@
 /* Shared building blocks for the next/og share cards (Satori: every multi-child div needs display flex). */
 import type { CSSProperties, ReactNode } from "react"
 import type { Category } from "@/lib/docs-types"
+import { LOGO_PATH, LOGO_VIEWBOX } from "@/lib/logo"
 
 export const OG_SIZE = { width: 1200, height: 630 }
 
@@ -22,43 +23,23 @@ export function truncate(text: string, max: number) {
 
 /** Rounded square with two overlapping circles, matching the site logo. */
 export function OgLogo({ size = 40 }: { size?: number }) {
-  const dot = size / 2
-  const shift = size / 8
+  // Same mark as the favicon: white ribbon on a dark rounded tile
   return (
     <div
       style={{
-        position: "relative",
         display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         width: size,
         height: size,
-        borderRadius: size * 0.29,
-        background: og.fg,
-        overflow: "hidden",
+        borderRadius: size * 0.27,
+        background: "#0a0a0a",
+        border: "1px solid rgba(255,255,255,0.14)",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          left: size / 4 + shift,
-          top: size / 4 + shift,
-          width: dot,
-          height: dot,
-          borderRadius: dot,
-          background: og.accent,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          left: size / 4 - shift,
-          top: size / 4 - shift,
-          width: dot,
-          height: dot,
-          borderRadius: dot,
-          background: og.bg,
-          mixBlendMode: "difference",
-        }}
-      />
+      <svg width={size * 0.72} height={size * 0.72} viewBox={LOGO_VIEWBOX}>
+        <path d={LOGO_PATH} fill="#ffffff" />
+      </svg>
     </div>
   )
 }
@@ -472,7 +453,23 @@ function CardsMotif() {
   )
 }
 
+// Concentric rings around a glowing core: an assistant listening
+function AiMotif() {
+  return (
+    <Canvas>
+      {[150, 110, 70].map((r, i) => (
+        <div
+          key={r}
+          style={abs({ left: 170 - r, top: 170 - r, width: r * 2, height: r * 2, borderRadius: 999, border: `1px solid ${i === 2 ? "rgba(255,77,18,0.55)" : og.faint}` })}
+        />
+      ))}
+      <div style={abs({ left: 140, top: 140, width: 60, height: 60, borderRadius: 999, background: og.accent })} />
+    </Canvas>
+  )
+}
+
 const MOTIFS: Record<Category, () => ReactNode> = {
+  AI: AiMotif,
   Cards: CardsMotif,
   Text: TextMotif,
   Buttons: ButtonsMotif,

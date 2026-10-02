@@ -1,0 +1,24 @@
+name: Component request
+description: Suggest a new component or variant.
+labels: ["component request"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Component name
+      placeholder: Animated tabs
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What should it do?
+      description: Describe the interaction and where you'd use it. Links to references (videos, sites, Dribbble) help a lot.
+    validations:
+      required: true
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd like to build this myself.

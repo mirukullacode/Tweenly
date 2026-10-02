@@ -1,0 +1,29 @@
+name: Bug report
+description: Something looks or behaves wrong.
+labels: ["bug"]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which component, or which page of the site?
+      placeholder: chart-bar
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you expected, what happened instead, and how to reproduce it.
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal code
+      render: tsx
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: Chrome 140, macOS, Next.js 16, React 19

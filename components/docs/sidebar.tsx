@@ -9,14 +9,12 @@ import { categories, components, docsNav, type Category } from "@/lib/docs"
 import { latestRelease } from "@/lib/changelog"
 import { cn } from "@/lib/utils"
 import { CATEGORY_ICONS } from "./category-icon"
+import { LogoMark } from "@/components/site/logo-mark"
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("flex items-center gap-2 text-[15px] font-semibold tracking-tight", className)}>
-      <span className="relative grid size-6 place-items-center overflow-hidden rounded-[7px] bg-foreground">
-        <span className="absolute size-3 translate-x-[3px] translate-y-[3px] rounded-full bg-brand" />
-        <span className="absolute size-3 -translate-x-[3px] -translate-y-[3px] rounded-full bg-background mix-blend-difference" />
-      </span>
+    <Link href="/" aria-label="tweenly home" className={cn("flex items-center gap-2 text-[15px] font-semibold tracking-tight", className)}>
+      <LogoMark playOnNavigate />
       tweenly
     </Link>
   )

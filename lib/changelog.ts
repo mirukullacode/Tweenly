@@ -13,6 +13,36 @@ export interface ChangelogEntry {
 // Newest first. The first entry drives the "New" badge in the sidebar.
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.4.0",
+    date: "2026-10-02",
+    title: "AI components, scroll storytelling and a new look",
+    summary:
+      "Components for AI interfaces, smooth scroll-driven sections, a fresh logo that redraws as you move between pages, and first-class support for AI coding agents.",
+    added: [
+      "ai-voice",
+      "ai-recorder",
+      "ai-input",
+      "ai-thinking",
+      "curved-carousel",
+      "arc-steps",
+      "timeline-scroll",
+      "smooth-scroll",
+      "hero-background",
+      "auth",
+      "dock",
+      "tweet-card",
+      "orbiting-circles",
+      "banner",
+    ],
+    changes: [
+      "New logo, used for the favicon, share images and a draw-in animation on every page change.",
+      "A Use with AI agents guide: connect Claude Code, Cursor, VS Code or Codex through the shadcn MCP server.",
+      "CONTRIBUTING.md, issue and pull request templates, a code of conduct, a security policy and CI checks.",
+      "Search now opens with Cmd/Ctrl K or /, and the sidebar groups components into collapsible categories.",
+      "Sign-in and sign-up sections no longer show a placeholder logo, and fields reveal and focus more smoothly.",
+    ],
+  },
+  {
     version: "0.3.0",
     date: "2026-09-27",
     title: "Cards, envelopes and 404 pages",

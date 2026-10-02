@@ -39,6 +39,13 @@ Any static-friendly host works. These steps use Vercel:
    | `NEXT_PUBLIC_TWITTER_HANDLE` | Optional. Your X handle without the `@`, shown on share cards |
    | `NEWSLETTER_WEBHOOK_URL` | Optional. Any endpoint that accepts `POST { email, source }` as JSON (Loops, Resend, Zapier, Make). Without it, production signups show "not open yet" |
    | `NEWSLETTER_WEBHOOK_SECRET` | Optional. Sent as `Authorization: Bearer <secret>` to the webhook |
+   | `NEXT_PUBLIC_ENABLE_SPONSORS` | `true` to show the sponsor page and links. Off by default until sponsorships launch |
+   | `DODO_PAYMENTS_API_KEY` | Optional. Dodo Payments API key; turns on the sponsor page checkout |
+   | `DODO_PAYMENTS_ENVIRONMENT` | `test_mode` (default) or `live_mode`. Only set `live_mode` once test payments work |
+   | `DODO_PAYMENTS_WEBHOOK_KEY` | Signing secret of the webhook endpoint `https://<your-domain>/api/webhooks/dodo` |
+   | `DODO_PRODUCT_SPONSOR_ONE_TIME` | Product ID of a one-time, Pay What You Want product in USD (minimum $5) |
+   | `DODO_PRODUCT_SPONSOR_SUPPORTER` / `_BACKER` / `_COMPANY` | Product IDs of three monthly subscription products: $5, $15 and $99 |
+   | `SPONSOR_NOTIFY_WEBHOOK_URL` | Optional. A Discord or Slack incoming webhook that gets a message for every sponsorship |
 
    Also enable **Analytics** in the Vercel project settings, so page views and the custom events (install copies, Open in v0, tour, newsletter) are recorded.
 

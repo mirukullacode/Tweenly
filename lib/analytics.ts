@@ -15,6 +15,8 @@ export type AnalyticsEvent =
   | { name: "star_prompt"; props: { action: "shown" | "starred" | "dismissed" } }
   | { name: "newsletter_subscribe"; props: { from: string } }
   | { name: "tour"; props: { action: "start" | "complete" | "skip"; step?: number } }
+  | { name: "sponsor_checkout"; props: { tier: string; amount: number } }
+  | { name: "sponsor_click"; props: { from: string } }
 
 export function track<E extends AnalyticsEvent>(name: E["name"], props?: E["props"]) {
   try {

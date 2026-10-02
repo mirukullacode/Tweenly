@@ -16,7 +16,15 @@ import { feedsDocs } from "./docs-parts/feeds"
 import { cardsDocs } from "./docs-parts/cards"
 import { notFoundDocs } from "./docs-parts/not-found"
 import { envelopeDocs } from "./docs-parts/envelope"
+import { smoothScrollDocs } from "./docs-parts/smooth-scroll"
+import { heroBgDocs } from "./docs-parts/hero-bg"
+import { carouselDocs } from "./docs-parts/carousel"
+import { arcTimelineDocs } from "./docs-parts/arc-timeline"
+import { authDocs } from "./docs-parts/auth"
+import { showcaseKitDocs } from "./docs-parts/showcase-kit"
+import { aiDocs } from "./docs-parts/ai"
 import { latestRelease } from "./changelog"
+import { features } from "./features"
 
 export type { Category, ComponentDoc, Control, DataRow, PropDoc, PropValue } from "./docs-types"
 
@@ -743,7 +751,7 @@ const baseComponents: ComponentDoc[] = [
 ]
 
 // Component groups kept in their own files
-const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs, footerDocs, faqConfettiDocs, transitionsDocs, feedsDocs, cardsDocs, notFoundDocs, envelopeDocs]
+const parts: ComponentDoc[][] = [buttonsADocs, buttonsBDocs, navbarDocs, tocDocs, otpDocs, chartsCartesianDocs, chartsPolarDocs, chartsStatsDocs, preloaderDocs, footerDocs, faqConfettiDocs, transitionsDocs, feedsDocs, cardsDocs, notFoundDocs, envelopeDocs, smoothScrollDocs, heroBgDocs, carouselDocs, arcTimelineDocs, authDocs, showcaseKitDocs, aiDocs]
 
 export const components: ComponentDoc[] = [...baseComponents, ...parts.flat()]
 
@@ -758,6 +766,7 @@ export const categories: Category[] = [
   "Media",
   "Scroll",
   "Layout",
+  "AI",
   "Cards",
   "Sections",
 ]
@@ -765,7 +774,10 @@ export const categories: Category[] = [
 export const docsNav: { title: string; href: string; badge?: string }[] = [
   { title: "Introduction", href: "/docs" },
   { title: "Installation", href: "/docs/installation" },
+  { title: "Use with AI agents", href: "/docs/ai-agents" },
   { title: "Changelog", href: "/changelog", badge: latestRelease.version },
+  { title: "Landing template", href: "/templates/forge" },
+  ...(features.sponsors ? [{ title: "Sponsor", href: "/sponsor" }] : []),
 ]
 
 export function getComponent(slug: string) {

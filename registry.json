@@ -1141,6 +1141,283 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "arc-steps",
+      "type": "registry:component",
+      "title": "Arc Steps",
+      "description": "Pinned \"How it works\" section: a marker travels along a half circle from step to step on scroll, the arc draws in and the section flips to each step's solid color.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/arc-steps/arc-steps.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "type": "registry:component",
+      "title": "Sign In / Sign Up",
+      "description": "Sign in and sign up sections built on shadcn inputs: a split onboarding panel, a spotlight card and a multi-step flow with code verification, with an animated mode switch, inline validation, loading, success and error states.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "checkbox",
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/otp-input.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/auth/auth.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "curved-carousel",
+      "type": "registry:component",
+      "title": "Curved Carousel",
+      "description": "Posters on a 3D cylinder. The first image starts full-bleed and shrinks into the ring, then scrolling (or drag, or auto rotation) turns the cylinder card by card, with color poster fallbacks for missing images.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/curved-carousel/curved-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hero-background",
+      "type": "registry:component",
+      "title": "Hero Background",
+      "description": "Interactive canvas backgrounds for hero sections: dots, warping grid, constellation particles, waves, flow field and pixel mosaic, all reacting to the cursor.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/hero-background/hero-background.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "smooth-scroll",
+      "type": "registry:component",
+      "title": "Smooth Scroll",
+      "description": "Lenis smooth scrolling synced with GSAP ScrollTrigger, on the window or inside any scroll container, with a useLenis() hook.",
+      "dependencies": [
+        "lenis",
+        "gsap"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/smooth-scroll/smooth-scroll.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "timeline-scroll",
+      "type": "registry:component",
+      "title": "Timeline Scroll",
+      "description": "Minimal horizontal timeline of years and milestones that pins and scrolls sideways with the page, or drags with inertia. The centered year lights up.",
+      "dependencies": [
+        "gsap",
+        "@gsap/react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/timeline-scroll/timeline-scroll.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ai-input",
+      "type": "registry:component",
+      "title": "AI Input",
+      "description": "AI prompt box with auto-growing textarea, cycling placeholders, file chips, model picker, toggle chips and a send button that morphs into stop.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ai-input/ai-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ai-recorder",
+      "type": "registry:component",
+      "title": "AI Recorder",
+      "description": "Voice recorder pill that morphs into a live waveform with timer, pause, cancel and stop, then a scrubbable playback row.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ai-recorder/ai-recorder.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ai-thinking",
+      "type": "registry:component",
+      "title": "AI Thinking",
+      "description": "AI loading states: shimmer text, bouncing dots, glowing orb, collapsible reasoning steps and simulated token streaming.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ai-thinking/ai-thinking.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "ai-voice",
+      "type": "registry:component",
+      "title": "AI Voice",
+      "description": "Voice activity visualizer with orb, bars, wave and dots variants, driven by the microphone, simulated speech or a controlled level.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ai-voice/ai-voice.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "Announcement banner: dismissible sliding bar, hero pill, scrolling ticker or shimmer bar, with remembered dismissal.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/banner/banner.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dock",
+      "type": "registry:component",
+      "title": "Dock",
+      "description": "macOS-style dock with pointer-distance magnification, spring tooltips, active dots, badges and click bounce.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/dock/dock.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "orbiting-circles",
+      "type": "registry:component",
+      "title": "Orbiting Circles",
+      "description": "Icons orbiting a center on circular paths with CSS transforms; layer rings for integration graphics.",
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/orbiting-circles/orbiting-circles.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tweet-card",
+      "type": "registry:component",
+      "title": "Tweet Card",
+      "description": "X-style post cards from data with highlighted mentions, media grid, compact stats, a like pop and a scrolling testimonial wall.",
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils",
+        "http://localhost:3000/r/use-reduced-motion.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/tweet-card/tweet-card.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
