@@ -1,4 +1,9 @@
-import { categories, components, docsNav, githubUrl, importPath, initialValues, registryUrl, siteConfig, usageCode, type ComponentDoc, type PropValue } from "@/lib/docs"
+import { categories, components, docsNav, githubUrl, importPath, initialValues, LIBRARIES, librariesOf, registryUrl, siteConfig, usageCode, type ComponentDoc, type PropValue } from "@/lib/docs"
+
+const builtWith = (doc: ComponentDoc) => {
+  const libs = librariesOf(doc).map((l) => LIBRARIES[l].name)
+  return libs.length ? libs.join(" + ") : "CSS / canvas (no animation library)"
+}
 
 const base = siteConfig.url.replace(/\/$/, "")
 
@@ -59,7 +64,7 @@ export function llmsTxt() {
   const groups = byCategory()
     .map(
       ({ category, items }) =>
-        `### ${category}\n\n${items.map((c) => `- [${c.name}](${componentUrl(c)}): ${c.description}`).join("\n")}`,
+        `### ${category}\n\n${items.map((c) => `- [${c.name}](${componentUrl(c)}) (${builtWith(c)}): ${c.description}`).join("\n")}`,
     )
     .join("\n\n")
 
@@ -110,6 +115,7 @@ function componentSection(doc: ComponentDoc) {
 ${doc.description}
 
 - Category: ${doc.category}
+- Built with: ${builtWith(doc)}
 - Docs: ${componentUrl(doc)}
 - Import: \`import { ${doc.exportName} } from "${importPath(doc)}"\`
 ${deps}

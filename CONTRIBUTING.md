@@ -38,7 +38,8 @@ Open http://localhost:3000. Component pages live at `/docs/components/<slug>`.
 
 1. **Write the component** in `registry/new-york/<name>/<name>.tsx`.
    - Start the file with `"use client"`.
-   - Import only from `react`, `motion`, `gsap`, `lucide-react`, `@/lib/utils` and other registry files, so it installs cleanly.
+   - Import only things the shadcn CLI can install: `react`, `motion`, `gsap` / `@gsap/react`, `lenis`, `lucide-react`, `@/lib/utils`, other registry files, and shadcn/ui components from `@/components/ui/*` (listed as `registryDependencies`).
+   - Choose the animation library on purpose: Motion for state-driven UI, gestures and layout animations; GSAP for timelines and scroll-linked scenes. Each component's docs show its library automatically, based on its `dependencies`.
    - Give every prop a JSDoc comment ending in `Default: ...`.
 2. **Follow the design language.**
    - Accent `#ff4d12`; use theme tokens (`bg-card`, `text-muted-foreground`, `border`) so it works in light and dark mode.

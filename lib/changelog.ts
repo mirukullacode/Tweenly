@@ -35,6 +35,8 @@ export const changelog: ChangelogEntry[] = [
       "banner",
     ],
     changes: [
+      "Every component shows whether it is built with Motion or GSAP, with a sidebar filter to browse by library.",
+      "A new Docs tab on every component: overview, when to use it, features, installation, accessibility, tips and related components.",
       "New logo, used for the favicon, share images and a draw-in animation on every page change.",
       "A Use with AI agents guide: connect Claude Code, Cursor, VS Code or Codex through the shadcn MCP server.",
       "CONTRIBUTING.md, issue and pull request templates, a code of conduct, a security policy and CI checks.",

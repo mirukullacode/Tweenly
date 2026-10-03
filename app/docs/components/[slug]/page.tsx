@@ -3,6 +3,7 @@ import path from "node:path"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Playground } from "@/components/docs/playground"
+import { getGuide } from "@/lib/guides"
 import { components, getComponent } from "@/lib/docs"
 import { componentJsonLd, componentMetadata, jsonLdString } from "@/lib/seo"
 
@@ -33,7 +34,7 @@ export default async function ComponentPage({ params }: PageProps<"/docs/compone
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(componentJsonLd(doc)) }} />
-      <Playground slug={slug} source={source} />
+      <Playground slug={slug} source={source} guide={getGuide(slug)} />
     </>
   )
 }

@@ -863,3 +863,38 @@ export function Demo() {
 }
 `
 }
+
+/* ------------------------------------------------------------ libraries */
+
+export type AnimationLibrary = "motion" | "gsap" | "lenis"
+
+export const LIBRARIES: Record<AnimationLibrary, { name: string; url: string; color: string; blurb: string }> = {
+  motion: {
+    name: "Motion",
+    url: "https://motion.dev",
+    color: "#fff312",
+    blurb: "Declarative React animation: springs, gestures, layout and exit animations, driven by state.",
+  },
+  gsap: {
+    name: "GSAP",
+    url: "https://gsap.com",
+    color: "#0ae448",
+    blurb: "Imperative timelines and ScrollTrigger: precise, choreographed sequences and scroll-linked scenes.",
+  },
+  lenis: {
+    name: "Lenis",
+    url: "https://lenis.darkroom.engineering",
+    color: "#ff98a2",
+    blurb: "Smooth scrolling that keeps scroll-driven animation in sync.",
+  },
+}
+
+/** Animation libraries a component depends on, read from its npm dependencies. */
+export function librariesOf(doc: ComponentDoc): AnimationLibrary[] {
+  const deps = doc.dependencies
+  const libs: AnimationLibrary[] = []
+  if (deps.some((d) => d === "motion" || d === "framer-motion")) libs.push("motion")
+  if (deps.some((d) => d === "gsap" || d === "@gsap/react")) libs.push("gsap")
+  if (deps.includes("lenis")) libs.push("lenis")
+  return libs
+}
