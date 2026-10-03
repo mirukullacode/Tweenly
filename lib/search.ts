@@ -1,4 +1,4 @@
-import { components, docsNav, type ComponentDoc } from "@/lib/docs"
+import { components, docsNav, LIBRARIES, librariesOf, type ComponentDoc } from "@/lib/docs"
 
 export type SearchItem = {
   id: string
@@ -27,7 +27,7 @@ export const searchItems: SearchItem[] = [
     group: c.category,
     description: c.description,
     // Prop names help queries like "stagger" or "blur" find the right component
-    keywords: normalize([c.name, c.slug, c.category, c.exportName, c.description, ...c.props.map((p) => p.name)].join(" ")),
+    keywords: normalize([c.name, c.slug, c.category, c.exportName, c.description, ...librariesOf(c).map((l) => LIBRARIES[l].name), ...c.props.map((p) => p.name)].join(" ")),
     doc: c,
   })),
 ]

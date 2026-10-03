@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { ChevronRight } from "lucide-react"
-import { categories, components, docsNav, type Category } from "@/lib/docs"
+import { categories, components, docsNav, LIBRARIES, librariesOf, type Category } from "@/lib/docs"
 import { latestRelease } from "@/lib/changelog"
 import { cn } from "@/lib/utils"
 import { CATEGORY_ICONS } from "./category-icon"
@@ -48,6 +48,8 @@ function NavLink({ href, active, children, onNavigate }: {
 }
 
 const NAV_KEY = "tweenly:nav"
+const LIB_KEY = "tweenly:lib"
+type LibFilter = "all" | "motion" | "gsap"
 const newIds = new Set(latestRelease.added ?? [])
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
@@ -55,14 +57,25 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const activeCategory = components.find((c) => pathname === `/docs/components/${c.slug}`)?.category
   // Only explicit user choices are stored; everything else defaults to "open if it holds the current page"
   const [toggled, setToggled] = useState<Partial<Record<Category, boolean>>>({})
+  const [libFilter, setLibFilter] = useState<LibFilter>("all")
 
   useEffect(() => {
     let saved: Partial<Record<Category, boolean>> = {}
     try {
       saved = JSON.parse(localStorage.getItem(NAV_KEY) ?? "{}")
     } catch {}
-    Promise.resolve().then(() => setToggled(saved))
+    const lib = localStorage.getItem(LIB_KEY)
+    Promise.resolve().then(() => {
+      setToggled(saved)
+      if (lib === "motion" || lib === "gsap") setLibFilter(lib)
+    })
   }, [])
+
+  const chooseLib = (next: LibFilter) => {
+    setLibFilter(next)
+    localStorage.setItem(LIB_KEY, next)
+  }
+  const visible = libFilter === "all" ? components : components.filter((c) => librariesOf(c).includes(libFilter))
 
   const isOpen = (c: Category) => toggled[c] ?? c === activeCategory
   const persist = (next: Partial<Record<Category, boolean>>) => {
@@ -94,7 +107,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
       <div>
         <div className="mb-2 flex items-center justify-between px-2">
           <p className="text-sm font-medium text-foreground">
-            Components <span className="ml-1 font-mono text-[11px] font-normal text-muted-foreground">{components.length}</span>
+            Components <span className="ml-1 font-mono text-[11px] font-normal text-muted-foreground">{visible.length}</span>
           </p>
           <button
             type="button"
@@ -105,9 +118,36 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           </button>
         </div>
 
+        <div role="radiogroup" aria-label="Filter by animation library" className="mx-2 mb-3 flex rounded-lg bg-foreground/[0.05] p-0.5">
+          {(["all", "motion", "gsap"] as const).map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              role="radio"
+              aria-checked={libFilter === opt}
+              onClick={() => chooseLib(opt)}
+              className={cn(
+                "relative flex flex-1 items-center justify-center gap-1.5 rounded-md py-1 text-[11.5px] transition-colors",
+                libFilter === opt ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {libFilter === opt && (
+                <motion.span
+                  layoutId="lib-filter"
+                  className="absolute inset-0 rounded-md bg-panel shadow-sm ring-1 ring-border"
+                  transition={{ type: "spring", stiffness: 500, damping: 38 }}
+                />
+              )}
+              {opt !== "all" && <span className="relative size-1.5 rounded-full" style={{ backgroundColor: LIBRARIES[opt].color }} />}
+              <span className="relative">{opt === "all" ? "All" : LIBRARIES[opt].name}</span>
+            </button>
+          ))}
+        </div>
+
         <div className="space-y-0.5">
           {categories.map((category) => {
-            const items = components.filter((c) => c.category === category)
+            const items = visible.filter((c) => c.category === category)
+            if (items.length === 0) return null
             const open = isOpen(category)
             const current = category === activeCategory
             const fresh = items.some((c) => newIds.has(c.slug))

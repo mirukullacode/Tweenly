@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowUpRight, Compass, Copy, Accessibility, SlidersHorizontal } from "lucide-react"
 import { DocPage, P, Section } from "@/components/docs/doc-page"
-import { categories, components } from "@/lib/docs"
+import { categories, components, LIBRARIES, librariesOf } from "@/lib/docs"
 import { TOUR_HOME } from "@/lib/tour"
 import { NewsletterForm } from "@/components/site/newsletter-form"
 
@@ -11,6 +11,25 @@ export const metadata: Metadata = {
   description: "What tweenly is, how it works and every animated component it ships, grouped by category.",
   alternates: { canonical: "/docs" },
 }
+
+const LIBRARY_CHOICES = [
+  {
+    lib: "motion" as const,
+    bestFor: [
+      "UI that reacts to state: toggles, inputs, menus, feeds",
+      "Springs, gestures, drag and layout animations",
+      "Enter and exit animations with AnimatePresence",
+    ],
+  },
+  {
+    lib: "gsap" as const,
+    bestFor: [
+      "Scroll-linked scenes that pin and scrub with ScrollTrigger",
+      "Choreographed, multi-step timelines",
+      "Page loaders, route transitions and storytelling sections",
+    ],
+  },
+]
 
 const PRINCIPLES = [
   {
@@ -61,6 +80,40 @@ export default function IntroductionPage() {
         </span>
         <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
       </Link>
+
+      <Section title="Motion or GSAP?">
+        <P>
+          Every component lists the animation library it&apos;s built on, and the sidebar filter shows only Motion or only
+          GSAP components. Pick the one your project already uses, or mix them: they work side by side.
+        </P>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {LIBRARY_CHOICES.map((choice) => {
+            const count = components.filter((c) => librariesOf(c).includes(choice.lib)).length
+            return (
+              <div key={choice.lib} className="rounded-2xl border bg-inset p-4">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-[14px] font-medium">
+                    <span className="size-2 rounded-full" style={{ backgroundColor: LIBRARIES[choice.lib].color }} />
+                    {LIBRARIES[choice.lib].name}
+                  </span>
+                  <span className="font-mono text-[11.5px] text-muted-foreground">{count} components</span>
+                </div>
+                <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{LIBRARIES[choice.lib].blurb}</p>
+                <p className="mt-3 text-[12px] font-medium text-foreground">Choose it for</p>
+                <ul className="mt-1.5 space-y-1">
+                  {choice.bestFor.map((item) => (
+                    <li key={item} className="text-[12.5px] leading-relaxed text-muted-foreground">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
+        </div>
+        <P className="text-[13px]">
+          {components.filter((c) => librariesOf(c).length === 0).length} components need no animation library at all (pure CSS
+          or canvas), and a few combine Motion and GSAP where each does what it&apos;s best at.
+        </P>
+      </Section>
 
       <Section title="How it works">
         <P>

@@ -25,12 +25,15 @@ import { cn } from "@/lib/utils"
 import { track } from "@/lib/analytics"
 import { announceInstall } from "@/components/site/star-prompt"
 import { CodeBlock } from "./code-block"
+import { DocsPanel } from "./docs-panel"
+import { LibraryBadges } from "./library-badges"
+import type { ComponentGuide } from "@/lib/guides/types"
 import { CopyButton } from "./copy-button"
 import { PropControl } from "./controls"
 import { demos } from "./demos"
 import { ThemeToggle } from "./theme-toggle"
 
-type Tab = "usage" | "source" | "api"
+type Tab = "usage" | "docs" | "source" | "api"
 
 function IconButton({ label, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
   return (
@@ -47,7 +50,7 @@ function IconButton({ label, className, ...props }: React.ButtonHTMLAttributes<H
   )
 }
 
-export function Playground({ slug, source }: { slug: string; source: string }) {
+export function Playground({ slug, source, guide }: { slug: string; source: string; guide?: ComponentGuide }) {
   const doc = getComponent(slug)!
   const Demo = demos[slug]
 
@@ -192,6 +195,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
             <div className="min-w-0">
               <h1 className="truncate text-[15px] font-semibold tracking-tight">{doc.name}</h1>
               <p className="mt-0.5 line-clamp-2 text-[12.5px] leading-snug text-muted-foreground">{doc.description}</p>
+              <LibraryBadges doc={doc} className="mt-2" />
             </div>
             <div className="flex shrink-0 items-center gap-0.5 rounded-full border bg-inset p-1">
               <IconButton label="Fullscreen preview" onClick={() => setFullscreen(true)}>
@@ -207,7 +211,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
           <InstallBar slug={slug} />
 
           <div className="flex gap-1 border-b px-4">
-            {(["usage", "source", "api"] as const).map((t) => (
+            {(["usage", "docs", "source", "api"] as const).map((t) => (
               <button
                 key={t}
                 type="button"
@@ -250,6 +254,7 @@ export function Playground({ slug, source }: { slug: string; source: string }) {
                 />
               </div>
             )}
+            {tab === "docs" && <DocsPanel doc={doc} guide={guide} />}
             {tab === "api" && <ApiTable props={doc.props} dependencies={doc.dependencies} />}
           </div>
         </aside>
