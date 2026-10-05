@@ -18,7 +18,7 @@ import { useReducedMotion } from "@/registry/new-york/hooks/use-reduced-motion"
 export type ProductCardBadge = string | { label: string; icon?: ReactNode }
 
 export interface ProductCardProps {
-  /** Image URLs shown as a swipeable carousel. Missing or broken images fall back to a gradient. Default: [] */
+  /** Image URLs shown as a swipeable carousel. Missing or broken images fall back to a tinted placeholder. Default: [] */
   images?: string[]
   /** Product name. */
   title: string
@@ -109,24 +109,20 @@ const item: Variants = {
 const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max)
 
 function Fallback({ tint, index }: { tint: string; index: number }) {
-  const [x, y, rot] = SPOTS[index % SPOTS.length]
+  const [, , rot] = SPOTS[index % SPOTS.length]
   return (
     <div
       aria-hidden="true"
       className="absolute inset-0 overflow-hidden"
-      style={{
-        background: `radial-gradient(60% 42% at ${x}% ${y}%, color-mix(in oklab, ${tint} 30%, #fff) 0%, transparent 70%),
-          radial-gradient(90% 60% at ${100 - x}% 92%, color-mix(in oklab, ${tint} 55%, #000) 0%, transparent 70%),
-          linear-gradient(165deg, color-mix(in oklab, ${tint} 70%, #fff) 0%, ${tint} 48%, color-mix(in oklab, ${tint} 65%, #000) 100%)`,
-      }}
+      style={{ backgroundColor: `color-mix(in oklab, ${tint} 82%, #fff)` }}
     >
       <div
         className="absolute left-1/2 top-[33%] aspect-[1/1.12] w-[58%] -translate-x-1/2 -translate-y-1/2"
         style={{
           rotate: `${rot}deg`,
           borderRadius: "58% 42% 52% 48% / 62% 54% 46% 38%",
-          background: `radial-gradient(circle at 34% 28%, color-mix(in oklab, ${tint} 18%, #fff) 0%, color-mix(in oklab, ${tint} 80%, #fff) 30%, ${tint} 62%, color-mix(in oklab, ${tint} 60%, #000) 100%)`,
-          boxShadow: `0 40px 60px -24px color-mix(in oklab, ${tint} 45%, #000), inset -14px -18px 40px color-mix(in oklab, ${tint} 60%, #000)`,
+          backgroundColor: `color-mix(in oklab, ${tint} 55%, #fff)`,
+          boxShadow: `0 40px 60px -24px color-mix(in oklab, ${tint} 45%, #000)`,
         }}
       />
       <div className="absolute inset-0 opacity-[0.22] mix-blend-overlay" style={{ backgroundImage: NOISE }} />
@@ -328,19 +324,6 @@ export function ProductCard({
         </AnimatePresence>
       </motion.div>
 
-      {/* scrims */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black/20 to-transparent"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[74%]"
-        style={{
-          background: `linear-gradient(to top, ${tint} 0%, color-mix(in oklab, ${tint} 94%, transparent) 26%, color-mix(in oklab, ${tint} 60%, transparent) 52%, color-mix(in oklab, ${tint} 18%, transparent) 76%, transparent 100%)`,
-        }}
-      />
-
       {/* top row */}
       <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
         {wishlist ? (
@@ -391,7 +374,9 @@ export function ProductCard({
 
       {/* content */}
       <motion.div
-        className="absolute inset-x-0 bottom-0 flex flex-col p-[clamp(14px,6.5cqw,24px)] pt-0"
+        className="absolute inset-x-0 bottom-0 flex flex-col p-[clamp(14px,6.5cqw,24px)]"
+        // Solid tinted scrim behind the text keeps it legible over any image
+        style={{ backgroundColor: `color-mix(in oklab, ${tint} 90%, transparent)` }}
         variants={list}
         initial={reduced ? false : "hidden"}
         whileInView="show"
@@ -419,7 +404,7 @@ export function ProductCard({
         )}
 
         <motion.div variants={item} className="flex items-center justify-between gap-3">
-          <h3 className="min-w-0 truncate text-[clamp(24px,11.5cqw,44px)] font-bold leading-[1.05] tracking-tight">{title}</h3>
+          <h3 className="min-w-0 break-words text-[clamp(22px,9.5cqw,44px)] font-bold leading-[1.05] tracking-tight [overflow-wrap:anywhere]">{title}</h3>
           <span className={cn(GLASS, "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-[17px] font-semibold leading-none")}>
             {compareAt !== undefined && compareAt > shownPrice && (
               <s className="text-[12px] font-medium text-white/65">

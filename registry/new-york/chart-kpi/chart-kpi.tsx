@@ -368,13 +368,6 @@ function Sparkline({
           <pattern id={`${id}-dots`} width="4" height="4" patternUnits="userSpaceOnUse">
             <circle cx="2" cy="2" r="1" fill={color} />
           </pattern>
-          <linearGradient id={`${id}-fade`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#fff" stopOpacity="1" />
-            <stop offset="1" stopColor="#fff" stopOpacity="0.05" />
-          </linearGradient>
-          <mask id={`${id}-mask`}>
-            <rect width={w} height={h} fill={`url(#${id}-fade)`} />
-          </mask>
           <clipPath id={`${id}-reveal`}>
             <motion.rect
               x={-8}
@@ -415,7 +408,7 @@ function Sparkline({
         ) : (
           <g clipPath={`url(#${id}-reveal)`}>
             {mode === "area" && (
-              <g mask={`url(#${id}-mask)`}>
+              <g opacity={0.55}>
                 <path d={area} fill={color} opacity={0.1} />
                 <path d={area} fill={`url(#${id}-dots)`} opacity={0.85} />
               </g>

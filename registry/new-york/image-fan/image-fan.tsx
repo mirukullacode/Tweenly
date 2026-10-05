@@ -53,7 +53,7 @@ export interface ImageFanProps {
 
 // Tinted placeholder shown behind each image (and instead of it if the file is missing)
 const tint = (i: number) =>
-  `linear-gradient(135deg, hsl(${(i * 47) % 360} 45% 62% / 0.45), hsl(${(i * 47 + 40) % 360} 40% 38% / 0.3))`
+  `hsl(${(i * 47) % 360} 42% 52% / 0.4)`
 const hideBroken = (e: React.SyntheticEvent<HTMLImageElement>) => (e.currentTarget.style.visibility = "hidden")
 
 /** Final slot for card `i`, as an offset from the center (in "card steps"). */

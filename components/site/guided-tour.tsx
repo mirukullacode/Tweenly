@@ -182,20 +182,22 @@ export function GuidedTour() {
   return null
 }
 
-export function TourButton({ label = "Take the tour", className }: { label?: string; className?: string }) {
+export function TourButton({ label = "Take the tour", iconOnly = false, className }: { label?: string; iconOnly?: boolean; className?: string }) {
   const pathname = usePathname()
   const router = useRouter()
 
   return (
     <button
       type="button"
+      title={label}
       onClick={() => (isPlayground(pathname) ? startTour() : router.push(TOUR_HOME))}
       className={cn(
         "inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-[12.5px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
         className
       )}
     >
-      <Compass className="size-3.5" /> {label}
+      <Compass className="size-3.5" />
+      {iconOnly ? <span className="sr-only">{label}</span> : label}
     </button>
   )
 }

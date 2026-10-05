@@ -67,10 +67,7 @@ function DockDemo({ values }: DemoProps) {
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 30% 20%, rgba(255,77,18,0.22), transparent 70%), radial-gradient(50% 60% at 80% 70%, rgba(120,120,255,0.16), transparent 70%)",
-        }}
+
       />
       <p className="absolute inset-x-0 top-8 text-center text-xs text-muted-foreground">Hover the dock · click to bounce · Tab to focus</p>
       {fixed ? dock : <div className="absolute inset-0 grid place-items-center">{dock}</div>}

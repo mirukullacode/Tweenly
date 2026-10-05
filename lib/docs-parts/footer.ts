@@ -123,14 +123,14 @@ const socials = [
       {
         name: "background",
         type: "string",
-        default: "#0a0a0a",
+        default: "var(--background)",
         description: "Footer background (any CSS color).",
         control: { type: "color" },
       },
       {
         name: "color",
         type: "string",
-        default: "#ededed",
+        default: "var(--foreground)",
         description: "Main text color.",
         control: { type: "color" },
       },
@@ -144,7 +144,7 @@ const socials = [
       {
         name: "muted",
         type: "string",
-        default: "#8a8a8a",
+        default: "var(--muted-foreground)",
         description: "Secondary text color for links and captions.",
         control: { type: "color" },
       },

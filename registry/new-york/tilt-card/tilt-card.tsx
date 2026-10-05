@@ -3,7 +3,6 @@
 import { useRef } from "react"
 import {
   motion,
-  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -52,9 +51,8 @@ export function TiltCard({
   const rotateY = useSpring(useTransform(px, [0, 1], [-maxTilt * dir, maxTilt * dir]), spring)
   const s = useSpring(useTransform(hover, [0, 1], [1, scale]), spring)
 
-  const gx = useTransform(px, (v) => `${v * 100}%`)
-  const gy = useTransform(py, (v) => `${v * 100}%`)
-  const glareBg = useMotionTemplate`radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,${glareOpacity}), transparent 60%)`
+  // Solid sheen band (a third of the width) that tracks the cursor horizontally
+  const glareX = useTransform(px, (v) => `${v * 333 - 50}%`)
   const glareAlpha = useSpring(hover, spring)
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -82,11 +80,12 @@ export function TiltCard({
       >
         {children}
         {glare && (
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{ background: glareBg, opacity: glareAlpha }}
-          />
+          <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden" style={{ opacity: glareAlpha }}>
+            <motion.div
+              className="absolute -inset-y-1/4 left-0 w-1/3"
+              style={{ x: glareX, skewX: -20, backgroundColor: `rgba(255,255,255,${glareOpacity})` }}
+            />
+          </motion.div>
         )}
       </motion.div>
     </div>

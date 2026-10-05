@@ -88,6 +88,7 @@ export function stampDims(size: number, perforation: number) {
 
 function perforationMask(width: number, height: number, hole: number, step: number) {
   const r = hole / 2
+  // Alpha mask that punches the perforated edge, not a color gradient
   return `radial-gradient(circle at center, transparent ${r}px, #000 ${r + 0.5}px) ${-step / 2}px ${-step / 2}px / ${step}px ${step}px repeat, linear-gradient(#000 0 0) center / ${width - hole}px ${height - hole}px no-repeat`
 }
 
@@ -95,22 +96,17 @@ function Artwork({ accent, paper, seed }: { accent: string; paper: string; seed:
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "")
   const deep = `color-mix(in oklab, ${accent} 62%, #000)`
   const light = `color-mix(in oklab, ${accent} 22%, ${paper})`
-  const mid = `color-mix(in oklab, ${accent} 55%, ${paper})`
   const motif = seed % 3
   const sunX = 30 + (seed % 40)
 
   return (
     <svg aria-hidden="true" viewBox="0 0 100 120" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full">
       <defs>
-        <linearGradient id={`${uid}s`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" style={{ stopColor: light }} />
-          <stop offset="1" style={{ stopColor: mid }} />
-        </linearGradient>
         <pattern id={`${uid}h`} width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
           <line x1="0" y1="0" x2="0" y2="3" strokeWidth="0.8" style={{ stroke: deep }} />
         </pattern>
       </defs>
-      <rect width="100" height="120" fill={`url(#${uid}s)`} />
+      <rect width="100" height="120" style={{ fill: light }} />
       {motif === 0 && (
         <>
           <circle cx={sunX} cy="42" r="17" style={{ fill: paper }} opacity="0.9" />
@@ -252,9 +248,8 @@ export function StampCard({
   const shadowBlur = useTransform(lift, [0, 1], [5, 22])
   const shadowAlpha = useTransform(lift, [0, 1], [0.18, 0.28])
   const shadow = useMotionTemplate`drop-shadow(0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowAlpha}))`
-  const gx = useTransform(px, (v) => `${v * 100}%`)
-  const gy = useTransform(py, (v) => `${v * 100}%`)
-  const glareBg = useMotionTemplate`radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,0.55), rgba(255,255,255,0) 55%)`
+  // Solid sheen band (a third of the width) that tracks the pointer horizontally
+  const glareX = useTransform(px, (v) => `${v * 333 - 50}%`)
 
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (reduced || !tiltRef.current) return
@@ -310,7 +305,8 @@ export function StampCard({
 
   const paperBg =
     variant === "airmail"
-      ? `repeating-linear-gradient(-45deg, #d7263d 0 9px, transparent 9px 14px, #1f4fbf 14px 23px, transparent 23px 28px), ${paper}`
+      ? // Hard-edged airmail stripes (a pattern, no color blending)
+        `repeating-linear-gradient(-45deg, #d7263d 0 9px, transparent 9px 14px, #1f4fbf 14px 23px, transparent 23px 28px), ${paper}`
       : paper
 
   return (
@@ -356,11 +352,9 @@ export function StampCard({
               </div>
 
               {glare && !reduced && (
-                <motion.div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-                  style={{ background: glareBg, opacity: lift }}
-                />
+                <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-soft-light" style={{ opacity: lift }}>
+                  <motion.div className="absolute -inset-y-1/4 left-0 w-1/3 bg-white/55" style={{ x: glareX, skewX: -20 }} />
+                </motion.div>
               )}
             </div>
           </motion.div>

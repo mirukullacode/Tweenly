@@ -5,7 +5,7 @@ import { as, type DemoMap, type DemoProps } from "@/components/docs/demo-utils"
 import { ProductCard, type ProductCardProps } from "@/registry/new-york/product-card/product-card"
 import { StampCard, type StampCardProps, type StampCardVariant } from "@/registry/new-york/stamp-card/stamp-card"
 
-const images = ["/gallery/01.jpg", "/gallery/02.jpg", "/gallery/03.jpg"]
+const images = ["/products/01.jpg", "/products/02.jpg", "/products/03.jpg"]
 
 const STAMPS: Record<StampCardVariant, Pick<StampCardProps, "image" | "title" | "value" | "caption">> = {
   classic: { image: "/gallery/04.jpg", title: "Western Ghats", value: "₹5", caption: "1968" },

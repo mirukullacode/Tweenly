@@ -18,5 +18,5 @@ tweenly is an animated React component library shipped as a shadcn registry, plu
 - Design language: accent `#ff4d12`; theme tokens (`bg-card`, `text-muted-foreground`, `border`) so light and dark mode both work; enter easing `[0.22, 1, 0.36, 1]`, in-out `[0.76, 0, 0.24, 1]`, springs around stiffness 450 / damping 34; animate transform, opacity and clip-path only; honour reduced motion via `@/registry/new-york/hooks/use-reduced-motion`.
 - React Compiler lint rules apply: no synchronous setState in effect bodies, no ref reads during render, no `Math.random()` during render.
 - A new component needs four things: the source, a docs entry in `lib/docs-parts/`, a demo in `components/docs/demos/` (both registered in `lib/docs.ts` and `components/docs/demos.tsx`), and an item in `registry.json`.
-- Never add bundled, remote or generated images; components must handle missing images gracefully.
+- Demo photos live in `public/gallery/`, `public/sticky-cards/` and `public/products/` (Unsplash License, credited in IMAGE_CREDITS.md). Add new ones only from free-licensed sources and credit them. Components themselves never bundle images and must handle missing ones gracefully.
 - Before finishing, run `npx tsc --noEmit`, `npm run lint` and `npm run build`.

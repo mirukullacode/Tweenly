@@ -31,7 +31,8 @@
           "path": "registry/new-york/fade-in/fade-in.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/fade-in"
     },
     {
       "name": "text-reveal",
@@ -47,7 +48,8 @@
           "path": "registry/new-york/text-reveal/text-reveal.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/text-reveal"
     },
     {
       "name": "typewriter",
@@ -65,7 +67,8 @@
           "path": "registry/new-york/typewriter/typewriter.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/typewriter"
     },
     {
       "name": "word-rotate",
@@ -83,7 +86,8 @@
           "path": "registry/new-york/word-rotate/word-rotate.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/word-rotate"
     },
     {
       "name": "shimmer-text",
@@ -101,7 +105,8 @@
           "path": "registry/new-york/shimmer-text/shimmer-text.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/shimmer-text"
     },
     {
       "name": "number-ticker",
@@ -119,7 +124,8 @@
           "path": "registry/new-york/number-ticker/number-ticker.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/number-ticker"
     },
     {
       "name": "fill-button",
@@ -137,7 +143,8 @@
           "path": "registry/new-york/fill-button/fill-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/fill-button"
     },
     {
       "name": "magnetic",
@@ -155,7 +162,8 @@
           "path": "registry/new-york/magnetic/magnetic.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/magnetic"
     },
     {
       "name": "tilt-card",
@@ -173,7 +181,8 @@
           "path": "registry/new-york/tilt-card/tilt-card.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/tilt-card"
     },
     {
       "name": "spotlight-card",
@@ -191,7 +200,8 @@
           "path": "registry/new-york/spotlight-card/spotlight-card.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/spotlight-card"
     },
     {
       "name": "stagger",
@@ -209,7 +219,8 @@
           "path": "registry/new-york/stagger/stagger.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/stagger"
     },
     {
       "name": "marquee",
@@ -227,7 +238,8 @@
           "path": "registry/new-york/marquee/marquee.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/marquee"
     },
     {
       "name": "sticky-cards",
@@ -240,14 +252,16 @@
       ],
       "registryDependencies": [
         "http://localhost:3000/r/use-reduced-motion.json",
-        "utils"
+        "utils",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/cards/sticky-cards.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/sticky-cards"
     },
     {
       "name": "scroll-text-reveal",
@@ -267,7 +281,8 @@
           "path": "registry/new-york/scroll-text-reveal/scroll-text-reveal.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/scroll-text-reveal"
     },
     {
       "name": "horizontal-scroll",
@@ -287,7 +302,8 @@
           "path": "registry/new-york/horizontal-scroll/horizontal-scroll.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/horizontal-scroll"
     },
     {
       "name": "image-reveal",
@@ -307,7 +323,8 @@
           "path": "registry/new-york/image-reveal/image-reveal.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/image-reveal"
     },
     {
       "name": "ascii-image",
@@ -325,7 +342,8 @@
           "path": "registry/new-york/ascii-image/ascii-image.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ascii-image"
     },
     {
       "name": "hover-media",
@@ -343,7 +361,8 @@
           "path": "registry/new-york/hover-media/hover-media.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/hover-media"
     },
     {
       "name": "cursor",
@@ -359,7 +378,8 @@
           "path": "registry/new-york/cursor/cursor.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/cursor"
     },
     {
       "name": "loader",
@@ -377,7 +397,8 @@
           "path": "registry/new-york/loader/loader.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/loader"
     },
     {
       "name": "download-button",
@@ -395,7 +416,8 @@
           "path": "registry/new-york/download-button/download-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/download-button"
     },
     {
       "name": "image-fan",
@@ -415,7 +437,8 @@
           "path": "registry/new-york/image-fan/image-fan.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/image-fan"
     },
     {
       "name": "image-arc",
@@ -435,7 +458,8 @@
           "path": "registry/new-york/image-arc/image-arc.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/image-arc"
     },
     {
       "name": "expand-gallery",
@@ -455,7 +479,8 @@
           "path": "registry/new-york/expand-gallery/expand-gallery.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/expand-gallery"
     },
     {
       "name": "scroll-focus",
@@ -475,7 +500,8 @@
           "path": "registry/new-york/scroll-focus/scroll-focus.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/scroll-focus"
     },
     {
       "name": "shine-button",
@@ -493,7 +519,8 @@
           "path": "registry/new-york/shine-button/shine-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/shine-button"
     },
     {
       "name": "ripple-button",
@@ -511,7 +538,8 @@
           "path": "registry/new-york/ripple-button/ripple-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ripple-button"
     },
     {
       "name": "hold-button",
@@ -529,7 +557,8 @@
           "path": "registry/new-york/hold-button/hold-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/hold-button"
     },
     {
       "name": "slide-button",
@@ -547,7 +576,8 @@
           "path": "registry/new-york/slide-button/slide-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/slide-button"
     },
     {
       "name": "like-button",
@@ -566,7 +596,8 @@
           "path": "registry/new-york/like-button/like-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/like-button"
     },
     {
       "name": "segmented-control",
@@ -584,7 +615,8 @@
           "path": "registry/new-york/segmented-control/segmented-control.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/segmented-control"
     },
     {
       "name": "number-stepper",
@@ -602,7 +634,8 @@
           "path": "registry/new-york/number-stepper/number-stepper.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/number-stepper"
     },
     {
       "name": "elastic-switch",
@@ -620,7 +653,8 @@
           "path": "registry/new-york/elastic-switch/elastic-switch.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/elastic-switch"
     },
     {
       "name": "expand-input",
@@ -638,7 +672,8 @@
           "path": "registry/new-york/expand-input/expand-input.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/expand-input"
     },
     {
       "name": "rating",
@@ -656,7 +691,8 @@
           "path": "registry/new-york/rating/rating.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/rating"
     },
     {
       "name": "navbar",
@@ -675,7 +711,8 @@
           "path": "registry/new-york/navbar/navbar.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/navbar"
     },
     {
       "name": "table-of-contents",
@@ -694,7 +731,8 @@
           "path": "registry/new-york/table-of-contents/table-of-contents.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/table-of-contents"
     },
     {
       "name": "otp-input",
@@ -712,7 +750,8 @@
           "path": "registry/new-york/otp-input/otp-input.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/otp-input"
     },
     {
       "name": "chart-line",
@@ -731,7 +770,8 @@
           "path": "registry/new-york/chart-line/chart-line.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-line"
     },
     {
       "name": "chart-progress",
@@ -750,7 +790,8 @@
           "path": "registry/new-york/chart-progress/chart-progress.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-progress"
     },
     {
       "name": "chart-radial",
@@ -769,7 +810,8 @@
           "path": "registry/new-york/chart-radial/chart-radial.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-radial"
     },
     {
       "name": "chart-dots",
@@ -788,7 +830,8 @@
           "path": "registry/new-york/chart-dots/chart-dots.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-dots"
     },
     {
       "name": "preloader",
@@ -806,7 +849,8 @@
           "path": "registry/new-york/preloader/preloader.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/preloader"
     },
     {
       "name": "chart-kit",
@@ -843,7 +887,8 @@
           "path": "registry/new-york/chart-bar/chart-bar.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-bar"
     },
     {
       "name": "chart-rings",
@@ -862,7 +907,8 @@
           "path": "registry/new-york/chart-rings/chart-rings.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-rings"
     },
     {
       "name": "chart-radar",
@@ -881,7 +927,8 @@
           "path": "registry/new-york/chart-radar/chart-radar.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-radar"
     },
     {
       "name": "chart-kpi",
@@ -900,7 +947,8 @@
           "path": "registry/new-york/chart-kpi/chart-kpi.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-kpi"
     },
     {
       "name": "chart-heatmap",
@@ -919,7 +967,8 @@
           "path": "registry/new-york/chart-heatmap/chart-heatmap.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/chart-heatmap"
     },
     {
       "name": "confetti",
@@ -937,7 +986,8 @@
           "path": "registry/new-york/confetti/confetti.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/confetti"
     },
     {
       "name": "faq",
@@ -950,14 +1000,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/faq/faq.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/faq"
     },
     {
       "name": "footer",
@@ -972,14 +1024,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/footer/footer.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/footer"
     },
     {
       "name": "notification-feed",
@@ -999,7 +1053,8 @@
           "path": "registry/new-york/notification-feed/notification-feed.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/notification-feed"
     },
     {
       "name": "page-loader",
@@ -1012,14 +1067,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/page-loader/page-loader.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/page-loader"
     },
     {
       "name": "page-transition",
@@ -1039,7 +1096,8 @@
           "path": "registry/new-york/page-transition/page-transition.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/page-transition"
     },
     {
       "name": "swipe-row",
@@ -1052,14 +1110,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/swipe-row/swipe-row.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/swipe-row"
     },
     {
       "name": "envelope",
@@ -1074,14 +1134,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/envelope/envelope.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/envelope-reveal"
     },
     {
       "name": "not-found",
@@ -1094,14 +1156,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/not-found/not-found.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/not-found"
     },
     {
       "name": "product-card",
@@ -1121,7 +1185,8 @@
           "path": "registry/new-york/product-card/product-card.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/product-card"
     },
     {
       "name": "stamp-card",
@@ -1140,7 +1205,8 @@
           "path": "registry/new-york/stamp-card/stamp-card.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/stamp-card"
     },
     {
       "name": "arc-steps",
@@ -1153,14 +1219,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/arc-steps/arc-steps.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/arc-steps"
     },
     {
       "name": "auth",
@@ -1185,7 +1253,8 @@
           "path": "registry/new-york/auth/auth.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/auth"
     },
     {
       "name": "curved-carousel",
@@ -1198,14 +1267,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/curved-carousel/curved-carousel.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/curved-carousel"
     },
     {
       "name": "hero-background",
@@ -1222,7 +1293,8 @@
           "path": "registry/new-york/hero-background/hero-background.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/hero-background"
     },
     {
       "name": "smooth-scroll",
@@ -1241,7 +1313,8 @@
           "path": "registry/new-york/smooth-scroll/smooth-scroll.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/smooth-scroll"
     },
     {
       "name": "timeline-scroll",
@@ -1255,14 +1328,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/timeline-scroll/timeline-scroll.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/timeline-scroll"
     },
     {
       "name": "ai-input",
@@ -1275,14 +1350,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/ai-input/ai-input.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ai-input"
     },
     {
       "name": "ai-recorder",
@@ -1302,7 +1379,8 @@
           "path": "registry/new-york/ai-recorder/ai-recorder.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ai-recorder"
     },
     {
       "name": "ai-thinking",
@@ -1322,7 +1400,8 @@
           "path": "registry/new-york/ai-thinking/ai-thinking.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ai-thinking"
     },
     {
       "name": "ai-voice",
@@ -1342,7 +1421,8 @@
           "path": "registry/new-york/ai-voice/ai-voice.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/ai-voice"
     },
     {
       "name": "banner",
@@ -1355,14 +1435,16 @@
       ],
       "registryDependencies": [
         "utils",
-        "http://localhost:3000/r/use-reduced-motion.json"
+        "http://localhost:3000/r/use-reduced-motion.json",
+        "http://localhost:3000/r/tweenly-theme.json"
       ],
       "files": [
         {
           "path": "registry/new-york/banner/banner.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/banner"
     },
     {
       "name": "dock",
@@ -1381,7 +1463,8 @@
           "path": "registry/new-york/dock/dock.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/dock"
     },
     {
       "name": "orbiting-circles",
@@ -1397,7 +1480,8 @@
           "path": "registry/new-york/orbiting-circles/orbiting-circles.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/orbiting-circles"
     },
     {
       "name": "tweet-card",
@@ -1417,7 +1501,49 @@
           "path": "registry/new-york/tweet-card/tweet-card.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/tweet-card"
+    },
+    {
+      "name": "tweenly-font",
+      "type": "registry:font",
+      "title": "tweenly display font",
+      "description": "Barlow Condensed, the display face tweenly uses for big numerals and wordmarks.",
+      "font": {
+        "family": "Barlow Condensed",
+        "provider": "google",
+        "import": "Barlow_Condensed",
+        "variable": "--font-display",
+        "weight": [
+          "700"
+        ],
+        "subsets": [
+          "latin"
+        ]
+      }
+    },
+    {
+      "name": "tweenly-theme",
+      "type": "registry:theme",
+      "title": "tweenly theme tokens",
+      "description": "The brand and panel color tokens (light and dark) plus the display font, so components look the same in your app as in the docs.",
+      "registryDependencies": [
+        "http://localhost:3000/r/tweenly-font.json"
+      ],
+      "cssVars": {
+        "theme": {
+          "color-brand": "var(--brand)",
+          "color-panel": "var(--panel)"
+        },
+        "light": {
+          "brand": "#f0591f",
+          "panel": "#ffffff"
+        },
+        "dark": {
+          "brand": "#ff6a2b",
+          "panel": "#141414"
+        }
+      }
     }
   ]
 }

@@ -15,8 +15,6 @@ import {
   AnimatePresence,
   motion,
   useAnimate,
-  useMotionTemplate,
-  useMotionValue,
   useSpring,
   type Transition,
   type Variants,
@@ -832,24 +830,23 @@ function SplitPanel({
       className="relative isolate flex flex-col overflow-hidden p-5 text-white @[720px]:p-7"
       style={{
         borderRadius: radius,
-        background: `linear-gradient(165deg, ${panelColor} 0%, color-mix(in oklab, ${panelColor} 45%, #020604) 55%, #020403 100%)`,
+        backgroundColor: `color-mix(in oklab, ${panelColor} 70%, #020604)`,
       }}
     >
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-[35%] left-1/2 -z-10 h-[90%] w-[120%] rounded-full opacity-80 blur-3xl"
-        style={{ x: "-50%", background: `radial-gradient(closest-side, ${glowColor}, transparent)` }}
+        className="pointer-events-none absolute -top-[55%] left-1/2 -z-10 h-[90%] w-[120%] rounded-full opacity-25"
+        style={{ x: "-50%", backgroundColor: glowColor }}
         animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.06, 1] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[20%] -left-[15%] -z-10 h-[55%] w-[60%] rounded-full opacity-40 blur-3xl"
-        style={{ background: `radial-gradient(closest-side, ${glowColor}, transparent)` }}
+        className="pointer-events-none absolute -bottom-[30%] -left-[20%] -z-10 h-[55%] w-[60%] rounded-full opacity-15"
+        style={{ backgroundColor: glowColor }}
         animate={reduced ? undefined : { x: [0, 24, 0], y: [0, -12, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.08),transparent_55%)]" />
 
       {logo && <div className="flex justify-center">{logo}</div>}
 
@@ -906,13 +903,9 @@ function SplitPanel({
 /* ------------------------------------------------------------------ */
 
 function TiltCard({ radius, accent, reduced, children }: { radius: number; accent: string; reduced: boolean; children: ReactNode }) {
-  const mx = useMotionValue(50)
-  const my = useMotionValue(50)
   const rx = useSpring(0, { stiffness: 400, damping: 32 })
   const ry = useSpring(0, { stiffness: 400, damping: 32 })
   const [hover, setHover] = useState(false)
-  const ring = useMotionTemplate`radial-gradient(280px circle at ${mx}% ${my}%, ${accent}, transparent 70%)`
-  const glow = useMotionTemplate`radial-gradient(360px circle at ${mx}% ${my}%, color-mix(in oklab, ${accent} 7%, transparent), transparent 70%)`
 
   return (
     <div className="w-full max-w-[400px]" style={{ perspective: 1200 }}>
@@ -924,8 +917,6 @@ function TiltCard({ radius, accent, reduced, children }: { radius: number; accen
           const r = e.currentTarget.getBoundingClientRect()
           const px = (e.clientX - r.left) / r.width
           const py = (e.clientY - r.top) / r.height
-          mx.set(px * 100)
-          my.set(py * 100)
           if (!reduced) {
             rx.set((0.5 - py) * 4)
             ry.set((px - 0.5) * 4)
@@ -940,14 +931,8 @@ function TiltCard({ radius, accent, reduced, children }: { radius: number; accen
       >
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-px rounded-[inherit] p-px"
-          style={{
-            background: ring,
-            mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            maskComposite: "exclude",
-            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            WebkitMaskComposite: "xor",
-          }}
+          className="pointer-events-none absolute -inset-px rounded-[inherit] border"
+          style={{ borderColor: accent }}
           initial={false}
           animate={{ opacity: hover ? 1 : 0 }}
           transition={{ duration: 0.3 }}
@@ -955,7 +940,7 @@ function TiltCard({ radius, accent, reduced, children }: { radius: number; accen
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 rounded-[inherit]"
-          style={{ background: glow }}
+          style={{ backgroundColor: `color-mix(in oklab, ${accent} 4%, transparent)` }}
           initial={false}
           animate={{ opacity: hover ? 1 : 0 }}
           transition={{ duration: 0.3 }}

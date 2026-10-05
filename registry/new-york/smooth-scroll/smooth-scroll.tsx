@@ -20,9 +20,9 @@ export interface SmoothScrollProps {
   children?: React.ReactNode
   /** Scroll container to smooth. Omit to smooth the whole page. Default: window */
   wrapper?: HTMLElement | null
-  /** Linear interpolation per frame; lower is smoother and slower. Default: 0.09 */
+  /** Linear interpolation per frame; lower is smoother but lags behind the wheel. Default: 0.12 */
   lerp?: number
-  /** Multiplier for mouse wheel distance. Default: 0.9 */
+  /** Multiplier for mouse wheel distance. Default: 1 */
   wheelMultiplier?: number
   /** Smooth touch scrolling too. Usually best left off on phones. Default: false */
   syncTouch?: boolean
@@ -39,8 +39,8 @@ export interface SmoothScrollProps {
 export function SmoothScroll({
   children,
   wrapper,
-  lerp = 0.09,
-  wheelMultiplier = 0.9,
+  lerp = 0.12,
+  wheelMultiplier = 1,
   syncTouch = false,
   anchors = true,
   enabled = true,

@@ -48,11 +48,6 @@ function Node({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
 export function Integrations() {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[420px]">
-      <div
-        aria-hidden
-        className="absolute inset-[18%] rounded-full opacity-50 blur-3xl"
-        style={{ background: "radial-gradient(circle, #ff4d1240, transparent 70%)" }}
-      />
       {/* Small screens */}
       <div className="sm:hidden">
         <OrbitingCircles radius={72} duration={24} iconSize={38}>

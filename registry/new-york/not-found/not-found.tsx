@@ -385,6 +385,7 @@ function SpotlightScene({ chars, font, reduced, active, rootRef, copy }: HeroPro
   const x = useSpring(rawX, { stiffness: 400, damping: 38 })
   const y = useSpring(rawY, { stiffness: 400, damping: 38 })
   const light = useMotionValue(0)
+  // Alpha mask for the flashlight's edge fading, not a color gradient
   const mask = useMotionTemplate`radial-gradient(circle ${LIGHT_RADIUS} at ${x}px ${y}px, #000 0%, rgba(0,0,0,0.85) 38%, transparent 72%)`
 
   // Mount: center the light, then flicker it on.
@@ -474,7 +475,7 @@ function SpotlightScene({ chars, font, reduced, active, rootRef, copy }: HeroPro
 
   return (
     <>
-      {/* Warm pool of light on the wall */}
+      {/* Flat pool of light on the wall */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 z-0 rounded-full"
@@ -482,9 +483,9 @@ function SpotlightScene({ chars, font, reduced, active, rootRef, copy }: HeroPro
           x: glowX,
           y: glowY,
           opacity: light,
-          width: `calc(${LIGHT_RADIUS} * 3)`,
-          height: `calc(${LIGHT_RADIUS} * 3)`,
-          background: "radial-gradient(circle, color-mix(in oklab, var(--nf-fg) 9%, transparent) 0%, transparent 60%)",
+          width: `calc(${LIGHT_RADIUS} * 1.5)`,
+          height: `calc(${LIGHT_RADIUS} * 1.5)`,
+          backgroundColor: "color-mix(in oklab, var(--nf-fg) 5%, transparent)",
         }}
       />
       <div className={CONTENT}>
@@ -633,10 +634,7 @@ function Planet({ time, phase }: { time: MotionValue<number>; phase: number }) {
       />
       <span
         className="absolute inset-0 z-[1] rounded-[50%] border-[0.095em] border-current"
-        style={{
-          background:
-            "radial-gradient(circle at 35% 30%, color-mix(in oklab, var(--nf-accent) 18%, transparent), transparent 65%)",
-        }}
+        style={{ backgroundColor: "color-mix(in oklab, var(--nf-accent) 10%, transparent)" }}
       />
       <span
         className={cn(half, "z-[2]")}

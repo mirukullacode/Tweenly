@@ -20,9 +20,9 @@ export interface PreloaderProps {
   progress?: number
   /** How the loader leaves. Default: "curtain" */
   exit?: "curtain" | "split" | "fade"
-  /** Overlay background (any CSS color). Default: "#0a0a0a" */
+  /** Overlay background (any CSS color). Inverts the theme by default. Default: "var(--foreground)" */
   background?: string
-  /** Text color. Default: "#ededed" */
+  /** Text color. Default: "var(--background)" */
   color?: string
   /** Accent used for the progress line. Default: "#ff6a2b" */
   accent?: string
@@ -52,8 +52,8 @@ export function Preloader({
   duration = 3,
   progress,
   exit = "curtain",
-  background = "#0a0a0a",
-  color = "#ededed",
+  background = "var(--foreground)",
+  color = "var(--background)",
   accent = "#ff6a2b",
   showCounter = true,
   lockScroll = true,

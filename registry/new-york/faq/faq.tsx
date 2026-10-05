@@ -81,20 +81,18 @@ function Highlight({ text, query, reduced }: { text: string; query: string; redu
   while (hit !== -1) {
     if (hit > from) parts.push(text.slice(from, hit))
     parts.push(
-      <motion.mark
-        key={hit}
-        className="rounded-[3px] bg-no-repeat px-px text-inherit"
-        style={{
-          backgroundImage:
-            "linear-gradient(color-mix(in oklab, var(--faq-accent) 28%, transparent), color-mix(in oklab, var(--faq-accent) 28%, transparent))",
-          backgroundColor: "transparent",
-        }}
-        initial={{ backgroundSize: reduced ? "100% 100%" : "0% 100%" }}
-        animate={{ backgroundSize: "100% 100%" }}
-        transition={reduced ? INSTANT : { duration: 0.35, ease: EASE_OUT }}
-      >
+      <mark key={hit} className="relative isolate rounded-[3px] bg-transparent px-px text-inherit">
+        {/* Flat highlight that wipes in from the left */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 origin-left rounded-[3px]"
+          style={{ backgroundColor: "color-mix(in oklab, var(--faq-accent) 28%, transparent)" }}
+          initial={{ scaleX: reduced ? 1 : 0 }}
+          animate={{ scaleX: 1 }}
+          transition={reduced ? INSTANT : { duration: 0.35, ease: EASE_OUT }}
+        />
         {text.slice(hit, hit + needle.length)}
-      </motion.mark>
+      </mark>
     )
     from = hit + needle.length
     hit = lower.indexOf(needle, from)

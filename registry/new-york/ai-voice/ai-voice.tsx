@@ -291,12 +291,10 @@ export function AiVoice({
         const R = R0 * (1 + idle * 0.05 * breathe + think * 0.03 * Math.sin(t * 3) + lvl * 0.24)
         const amp = 0.012 + idle * 0.01 + react * (0.03 + lvl * 0.2) + think * 0.02
 
-        const glow = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R * 1.95)
-        glow.addColorStop(0, rgba(col, 0.22 + lvl * 0.25 + think * 0.08))
-        glow.addColorStop(1, rgba(col, 0))
-        ctx.fillStyle = glow
+        // Flat halo disc behind the blobs
+        ctx.fillStyle = rgba(col, 0.07 + lvl * 0.12 + think * 0.04)
         ctx.beginPath()
-        ctx.arc(cx, cy, R * 1.95, 0, Math.PI * 2)
+        ctx.arc(cx, cy, R * 1.4, 0, Math.PI * 2)
         ctx.fill()
 
         blob(cx, cy, R * 1.17, amp * 1.4, 4.1)
@@ -306,39 +304,30 @@ export function AiVoice({
         ctx.fillStyle = rgba(col, 0.26)
         ctx.fill()
         blob(cx, cy, R, amp, 0.7)
-        const core = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R * 1.1)
-        core.addColorStop(0, rgba(mix(col, [255, 255, 255], 0.35), 1))
-        core.addColorStop(1, rgba(col, 1))
-        ctx.fillStyle = core
+        ctx.fillStyle = rgba(col, 1)
         ctx.fill()
 
         if (think > 0.01) {
-          // Rotating shimmer arc
+          // Rotating solid arc
           const rr = R * 1.32
           const start = t * 2.6
-          const segs = 36
-          const span = Math.PI * 1.1
+          const span = Math.PI * 0.7
           ctx.lineCap = "round"
           ctx.lineWidth = Math.max(1.5, R0 * 0.06)
-          for (let s = 0; s < segs; s++) {
-            const a0 = start + (s / segs) * span
-            const fade = Math.pow(Math.sin((Math.PI * s) / segs), 2)
-            ctx.strokeStyle = rgba(acc, fade * think)
-            ctx.beginPath()
-            ctx.arc(cx, cy, rr, a0, a0 + span / segs + 0.01)
-            ctx.stroke()
-          }
-          // Sheen sweeping across the core
+          ctx.strokeStyle = rgba(acc, think)
+          ctx.beginPath()
+          ctx.arc(cx, cy, rr, start, start + span)
+          ctx.stroke()
+          // Flat sheen disc orbiting inside the core
           ctx.save()
           blob(cx, cy, R, amp, 0.7)
           ctx.clip()
           const sx = cx + Math.cos(t * 2.6) * R * 0.6
           const sy = cy + Math.sin(t * 2.6) * R * 0.6
-          const sheen = ctx.createRadialGradient(sx, sy, 0, sx, sy, R * 0.9)
-          sheen.addColorStop(0, rgba(acc, 0.55 * think))
-          sheen.addColorStop(1, rgba(acc, 0))
-          ctx.fillStyle = sheen
-          ctx.fillRect(cx - R * 1.5, cy - R * 1.5, R * 3, R * 3)
+          ctx.fillStyle = rgba(acc, 0.35 * think)
+          ctx.beginPath()
+          ctx.arc(sx, sy, R * 0.45, 0, Math.PI * 2)
+          ctx.fill()
           ctx.restore()
         }
       } else if (p.variant === "bars") {
@@ -387,16 +376,17 @@ export function AiVoice({
           ctx.stroke()
         }
         if (think > 0.01) {
+          // Solid highlight segment travelling along the main line
           const pos = ((t * 0.55) % 1.6) - 0.3
-          const g = ctx.createLinearGradient(0, 0, W, 0)
-          const stop = (u: number, a: number) => g.addColorStop(clamp(u), rgba(acc, a))
-          stop(pos - 0.18, 0)
-          stop(pos, think)
-          stop(pos + 0.18, 0)
+          ctx.save()
+          ctx.beginPath()
+          ctx.rect((pos - 0.1) * W, 0, W * 0.2, H)
+          ctx.clip()
           path(0, 1)
           ctx.lineWidth = 2.6
-          ctx.strokeStyle = g
+          ctx.strokeStyle = rgba(acc, think)
           ctx.stroke()
+          ctx.restore()
         }
       } else {
         const r = Math.min(H * 0.11, W / (n * 3.2))

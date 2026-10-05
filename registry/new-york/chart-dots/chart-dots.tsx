@@ -160,7 +160,8 @@ export function ChartDots({
   const step = (duration * 0.7) / Math.max(1, count)
   const empty =
     emptyTexture === "hatch"
-      ? `repeating-linear-gradient(-45deg, ${theme.subtle} 0 1.5px, ${theme.track} 1.5px 5px)`
+      ? // Hard-edged hatch stripes (a pattern, no color blending)
+        `repeating-linear-gradient(-45deg, ${theme.subtle} 0 1.5px, ${theme.track} 1.5px 5px)`
       : theme.track
 
   return (

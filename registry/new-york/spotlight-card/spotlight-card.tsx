@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/react"
+import { motion, useMotionValue, useSpring, type MotionValue } from "motion/react"
 import { cn } from "@/lib/utils"
 
 export interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,8 +31,8 @@ export function SpotlightCard({
   const y = useMotionValue(-size)
   const opacity = useSpring(0, { stiffness: 200, damping: 30 })
 
-  const fill = useMotionTemplate`radial-gradient(${size}px circle at ${x}px ${y}px, ${color}, transparent 70%)`
-  const ring = useMotionTemplate`radial-gradient(${size * 0.8}px circle at ${x}px ${y}px, ${borderColor}, transparent 70%)`
+  // Flat, hard-edged light disc; its visible radius roughly matches the old soft falloff.
+  const disc = size * 1.1
 
   return (
     <div
@@ -57,24 +57,36 @@ export function SpotlightCard({
       }}
     >
       {border && (
-        // Masked to a 1px ring so only the border lights up
+        // Masked to a 1px ring so only the border lights up.
+        // Alpha mask made of solid, hard-edged layers (content-box cut-out), not a color gradient.
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[inherit] p-px"
+          className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] p-px"
           style={{
-            background: ring,
             opacity,
             WebkitMask: "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)",
             mask: "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)",
           }}
-        />
+        >
+          <Disc x={x} y={y} diameter={disc} color={borderColor} />
+        </motion.div>
       )}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{ background: fill, opacity }}
-      />
+      <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden" style={{ opacity }}>
+        <Disc x={x} y={y} diameter={disc} color={color} />
+      </motion.div>
       <div className="relative">{children}</div>
     </div>
+  )
+}
+
+/** Solid circle centred on the pointer. */
+function Disc({ x, y, diameter, color }: { x: MotionValue<number>; y: MotionValue<number>; diameter: number; color: string }) {
+  return (
+    <motion.div className="absolute top-0 left-0 size-0" style={{ x, y }}>
+      <div
+        className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{ width: diameter, height: diameter, backgroundColor: color }}
+      />
+    </motion.div>
   )
 }

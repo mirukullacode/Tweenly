@@ -9,6 +9,7 @@ import { ThemeToggle } from "./theme-toggle"
 import { GithubStars } from "@/components/site/github-stars"
 import { GuidedTour, TourButton } from "@/components/site/guided-tour"
 import { StarPrompt } from "@/components/site/star-prompt"
+import { FeedbackButton } from "@/components/site/feedback"
 import { CommandMenu, SearchTrigger } from "./command-menu"
 
 export function DocsShell({ children }: { children: React.ReactNode }) {
@@ -36,9 +37,12 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
         <div className="mc-scroll flex-1 overflow-y-auto px-4 pt-5">
           <SidebarNav />
         </div>
-        <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
+        <div className="flex items-center justify-between gap-1 border-t px-3 py-3">
           <GithubStars from="sidebar" />
-          <TourButton label="Tour" />
+          <span className="flex items-center">
+            <TourButton label="Take the tour" iconOnly className="w-8 justify-center px-0" />
+            <FeedbackButton iconOnly className="w-8 justify-center px-0" />
+          </span>
         </div>
       </aside>
 
@@ -110,7 +114,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      <main className="flex min-w-0 flex-1 flex-col p-2 sm:p-3 lg:min-h-0">{children}</main>
+      <main className="mc-scroll flex min-w-0 flex-1 flex-col p-2 sm:p-3 lg:min-h-0 lg:overflow-y-auto xl:overflow-visible">{children}</main>
 
       <CommandMenu />
       <GuidedTour />

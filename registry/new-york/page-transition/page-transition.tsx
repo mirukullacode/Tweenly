@@ -38,9 +38,9 @@ export interface PageTransitionProviderProps {
   variant?: PageTransitionVariant
   /** Length of each phase (cover and reveal), in seconds. Default: 0.8 */
   duration?: number
-  /** Cover color (any CSS color). Default: "#0a0a0a" */
+  /** Cover color (any CSS color). Inverts the theme by default. Default: "var(--foreground)" */
   color?: string
-  /** Text color on the cover. Default: "#ededed" */
+  /** Text color on the cover. Default: "var(--background)" */
   foreground?: string
   /** Accent used for the dot beside the label. Default: "#ff4d12" */
   accent?: string
@@ -109,8 +109,8 @@ function pageFrame(page: HTMLElement, overlay: HTMLElement) {
 export function PageTransitionProvider({
   variant = "curtain",
   duration = 0.8,
-  color = "#0a0a0a",
-  foreground = "#ededed",
+  color = "var(--foreground)",
+  foreground = "var(--background)",
   accent = "#ff4d12",
   label,
   columns = 5,

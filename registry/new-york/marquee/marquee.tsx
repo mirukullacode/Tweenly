@@ -47,6 +47,7 @@ export function Marquee({
         {
           gap,
           "--mc-gap": `${gap}px`,
+          // Alpha mask for edge fading, not a color gradient
           maskImage: fade
             ? `linear-gradient(${edge}, transparent, #000 12%, #000 88%, transparent)`
             : undefined,

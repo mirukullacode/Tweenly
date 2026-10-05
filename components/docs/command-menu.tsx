@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowRight, CornerDownLeft, Search, X } from "lucide-react"
-import { latestRelease } from "@/lib/changelog"
+import { changelog, latestRelease, newComponentSlugs } from "@/lib/changelog"
 import { search, searchItems, type SearchItem } from "@/lib/search"
 import { cn } from "@/lib/utils"
 import { CategoryIcon } from "./category-icon"
@@ -18,7 +18,7 @@ export function openCommandMenu() {
 }
 
 const byId = new Map(searchItems.map((i) => [i.id, i]))
-const newIds = new Set(latestRelease.added ?? [])
+const newIds = newComponentSlugs
 
 function readRecent(): string[] {
   try {
@@ -35,7 +35,10 @@ function defaultSections(recent: string[]): Section[] {
   const sections: Section[] = []
   const recentItems = pick(recent).slice(0, 4)
   if (recentItems.length) sections.push({ label: "Recent", items: recentItems })
-  sections.push({ label: `New in v${latestRelease.version}`, items: pick(latestRelease.added ?? []) })
+  // Fall back to the most recent release that actually added components
+  const release = changelog.find((r) => r.added?.length) ?? latestRelease
+  const fresh = pick(release.added ?? [])
+  if (fresh.length) sections.push({ label: `New in v${release.version}`, items: fresh })
   sections.push({ label: "Getting started", items: searchItems.filter((i) => i.group === "Getting started") })
   return sections
 }
@@ -284,7 +287,7 @@ export function CommandMenu() {
             </div>
 
             <div className="flex items-center justify-between gap-3 border-t bg-inset/60 px-4 py-2.5 text-[11.5px] text-muted-foreground">
-              <span className="flex items-center gap-3">
+              <span className="hidden items-center gap-3 sm:flex">
                 <span className="flex items-center gap-1">
                   <kbd className="rounded border bg-panel px-1 font-mono">↑</kbd>
                   <kbd className="rounded border bg-panel px-1 font-mono">↓</kbd>
@@ -343,7 +346,7 @@ export function SearchTrigger({ className, compact = false }: { className?: stri
     >
       <Search className="size-3.5" />
       <span className="min-w-0 flex-1 truncate text-left">Search…</span>
-      <kbd className="flex items-center gap-0.5 rounded-md border bg-inset px-1.5 py-0.5 font-mono text-[10.5px] text-muted-foreground">
+      <kbd className="hidden items-center gap-0.5 rounded-md border bg-inset px-1.5 py-0.5 font-mono text-[10.5px] text-muted-foreground sm:flex">
         {mac ? "⌘" : "Ctrl"} K
       </kbd>
     </button>

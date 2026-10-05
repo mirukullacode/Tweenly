@@ -44,7 +44,7 @@ export interface ImageArcProps {
 }
 
 const tint = (i: number) =>
-  `linear-gradient(135deg, hsl(${(i * 47) % 360} 45% 62% / 0.45), hsl(${(i * 47 + 40) % 360} 40% 38% / 0.3))`
+  `hsl(${(i * 47) % 360} 42% 52% / 0.4)`
 const hideBroken = (e: React.SyntheticEvent<HTMLImageElement>) => (e.currentTarget.style.visibility = "hidden")
 
 function ratio(aspect: string) {
@@ -129,6 +129,7 @@ export function ImageArc({
       className={cn("relative w-full overflow-hidden", className)}
       style={{
         height: width ? containerH : 400,
+        // Alpha mask for edge fading, not a color gradient
         maskImage: fade ? "linear-gradient(to bottom, #000 62%, transparent)" : undefined,
       }}
     >

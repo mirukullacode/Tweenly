@@ -122,7 +122,7 @@ function Avatar({ author, size }: { author: TweetAuthor; size: number }) {
         width: size,
         height: size,
         fontSize: size * 0.38,
-        background: `linear-gradient(135deg, hsl(${hue} 70% 52%), hsl(${(hue + 40) % 360} 65% 40%))`,
+        backgroundColor: `hsl(${hue} 62% 46%)`,
       }}
     >
       {initials(author.name)}
@@ -420,6 +420,7 @@ export function TweetGrid({
         style={{
           gap,
           height,
+          // Alpha mask for edge fading, not a color gradient
           maskImage: fade ? "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)" : undefined,
         }}
       >

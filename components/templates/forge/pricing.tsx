@@ -81,13 +81,7 @@ export function Pricing() {
                 plan.popular && "ring-2 ring-[#ff4d12] md:-my-3 md:py-9"
               )}
             >
-              {plan.popular && (
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-32 opacity-60"
-                  style={{ background: `radial-gradient(60% 100% at 50% 0%, ${ACCENT}26, transparent)` }}
-                />
-              )}
+              
               <CardHeader className="relative">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base font-medium">{plan.name}</CardTitle>

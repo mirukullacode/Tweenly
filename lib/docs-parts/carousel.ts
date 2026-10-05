@@ -39,7 +39,7 @@ const images = [
       { name: "snap", type: "boolean", default: false, description: "Settle on the nearest card when scrolling or dragging stops.", control: { type: "boolean" } },
       { name: "speed", type: "number", default: 0.15, description: "Auto mode: cards per second.", control: num(0.02, 1, 0.01) },
       { name: "showCaptions", type: "boolean", default: true, description: "Show number, title and caption on the center card.", control: { type: "boolean" } },
-      { name: "background", type: "string", default: "#0a0a0a", description: "Section background.", control: { type: "color" } },
+      { name: "background", type: "string", default: "var(--background)", description: "Section background. Follows the theme by default.", control: { type: "color" } },
       { name: "height", type: "string", default: "100cqh", description: "Section height. 100cqh fills the nearest size container, or the viewport." },
       { name: "scroller", type: "HTMLElement | null", description: "Scroll container to track in scroll mode. Omit for the window; null waits for it to mount." },
       { name: "onIntroComplete", type: "() => void", description: "Called when the intro finishes and the carousel takes over." },

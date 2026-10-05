@@ -177,6 +177,7 @@
 .mc-range::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 999px;
+  /* Hard two-color split showing the filled part; WebKit has no progress pseudo-element */
   background: linear-gradient(
     to right,
     var(--foreground) var(--fill, 50%),
@@ -223,11 +224,10 @@
 
 /* dotted stage background */
 .mc-dots {
-  background-image: radial-gradient(
-    color-mix(in oklab, var(--foreground) 9%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 20px 20px;
+  /* A 1px dot every 20px, drawn as an SVG mask so it follows the theme color */
+  background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/svg%3E") repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/svg%3E") repeat;
 }
 
 /* ---------------------------------------------------------- guided tour */

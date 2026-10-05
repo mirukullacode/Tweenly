@@ -54,7 +54,7 @@ export interface CurvedCarouselProps {
   speed?: number
   /** Show number, title and caption on the center card. Default: true */
   showCaptions?: boolean
-  /** Section background. Default: "#0a0a0a" */
+  /** Section background. Follows the theme by default. Default: "var(--background)" */
   background?: string
   /** Section height (any CSS length). 100cqh fills the nearest size container, or the viewport. Default: "100cqh" */
   height?: string
@@ -101,7 +101,6 @@ function CardMedia({ image, index }: { image: CurvedCarouselImage; index: number
         style={{ background: POSTER_PALETTE[index % POSTER_PALETTE.length] }}
         aria-hidden={!!image.src && failed !== image.src}
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_80%_10%,rgb(255_255_255/0.22),transparent_60%)]" />
         <span className="relative font-mono text-[6cqw] tracking-[0.08em] opacity-80">
           {String(index + 1).padStart(2, "0")}
         </span>
@@ -125,7 +124,7 @@ function CardMedia({ image, index }: { image: CurvedCarouselImage; index: number
 
 function Caption({ image, index, total }: { image: CurvedCarouselImage; index: number; total: number }) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-[clamp(0.75rem,6%,1.25rem)] pt-12 text-[#ededed]">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-black/55 p-[clamp(0.75rem,6%,1.25rem)] text-[#ededed]">
       <p className="font-mono text-[10px] tabular-nums tracking-[0.12em] text-white/60">
         {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
       </p>
@@ -158,7 +157,7 @@ export function CurvedCarousel({
   snap = false,
   speed = 0.15,
   showCaptions = true,
-  background = "#0a0a0a",
+  background = "var(--background)",
   height = "100cqh",
   scroller,
   onIntroComplete,

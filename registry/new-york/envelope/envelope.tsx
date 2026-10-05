@@ -115,10 +115,20 @@ const FOLD = 0.34
 const FLAP_CLIP = "polygon(0 0, 100% 0, 50% 100%)"
 const FLAP_INNER_CLIP = "polygon(5% 0, 95% 0, 50% 89%)"
 const FRONT_CLIP = `polygon(0 0, 50% ${FLAP}%, 100% 0, 100% 100%, 0 100%)`
+// Hard-edged airmail stripes (a pattern, no color blending)
 const STRIPES =
   "repeating-linear-gradient(-45deg, #d62839 0 9px, transparent 9px 15px, #1f4aa8 15px 24px, transparent 24px 30px)"
-const CREASE_LINES =
-  "linear-gradient(to bottom, transparent 32.6%, rgba(0,0,0,.1) 33.2%, rgba(255,255,255,.45) 33.8%, transparent 34.4%, transparent 65.9%, rgba(0,0,0,.1) 66.5%, rgba(255,255,255,.45) 67.1%, transparent 67.7%)"
+
+/** Two flat fold lines across the letter: a dark hairline with a light edge below. */
+function CreaseLines() {
+  return [33.2, 66.5].map((top) => (
+    <span
+      key={top}
+      className="absolute inset-x-0 h-px"
+      style={{ top: `${top}%`, backgroundColor: "rgba(0,0,0,.1)", boxShadow: "0 1px 0 rgba(255,255,255,.45)" }}
+    />
+  ))
+}
 
 const mix = (a: string, pct: number, b: string) => `color-mix(in oklab, ${a} ${pct}%, ${b})`
 
@@ -136,8 +146,6 @@ interface Palette {
   muted: string
   seal: string
   accent: string
-  texture?: string
-  paperTexture?: string
   font: string
   kind: SealKind
   glass: boolean
@@ -164,7 +172,6 @@ function palette(variant: EnvelopeVariant, o: LookInput): Palette {
       muted: mix(ink, 55, "transparent"),
       seal: o.seal || "#c8102e",
       accent,
-      paperTexture: "linear-gradient(180deg, rgba(31,42,68,.025), transparent 40%)",
       font: "font-mono",
       kind: "stamp",
       glass: false,
@@ -230,10 +237,6 @@ function palette(variant: EnvelopeVariant, o: LookInput): Palette {
     muted: mix(ink, 55, "transparent"),
     seal: o.seal || "#a51d1d",
     accent,
-    texture:
-      "radial-gradient(120% 90% at 25% 15%, rgba(255,255,255,.2), transparent 55%), repeating-linear-gradient(115deg, rgba(80,50,15,.045) 0 1px, transparent 1px 4px), repeating-linear-gradient(28deg, rgba(255,255,255,.05) 0 1px, transparent 1px 5px)",
-    paperTexture:
-      "radial-gradient(110% 70% at 50% 0%, rgba(255,255,255,.7), transparent 70%), repeating-linear-gradient(0deg, rgba(120,90,40,.025) 0 1px, transparent 1px 3px)",
     font: "font-serif",
     kind: "wax",
     glass: false,
@@ -257,11 +260,11 @@ const WAX_PATH = (() => {
 
 const SEAL_WIDTH: Record<SealKind, string> = { wax: "17%", stamp: "16%", dot: "10%", glow: "13%" }
 
+// Alpha mask that punches the perforated stamp edge, not a color gradient
 const PERFORATION =
   "radial-gradient(circle at 50% 50%, transparent 2.2px, #000 2.7px) -4px -4px / 8px 8px, linear-gradient(#000 0 0) content-box"
 
 function SealMark({ p, label }: { p: Palette; label: string }) {
-  const gid = `wax-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
   const text = label.slice(0, 3)
 
   if (p.kind === "wax") {
@@ -277,15 +280,7 @@ function SealMark({ p, label }: { p: Palette; label: string }) {
     }
     return (
       <svg viewBox="0 0 100 100" className="block h-full w-full overflow-visible drop-shadow-[0_4px_5px_rgba(0,0,0,0.35)]" aria-hidden="true">
-        <defs>
-          <radialGradient id={gid} cx="36%" cy="30%" r="78%">
-            <stop offset="0" stopColor="#fff" stopOpacity="0.38" />
-            <stop offset="0.45" stopColor="#fff" stopOpacity="0" />
-            <stop offset="1" stopColor="#000" stopOpacity="0.32" />
-          </radialGradient>
-        </defs>
         <path d={WAX_PATH} fill={p.seal} />
-        <path d={WAX_PATH} fill={`url(#${gid})`} />
         <circle cx="50" cy="50" r="31" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="2.6" />
         <circle cx="50.8" cy="50.8" r="31" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
         <text {...common} fill="rgba(255,255,255,0.28)" transform="translate(-0.9 -0.9)">{text}</text>
@@ -302,7 +297,7 @@ function SealMark({ p, label }: { p: Palette; label: string }) {
           <div className="h-full w-full bg-white p-[5px]" style={{ mask: PERFORATION, WebkitMask: PERFORATION }}>
             <div
               className="flex h-full w-full flex-col items-center justify-center gap-[6%] rounded-[1px] text-white"
-              style={{ background: `linear-gradient(160deg, ${mix(p.seal, 85, "#fff")}, ${p.seal})` }}
+              style={{ background: p.seal }}
             >
               <Plane className="h-auto w-[42%] -rotate-12" strokeWidth={1.75} aria-hidden="true" />
               <span className="font-mono text-[9px] font-bold leading-none tracking-wider">{text}</span>
@@ -344,7 +339,7 @@ function SealMark({ p, label }: { p: Palette; label: string }) {
     <div
       className="grid aspect-square h-full w-full place-items-center rounded-full font-semibold text-white"
       style={{
-        background: `radial-gradient(circle at 35% 30%, ${mix(p.seal, 70, "#fff")}, ${p.seal} 70%)`,
+        background: p.seal,
         boxShadow: `inset 0 0 0 1px rgba(255,255,255,.45), 0 0 26px 6px ${mix(p.seal, 55, "transparent")}`,
       }}
     >
@@ -381,7 +376,6 @@ function EnvelopeBody({ p, radius, sealLabel, flapOpen, sealShown, flapRef, flap
         style={{
           borderRadius: radius,
           backgroundColor: p.back,
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,.2), transparent 55%)${p.texture ? `, ${p.texture}` : ""}`,
           boxShadow: "0 28px 50px -24px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.08)",
           border: line,
           backdropFilter: glassFx,
@@ -410,16 +404,12 @@ function EnvelopeBody({ p, radius, sealLabel, flapOpen, sealShown, flapRef, flap
             borderTopLeftRadius: radius,
             borderTopRightRadius: radius,
             backgroundColor: p.flap,
-            backgroundImage: p.stripes ? STRIPES : p.texture,
+            backgroundImage: p.stripes ? STRIPES : undefined,
             backdropFilter: glassFx,
             WebkitBackdropFilter: glassFx,
           }}
         >
           {p.stripes && <div className="absolute inset-0" style={{ clipPath: FLAP_INNER_CLIP, background: p.flap }} />}
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,.06), rgba(255,255,255,.08))" }}
-          />
           <div ref={flapInnerRef} className="absolute inset-0" style={{ background: p.flapInner, opacity: flapOpen ? 1 : 0 }} />
           <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <polyline points="0,0 50,100 100,0" fill="none" stroke={p.crease} strokeWidth="2" vectorEffect="non-scaling-stroke" />
@@ -434,7 +424,6 @@ function EnvelopeBody({ p, radius, sealLabel, flapOpen, sealShown, flapRef, flap
           clipPath: FRONT_CLIP,
           borderRadius: radius,
           backgroundColor: p.env,
-          backgroundImage: p.texture,
           backdropFilter: glassFx,
           WebkitBackdropFilter: glassFx,
           ...(p.stripes
@@ -467,11 +456,11 @@ function GlassGlow({ accent }: { accent: string }) {
     <div
       aria-hidden="true"
       className="pointer-events-none absolute -inset-[10%] -z-10"
-      style={{
-        background: `radial-gradient(42% 38% at 30% 62%, ${mix(accent, 75, "transparent")}, transparent 70%), radial-gradient(40% 44% at 72% 40%, rgba(109,93,252,.55), transparent 70%), radial-gradient(34% 28% at 55% 88%, rgba(34,211,238,.35), transparent 70%)`,
-        filter: "blur(28px)",
-      }}
-    />
+    >
+      {/* Flat tinted shapes; the glass backdrop blur softens them where they sit behind the envelope. */}
+      <span className="absolute left-[16%] top-[34%] aspect-square w-[34%] rounded-full" style={{ backgroundColor: mix(accent, 60, "transparent") }} />
+      <span className="absolute right-[14%] top-[12%] aspect-square w-[30%] rounded-full" style={{ backgroundColor: "rgba(109,93,252,.45)" }} />
+    </div>
   )
 }
 
@@ -837,7 +826,6 @@ export function EnvelopeComposer({
             className={cn("relative overflow-hidden px-4 pt-4", p.font)}
             style={{
               backgroundColor: p.paper,
-              backgroundImage: p.paperTexture,
               color: p.ink,
               borderRadius: Math.round(radius * 0.6),
               boxShadow: shadowOf(p),
@@ -873,6 +861,7 @@ export function EnvelopeComposer({
               style={{
                 color: p.ink,
                 caretColor: p.accent,
+                // Hard-edged ruled lines (a pattern, no color blending)
                 backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 23px, ${errors.message ? ERROR : p.crease} 23px 24px)`,
                 backgroundAttachment: "local",
               }}
@@ -908,8 +897,9 @@ export function EnvelopeComposer({
               ref={creaseRef}
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-0"
-              style={{ backgroundImage: CREASE_LINES }}
-            />
+            >
+              <CreaseLines />
+            </div>
           </div>
         </div>
 
@@ -974,11 +964,8 @@ export function EnvelopeComposer({
           <div
             ref={trailRef}
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[34%] w-[130%] rounded-full opacity-0"
-            style={{
-              background: `linear-gradient(90deg, transparent, ${mix(p.accent, 35, "transparent")} 65%, ${mix(p.env, 70, "transparent")})`,
-              filter: "blur(14px)",
-            }}
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[6%] w-[130%] rounded-full opacity-0"
+            style={{ backgroundColor: mix(p.accent, 35, "transparent") }}
           />
         </EnvelopeBody>
       </form>
@@ -1187,8 +1174,7 @@ export function Envelope({
               style={{
                 paddingBottom: "calc(1.25rem + 14%)",
                 backgroundColor: p.paper,
-                backgroundImage: p.paperTexture,
-                color: p.ink,
+                  color: p.ink,
                 borderRadius: Math.round(radius * 0.6),
                 boxShadow: shadowOf(p),
                 backdropFilter: p.glass ? "blur(12px)" : undefined,
@@ -1201,8 +1187,9 @@ export function Envelope({
                 ref={creaseRef}
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0"
-                style={{ backgroundImage: CREASE_LINES }}
-              />
+              >
+                <CreaseLines />
+              </div>
             </div>
           </div>
           {interactive && (

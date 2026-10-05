@@ -61,6 +61,8 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
   const [controlsOpen, setControlsOpen] = useState(true)
   const [fullscreen, setFullscreen] = useState(false)
   const [width, setWidth] = useState(460)
+  // Until dragged, the code panel is capped at 30vw so laptop screens keep a usable preview
+  const [resized, setResized] = useState(false)
 
   const controls = doc.props.filter((p): p is PropDoc & { control: Control } => !!p.control)
   const code = useMemo(() => usageCode(doc, values), [doc, values])
@@ -76,7 +78,8 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
   // Drag the panel's left edge to resize it
   const startResize = (e: React.PointerEvent) => {
     const startX = e.clientX
-    const startW = width
+    const startW = resized ? width : Math.min(width, window.innerWidth * 0.3)
+    setResized(true)
     const move = (ev: PointerEvent) =>
       setWidth(Math.min(Math.max(startW + (startX - ev.clientX), 360), Math.min(820, window.innerWidth * 0.55)))
     const up = () => {
@@ -90,26 +93,26 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-2 sm:gap-3 lg:min-h-0 lg:flex-row">
+    <div className="flex flex-1 flex-col gap-2 sm:gap-3 xl:min-h-0 xl:flex-row">
       {/* ---------------------------------------------------------- stage */}
       <section
         className={cn(
-          "relative flex min-w-0 flex-col gap-2 lg:block lg:flex-1",
-          fullscreen && "fixed inset-2 z-50 flex-1 lg:block"
+          "relative flex min-w-0 flex-col gap-2 xl:block xl:flex-1",
+          fullscreen && "fixed inset-2 z-50 flex-1 xl:block"
         )}
       >
         <div
           className={cn(
-            "relative isolate h-[62svh] overflow-hidden rounded-3xl border bg-stage lg:absolute lg:inset-0 lg:h-auto",
+            "relative isolate h-[62svh] min-h-[480px] overflow-hidden sm:min-h-[540px] rounded-3xl border bg-stage xl:absolute xl:inset-0 xl:h-auto",
             fullscreen && "h-auto flex-1"
           )}
           data-tour="stage"
         >
-          <div className="mc-dots pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_75%)]" />
+          <div className="mc-dots pointer-events-none absolute inset-0 -z-10" />
 
           <div
             key={`${run}-${JSON.stringify(values)}`}
-            className="absolute inset-0 grid place-items-center overflow-hidden lg:pr-[var(--controls-w)]"
+            className="absolute inset-0 grid place-items-center overflow-hidden pb-14 xl:pb-0 xl:pr-[var(--controls-w)]"
             style={{ "--controls-w": controlsOpen && controls.length ? "17rem" : "0px" } as React.CSSProperties}
           >
             {Demo ? <Demo values={values} /> : null}
@@ -125,7 +128,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
               <IconButton
                 label="Toggle controls"
                 onClick={() => setControlsOpen((o) => !o)}
-                className={cn("max-lg:hidden", controlsOpen && "bg-accent text-foreground")}
+                className={cn("max-xl:hidden", controlsOpen && "bg-accent text-foreground")}
               >
                 <SlidersHorizontal className="size-3.5" />
               </IconButton>
@@ -134,7 +137,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
               {fullscreen ? <Minimize2 className="size-3.5" /> : <Maximize2 className="size-3.5" />}
             </IconButton>
             {!codeOpen && (
-              <IconButton label="Show code" onClick={() => setCodeOpen(true)} className="max-lg:hidden">
+              <IconButton label="Show code" onClick={() => setCodeOpen(true)} className="max-xl:hidden">
                 <Code2 className="size-3.5" />
               </IconButton>
             )}
@@ -150,7 +153,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
               exit={{ opacity: 0, x: 16, filter: "blur(4px)" }}
               transition={{ duration: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
               data-tour="controls"
-              className="z-20 flex flex-col overflow-hidden rounded-3xl border bg-panel lg:absolute lg:bottom-3 lg:right-3 lg:top-3 lg:w-64 lg:rounded-2xl lg:bg-panel/85 lg:shadow-xl lg:shadow-black/10 lg:backdrop-blur-xl"
+              className="z-20 flex flex-col overflow-hidden rounded-3xl border bg-panel xl:absolute xl:bottom-3 xl:right-3 xl:top-3 xl:w-64 xl:rounded-2xl xl:bg-panel/85 xl:shadow-xl xl:shadow-black/10 xl:backdrop-blur-xl"
             >
               <div className="flex h-11 shrink-0 items-center justify-between border-b pl-4 pr-1.5">
                 <span className="text-[13px] font-medium">Controls</span>
@@ -163,7 +166,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
                   <RotateCcw className="size-3" /> Reset
                 </button>
               </div>
-              <div className="mc-scroll grid flex-1 content-start gap-4 overflow-y-auto p-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="mc-scroll grid flex-1 content-start gap-4 overflow-y-auto p-4 sm:grid-cols-2 xl:grid-cols-1">
                 {controls.map((p) => (
                   <PropControl
                     key={p.name}
@@ -181,12 +184,12 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
       {/* ---------------------------------------------------------- code panel */}
       {codeOpen && (
         <aside
-          className="relative flex min-w-0 flex-col rounded-3xl border bg-panel lg:w-[var(--panel-w)] lg:shrink-0"
+          className={cn("relative flex min-w-0 flex-col rounded-3xl border bg-panel xl:shrink-0", resized ? "xl:w-[var(--panel-w)]" : "xl:w-[min(var(--panel-w),30vw)]")}
           style={{ "--panel-w": `${width}px` } as React.CSSProperties}
         >
           <div
             onPointerDown={startResize}
-            className="group absolute -left-3 top-0 z-10 hidden h-full w-3 cursor-col-resize lg:block"
+            className="group absolute -left-3 top-0 z-10 hidden h-full w-3 cursor-col-resize xl:block"
           >
             <div className="absolute left-1/2 top-1/2 h-10 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/10 transition-colors group-hover:bg-foreground/30" />
           </div>
@@ -201,7 +204,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
               <IconButton label="Fullscreen preview" onClick={() => setFullscreen(true)}>
                 <Maximize2 className="size-3.5" />
               </IconButton>
-              <IconButton label="Close code panel" onClick={() => setCodeOpen(false)} className="max-lg:hidden">
+              <IconButton label="Close code panel" onClick={() => setCodeOpen(false)} className="max-xl:hidden">
                 <X className="size-3.5" />
               </IconButton>
               <ThemeToggle />
@@ -235,7 +238,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
                 <CodeBlock
                   code={code}
                   onCopy={() => track("copy_code", { slug, tab: "usage" })}
-                  className="max-lg:max-h-[60vh] lg:flex-1"
+                  className="max-xl:max-h-[60vh] xl:flex-1"
                 />
                 <p className="px-1 text-[12px] text-muted-foreground">
                   Updates live as you change the controls. Only non-default props are included.
@@ -250,7 +253,7 @@ export function Playground({ slug, source, guide }: { slug: string; source: stri
                 <CodeBlock
                   code={source}
                   onCopy={() => track("copy_code", { slug, tab: "source" })}
-                  className="max-lg:max-h-[70vh] lg:flex-1"
+                  className="max-xl:max-h-[70vh] xl:flex-1"
                 />
               </div>
             )}

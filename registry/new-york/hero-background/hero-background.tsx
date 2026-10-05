@@ -847,6 +847,7 @@ function buildPalette(W: World, c: Rgba, a: Rgba) {
   }
 }
 
+// Alpha mask for edge fading, not a color gradient
 const MASKS: Record<HeroBackgroundMask, CSSProperties | undefined> = {
   none: undefined,
   radial: {
