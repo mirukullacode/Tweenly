@@ -1,4 +1,5 @@
 import { track as vercelTrack } from "@vercel/analytics"
+import { readConsent } from "./consent"
 
 /**
  * Every custom event the site sends. Page views (and so "which components get
@@ -19,6 +20,8 @@ export type AnalyticsEvent =
   | { name: "sponsor_click"; props: { from: string } }
 
 export function track<E extends AnalyticsEvent>(name: E["name"], props?: E["props"]) {
+  // Respect "Decline" in the cookie banner
+  if (readConsent() === "denied") return
   try {
     vercelTrack(name, props)
   } catch {

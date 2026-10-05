@@ -141,7 +141,7 @@ function DataTable({ name, rows, onChange }: { name: string; rows: DataRow[]; on
     )
 
   return (
-    <div className="space-y-1.5 sm:col-span-2 lg:col-span-1">
+    <div className="space-y-1.5 sm:col-span-2 xl:col-span-1">
       <Label
         hint={
           <span className="flex gap-2 text-[11px]">

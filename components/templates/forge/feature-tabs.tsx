@@ -94,11 +94,6 @@ export function FeatureTabs() {
       </div>
 
       <div className="relative mt-4">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 -z-10 opacity-60 blur-3xl"
-          style={{ background: `radial-gradient(50% 50% at 50% 30%, ${ACCENT}26, transparent 70%)` }}
-        />
         <WindowFrame
           title={tab.file}
           right={

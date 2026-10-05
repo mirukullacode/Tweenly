@@ -13,6 +13,23 @@ export interface ChangelogEntry {
 // Newest first. The first entry drives the "New" badge in the sidebar.
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.5.0",
+    date: "2026-10-05",
+    title: "A playground, smoother pages and portable styles",
+    summary:
+      "A new Playground for experimenting with animation, a simpler and faster home page, and components that look the same in your app as in the docs.",
+    changes: [
+      "Playground: build animations and copy them as Motion, GSAP or CSS, edit easing curves, explore springs and stagger grids.",
+      "The home page is simpler and scrolls natively: no preloader, no pinned scenes and no heavy canvas.",
+      "Components that use tweenly's brand or panel colors now install a small tweenly-theme item with the exact tokens and display font.",
+      "Footers, loaders, page transitions and section backgrounds follow your light or dark theme by default.",
+      "Gradients removed across the site and components in favor of solid colors.",
+      "Send feedback from the sidebar or rate any component's docs; cookie and privacy policies, with an analytics opt-out.",
+      "Real photos in every image demo, credited in IMAGE_CREDITS.md.",
+      "Mobile and laptop fixes: demos no longer hide behind controls at 1024px, the preview dock no longer covers demos on phones, and search and install tabs fit small screens.",
+    ],
+  },
+  {
     version: "0.4.0",
     date: "2026-10-02",
     title: "AI components, scroll storytelling and a new look",
@@ -87,3 +104,6 @@ export const changelog: ChangelogEntry[] = [
 ]
 
 export const latestRelease = changelog[0]
+
+/** Slugs from the most recent release that added components; drives the "New" badges. */
+export const newComponentSlugs = new Set((changelog.find((r) => r.added?.length) ?? changelog[0]).added ?? [])

@@ -24,9 +24,9 @@ export interface PageLoaderProps {
   words?: string[]
   /** Number of columns ("stairs") or bars ("blinds"). Default: 5 */
   columns?: number
-  /** Loader background (any CSS color). Default: "#0a0a0a" */
+  /** Loader background (any CSS color). Inverts the theme by default. Default: "var(--foreground)" */
   background?: string
-  /** Text color. Default: "#ededed" */
+  /** Text color. Default: "var(--background)" */
   color?: string
   /** Accent used for progress marks. Default: "#ff4d12" */
   accent?: string
@@ -88,8 +88,8 @@ export function PageLoader({
   progress,
   words = DEFAULT_WORDS,
   columns = 5,
-  background = "#0a0a0a",
-  color = "#ededed",
+  background = "var(--foreground)",
+  color = "var(--background)",
   accent = "#ff4d12",
   ease = "power4",
   exitDuration = 1,

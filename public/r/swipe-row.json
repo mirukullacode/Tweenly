@@ -9,7 +9,8 @@
   ],
   "registryDependencies": [
     "utils",
-    "http://localhost:3000/r/use-reduced-motion.json"
+    "http://localhost:3000/r/use-reduced-motion.json",
+    "http://localhost:3000/r/tweenly-theme.json"
   ],
   "files": [
     {
@@ -18,5 +19,6 @@
       "type": "registry:component"
     }
   ],
+  "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/swipe-row",
   "type": "registry:component"
 }

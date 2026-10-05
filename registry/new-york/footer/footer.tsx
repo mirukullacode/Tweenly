@@ -67,13 +67,13 @@ export interface FooterProps {
   copyright?: string
   /** Links in the bottom bar. Default: Privacy / Terms / Cookies */
   legal?: FooterLink[]
-  /** Footer background (any CSS color). Default: "#0a0a0a" */
+  /** Footer background (any CSS color). Follows the theme by default. Default: "var(--background)" */
   background?: string
-  /** Main text color. Default: "#ededed" */
+  /** Main text color. Default: "var(--foreground)" */
   color?: string
   /** Accent for badges, focus rings, the CTA and hovers. Default: "#ff4d12" */
   accent?: string
-  /** Secondary text color for links and captions. Default: "#8a8a8a" */
+  /** Secondary text color for links and captions. Default: "var(--muted-foreground)" */
   muted?: string
   /** Corner radius of inputs and buttons in px; the curtain panel starts at twice this. Default: 12 */
   radius?: number
@@ -606,10 +606,10 @@ export function Footer({
   marqueeText = "Let's work together",
   copyright,
   legal = DEFAULT_LEGAL,
-  background = "#0a0a0a",
-  color = "#ededed",
+  background = "var(--background)",
+  color = "var(--foreground)",
   accent = "#ff4d12",
-  muted = "#8a8a8a",
+  muted = "var(--muted-foreground)",
   radius = 12,
   height = "70vh",
   wordmarkSize = 1,

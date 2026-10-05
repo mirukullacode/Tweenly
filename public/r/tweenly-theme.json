@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tweenly-theme",
+  "title": "tweenly theme tokens",
+  "description": "The brand and panel color tokens (light and dark) plus the display font, so components look the same in your app as in the docs.",
+  "registryDependencies": [
+    "http://localhost:3000/r/tweenly-font.json"
+  ],
+  "cssVars": {
+    "theme": {
+      "color-brand": "var(--brand)",
+      "color-panel": "var(--panel)"
+    },
+    "light": {
+      "brand": "#f0591f",
+      "panel": "#ffffff"
+    },
+    "dark": {
+      "brand": "#ff6a2b",
+      "panel": "#141414"
+    }
+  },
+  "type": "registry:theme"
+}

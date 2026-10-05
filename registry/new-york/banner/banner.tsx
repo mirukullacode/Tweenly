@@ -227,6 +227,7 @@ export function Banner({
     variant === "marquee" ? (
       <div
         className="group/ticker relative flex min-w-0 flex-1 overflow-hidden"
+        // Alpha mask for edge fading, not a color gradient
         style={{ maskImage: "linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)" }}
       >
         {reduced ? (
@@ -263,9 +264,10 @@ export function Banner({
         {variant === "shimmer" && !reduced && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-1/3"
+            className="pointer-events-none absolute inset-y-0 left-0 w-[10%]"
             style={{
-              background: "linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.45) 50%, transparent 80%)",
+              // Solid, hard-edged light band swept across the bar
+              backgroundColor: "rgba(255,255,255,0.4)",
               mixBlendMode: tone === "neutral" ? "normal" : "overlay",
               animation: "tw-banner-shimmer 3.2s cubic-bezier(0.76, 0, 0.24, 1) infinite",
               opacity: tone === "neutral" ? 0.5 : 1,
@@ -306,7 +308,7 @@ export function Banner({
       </AnimatePresence>
       <style>{`
         @keyframes tw-banner-ticker { to { transform: translateX(-50%) } }
-        @keyframes tw-banner-shimmer { 0% { transform: translateX(-120%) } 60%, 100% { transform: translateX(420%) } }
+        @keyframes tw-banner-shimmer { 0% { transform: translateX(-150%) skewX(-20deg) } 60%, 100% { transform: translateX(1100%) skewX(-20deg) } }
       `}</style>
     </div>
   )

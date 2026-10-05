@@ -69,7 +69,7 @@ type Attached = { id: number; file: File }
 
 const formatSize = (b: number) => (b < 1024 ? `${b} B` : b < 1024 * 1024 ? `${Math.round(b / 1024)} KB` : `${(b / 1024 / 1024).toFixed(1)} MB`)
 
-/** Rotating conic highlight; only mounted while visible. */
+/** Rotating solid highlight segment that sweeps the 1px border; only mounted while visible. */
 function Ring({ rotate, speed, accent }: { rotate: MotionValue<number>; speed: number; accent: string }) {
   useAnimationFrame((_, delta) => {
     if (speed) rotate.set((rotate.get() + (delta / 1000) * speed) % 360)
@@ -78,11 +78,11 @@ function Ring({ rotate, speed, accent }: { rotate: MotionValue<number>; speed: n
     <motion.div
       aria-hidden
       className="absolute top-1/2 left-1/2 aspect-square w-[max(200%,40rem)] -translate-x-1/2 -translate-y-1/2"
-      style={{
-        rotate,
-        background: `conic-gradient(from 0deg, transparent 0deg, transparent 200deg, ${accent} 300deg, transparent 360deg)`,
-      }}
-    />
+      style={{ rotate }}
+    >
+      {/* A flat wedge from the centre outward; only the slice crossing the border shows. */}
+      <span className="absolute bottom-1/2 left-1/2 h-1/2 w-[18%]" style={{ backgroundColor: accent }} />
+    </motion.div>
   )
 }
 

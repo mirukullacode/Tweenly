@@ -48,7 +48,8 @@ Open http://localhost:3000. Component pages live at `/docs/components/<slug>`.
    - Respect reduced motion with `useReducedMotion` from `@/registry/new-york/hooks/use-reduced-motion`.
 3. **Add a docs entry** to a file in `lib/docs-parts/`, with a `control` for every prop people will want to tweak.
 4. **Add a demo** to `components/docs/demos/` and register both in `lib/docs.ts` and `components/docs/demos.tsx`.
-5. **Add a registry item** to `registry.json`. Use `http://localhost:3000/r/<item>.json` for links to other tweenly items; the build swaps in the real domain.
+5. **Add a registry item** to `registry.json`. If the component uses `bg-brand`, `bg-panel` or `font-display`, add `http://localhost:3000/r/tweenly-theme.json` to its `registryDependencies` so installs get the same tokens and font.
+   Use `http://localhost:3000/r/<item>.json` for links to other tweenly items; the build swaps in the real domain.
 6. **Check everything:**
    ```bash
    npx tsc --noEmit
@@ -61,7 +62,7 @@ Open http://localhost:3000. Component pages live at `/docs/components/<slug>`.
 
 - TypeScript everywhere, no `any`.
 - The React Compiler lint rules apply: no synchronous `setState` inside effect bodies, no reading refs during render, and no `Math.random()` during render (use a seeded generator inside effects).
-- No bundled, remote or generated images. Demos read from `public/gallery/`, and every component must look good when an image is missing.
+- Components never bundle images. Demo photos live in `public/gallery/`, `public/sticky-cards/` and `public/products/` (free Unsplash photos, credited in IMAGE_CREDITS.md); add new ones only with a free license and a credit. Every component must still look good when an image is missing.
 - Keep comments short and explain why, not what.
 
 ## Commits and pull requests

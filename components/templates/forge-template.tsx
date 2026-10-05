@@ -489,11 +489,6 @@ function FinalCta() {
             opacity={0.3}
             className="rounded-3xl border bg-card/60 px-6 py-16 text-center sm:py-24"
           >
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 -bottom-1/2 -z-10 mx-auto h-full max-w-2xl rounded-full opacity-50 blur-3xl"
-              style={{ background: `radial-gradient(closest-side, ${ACCENT}55, transparent)` }}
-            />
             <div className="mx-auto flex max-w-2xl flex-col items-center">
               <Eyebrow>Get started</Eyebrow>
               <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-5xl">

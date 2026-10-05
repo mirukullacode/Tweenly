@@ -17,5 +17,6 @@
       "type": "registry:component"
     }
   ],
+  "docs": "Docs, live playground and every prop: http://localhost:3000/docs/components/dock",
   "type": "registry:component"
 }

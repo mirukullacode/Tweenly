@@ -17,8 +17,8 @@ export const smoothScrollDocs: ComponentDoc[] = [
     props: [
       { name: "children", type: "ReactNode", description: "Content that can read the Lenis instance with useLenis()." },
       { name: "wrapper", type: "HTMLElement | null", description: "Scroll container to smooth. Omit to smooth the whole page." },
-      { name: "lerp", type: "number", default: 0.09, description: "Linear interpolation per frame. Lower is smoother and slower.", control: num(0.02, 0.3, 0.01) },
-      { name: "wheelMultiplier", type: "number", default: 0.9, description: "Multiplier for mouse wheel distance.", control: num(0.3, 2, 0.1) },
+      { name: "lerp", type: "number", default: 0.12, description: "Linear interpolation per frame. Lower is smoother but lags behind the wheel.", control: num(0.02, 0.3, 0.01) },
+      { name: "wheelMultiplier", type: "number", default: 1, description: "Multiplier for mouse wheel distance.", control: num(0.3, 2, 0.1) },
       { name: "syncTouch", type: "boolean", default: false, description: "Smooth touch scrolling too. Usually best left off on phones.", control: { type: "boolean" } },
       { name: "anchors", type: "boolean", default: true, description: "Smooth-scroll to in-page #anchors.", control: { type: "boolean" } },
       { name: "enabled", type: "boolean", default: true, description: "Turn smoothing on or off without unmounting.", control: { type: "boolean" } },

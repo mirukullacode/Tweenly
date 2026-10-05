@@ -144,19 +144,23 @@ export function SlideButton({
             style={{ opacity: labelOpacity, x: labelX }}
             exit={{ opacity: 0 }}
           >
-            <motion.span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, var(--muted-foreground) 0%, var(--muted-foreground) 40%, var(--foreground) 50%, var(--muted-foreground) 60%, var(--muted-foreground) 100%)",
-                backgroundSize: "250% 100%",
-              }}
-              initial={{ backgroundPosition: "100% 0" }}
-              animate={reduced ? undefined : { backgroundPosition: "-50% 0" }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
-            >
+            <span className="relative text-muted-foreground">
               {label}
-            </motion.span>
+              {/* Solid foreground band revealed through a sliding clip-path */}
+              {!reduced && (
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute inset-0 text-foreground"
+                  initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
+                  animate={{
+                    clipPath: ["inset(0% 100% 0% 0%)", "inset(0% 80% 0% 0%)", "inset(0% 0% 0% 80%)", "inset(0% 0% 0% 100%)"],
+                  }}
+                  transition={{ duration: 2.4, times: [0, 0.12, 0.88, 1], repeat: Infinity, ease: "linear" }}
+                >
+                  {label}
+                </motion.span>
+              )}
+            </span>
           </motion.span>
         )}
       </AnimatePresence>

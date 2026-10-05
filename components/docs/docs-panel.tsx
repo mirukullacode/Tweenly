@@ -4,6 +4,7 @@ import { components, githubUrl, LIBRARIES, librariesOf, registryUrl, type Compon
 import type { ComponentGuide } from "@/lib/guides/types"
 import { CodeBlock } from "./code-block"
 import { LibraryBadges } from "./library-badges"
+import { HelpfulPrompt } from "@/components/site/feedback"
 
 function Heading({ children }: { children: React.ReactNode }) {
   return <h3 className="mb-2.5 text-[13px] font-semibold tracking-tight">{children}</h3>
@@ -153,6 +154,8 @@ export function DocsPanel({ doc, guide }: { doc: ComponentDoc; guide?: Component
           </div>
         </section>
       )}
+
+      <HelpfulPrompt page={`/docs/components/${doc.slug}`} />
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 border-t pt-4 text-[12px] text-muted-foreground">
         <a href={`${githubUrl}/blob/main/${doc.file}`} target="_blank" rel="noreferrer" className="hover:text-foreground">

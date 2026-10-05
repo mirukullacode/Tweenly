@@ -42,14 +42,13 @@ export function ShineButton({
       <motion.span
         aria-hidden="true"
         className="absolute left-1/2 top-1/2 -z-10 aspect-square w-[max(200%,12rem)]"
-        style={{
-          x: "-50%",
-          y: "-50%",
-          background: `conic-gradient(from 0deg, transparent 0deg, transparent 250deg, ${beamColor} 330deg, transparent 360deg)`,
-        }}
+        style={{ x: "-50%", y: "-50%" }}
         animate={reduced ? { rotate: 0 } : { rotate: 360 }}
         transition={reduced ? { duration: 0 } : { duration, repeat: Infinity, ease: "linear" }}
-      />
+      >
+        {/* Solid wedge from the centre outward; only the slice crossing the edge is visible. */}
+        <span className="absolute bottom-1/2 left-1/2 h-1/2 w-[22%]" style={{ backgroundColor: beamColor }} />
+      </motion.span>
       <span
         className={cn(
           "relative flex h-full items-center gap-2 overflow-hidden rounded-full px-6",
@@ -59,7 +58,7 @@ export function ShineButton({
         {sheen && !reduced && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-full skew-x-[-20deg] bg-gradient-to-r from-transparent via-current to-transparent opacity-0 transition-[translate,opacity] duration-700 ease-out group-hover:translate-x-[250%] group-hover:opacity-15"
+            className="pointer-events-none absolute inset-y-0 left-0 w-1/5 -translate-x-full skew-x-[-20deg] bg-current opacity-0 transition-[translate,opacity] duration-700 ease-out group-hover:translate-x-[600%] group-hover:opacity-15"
           />
         )}
         <span className="relative flex items-center gap-2">{children}</span>

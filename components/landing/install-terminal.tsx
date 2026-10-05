@@ -131,7 +131,7 @@ export function InstallTerminal() {
 
   return (
     <div ref={ref} className="grid gap-4 lg:grid-cols-[300px_1fr]">
-      <div role="tablist" aria-label="Install method" className="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible">
+      <div role="tablist" aria-label="Install method" className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:flex lg:flex-col">
         {METHODS.map((m, i) => {
           const Icon = m.icon
           const on = i === active
@@ -146,7 +146,7 @@ export function InstallTerminal() {
                 track("install_tab", { method: m.id })
               }}
               className={cn(
-                "group relative flex min-w-[200px] shrink-0 items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3.5 text-left transition-colors lg:min-w-0",
+                "group relative flex min-w-0 items-center gap-2.5 overflow-hidden rounded-2xl border px-3 py-2.5 text-left transition-colors sm:flex-col sm:items-start sm:gap-2 sm:py-3 lg:flex-row lg:items-center lg:gap-3 lg:px-4 lg:py-3.5",
                 on ? "bg-card" : "border-transparent hover:bg-card/50"
               )}
             >
@@ -159,8 +159,8 @@ export function InstallTerminal() {
                 <Icon className="size-4" />
               </span>
               <span className="min-w-0">
-                <span className={cn("block text-[14px] font-medium", !on && "text-muted-foreground group-hover:text-foreground")}>{m.label}</span>
-                <span className="block truncate text-[12.5px] text-muted-foreground">{m.hint}</span>
+                <span className={cn("block truncate text-[12.5px] font-medium sm:text-[14px]", !on && "text-muted-foreground group-hover:text-foreground")}>{m.label}</span>
+                <span className="hidden truncate text-[12.5px] text-muted-foreground lg:block">{m.hint}</span>
               </span>
               {on && auto && inView && (
                 <motion.span
@@ -244,9 +244,9 @@ function Screen({ lines, play }: { lines: Line[]; play: boolean }) {
   )
 
   return (
-    <div ref={ref} className="h-[340px] overflow-hidden px-5 py-4 font-mono text-[12.5px] leading-[1.9] sm:text-[13px]">
+    <div ref={ref} className="h-[260px] overflow-hidden px-4 py-4 font-mono text-[10.5px] leading-[1.9] sm:h-[340px] sm:px-5 sm:text-[13px]">
       {lines.map((line, i) => (
-        <div key={i} data-row className="invisible whitespace-pre-wrap break-all opacity-0">
+        <div key={i} data-row className="invisible whitespace-pre-wrap break-words opacity-0">
           <Row line={line} />
         </div>
       ))}

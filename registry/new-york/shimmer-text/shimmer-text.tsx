@@ -1,6 +1,7 @@
 "use client"
 
-import { motion, useReducedMotion } from "motion/react"
+import { useEffect } from "react"
+import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react"
 import { cn } from "@/lib/utils"
 
 export interface ShimmerTextProps {
@@ -28,20 +29,36 @@ export function ShimmerText({
   className,
 }: ShimmerTextProps) {
   const reduced = useReducedMotion()
+  // Sweep progress: 0 = band fully off the left edge, 1 = fully off the right edge.
+  const progress = useMotionValue(0)
+  const band = spread * 2
+  // A solid, hard-edged band of the highlight color, revealed through a sliding clip-path.
+  const clipPath = useTransform(progress, (v) => {
+    const left = `max(0px, calc(${v * 100}% + ${2 * v * spread - band}px))`
+    const right = `max(0px, calc(${(1 - v) * 100}% - ${2 * v * spread}px))`
+    return `inset(0 ${right} 0 ${left})`
+  })
+
+  useEffect(() => {
+    if (reduced) {
+      progress.set(0)
+      return
+    }
+    progress.set(0)
+    const controls = animate(progress, 1, { duration, repeat: Infinity, repeatDelay, ease: "linear" })
+    return () => controls.stop()
+  }, [reduced, duration, repeatDelay, progress])
 
   return (
-    <motion.span
-      className={cn("inline-block bg-clip-text text-transparent", className)}
-      style={{
-        backgroundImage: `linear-gradient(90deg, transparent calc(50% - ${spread}px), ${shimmerColor} 50%, transparent calc(50% + ${spread}px)), linear-gradient(${baseColor}, ${baseColor})`,
-        backgroundSize: "250% 100%, auto",
-        backgroundRepeat: "no-repeat",
-      }}
-      initial={{ backgroundPosition: "100% center, 0 0" }}
-      animate={reduced ? undefined : { backgroundPosition: "0% center, 0 0" }}
-      transition={{ duration, repeat: Infinity, repeatDelay, ease: "linear" }}
-    >
+    <span className={cn("relative inline-block", className)} style={{ color: baseColor }}>
       {children}
-    </motion.span>
+      <motion.span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 select-none"
+        style={{ color: shimmerColor, clipPath }}
+      >
+        {children}
+      </motion.span>
+    </span>
   )
 }

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { ChevronRight } from "lucide-react"
 import { categories, components, docsNav, LIBRARIES, librariesOf, type Category } from "@/lib/docs"
-import { latestRelease } from "@/lib/changelog"
+import { newComponentSlugs } from "@/lib/changelog"
 import { cn } from "@/lib/utils"
 import { CATEGORY_ICONS } from "./category-icon"
 import { LogoMark } from "@/components/site/logo-mark"
@@ -50,7 +50,7 @@ function NavLink({ href, active, children, onNavigate }: {
 const NAV_KEY = "tweenly:nav"
 const LIB_KEY = "tweenly:lib"
 type LibFilter = "all" | "motion" | "gsap"
-const newIds = new Set(latestRelease.added ?? [])
+const newIds = newComponentSlugs
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()

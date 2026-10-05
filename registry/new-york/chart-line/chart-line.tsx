@@ -31,7 +31,7 @@ export interface ChartLineProps extends ChartBaseProps {
   series: ChartSeries[]
   /** Line interpolation. Default: "smooth" */
   curve?: ChartCurve
-  /** Area under each line. Default: "dots" */
+  /** Area under each line. "gradient" is kept for API compatibility and renders a flat translucent fill. Default: "dots" */
   fill?: "none" | "gradient" | "dots" | "hatch"
   /** Line thickness in px. Default: 2.5 */
   strokeWidth?: number
@@ -240,13 +240,6 @@ export function ChartLine({
                   transition={t(duration * 1.1, { delay })}
                 />
               </clipPath>
-              <linearGradient id={`${uid}-fade`} gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={padT} y2={baseY}>
-                <stop offset="0" stopColor="#fff" stopOpacity="1" />
-                <stop offset="1" stopColor="#fff" stopOpacity="0.12" />
-              </linearGradient>
-              <mask id={`${uid}-mask`} maskUnits="userSpaceOnUse" x={0} y={-20} width={width} height={svgH + 40}>
-                <rect x={0} y={0} width={width} height={svgH} fill={`url(#${uid}-fade)`} />
-              </mask>
               {resolved.map((s, si) => (
                 <SeriesFill key={s.key} id={`${uid}-f${si}`} fill={fill} color={s.color} theme={theme} top={padT} bottom={baseY} />
               ))}
@@ -304,7 +297,7 @@ export function ChartLine({
               )}
 
             {fill !== "none" && (
-              <g clipPath={`url(#${uid}-reveal)`} mask={fill === "gradient" ? undefined : `url(#${uid}-mask)`}>
+              <g clipPath={`url(#${uid}-reveal)`} opacity={fill === "gradient" ? 1 : 0.55}>
                 {paths.map((p) => (
                   <motion.path
                     key={p.s.key}
@@ -449,11 +442,11 @@ function SeriesFill({ id, fill, color, theme, top, bottom }: {
   bottom: number
 }) {
   if (fill === "gradient") {
+    // Flat translucent area fill (legacy "gradient" value, no color blending)
     return (
-      <linearGradient id={id} gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={top} y2={bottom}>
-        <stop offset="0" stopColor={color} stopOpacity="0.32" />
-        <stop offset="1" stopColor={color} stopOpacity="0" />
-      </linearGradient>
+      <pattern id={id} x={0} y={top} width={1e5} height={Math.max(1, bottom - top) + 1e5} patternUnits="userSpaceOnUse">
+        <rect width={1e5} height={Math.max(1, bottom - top) + 1e5} fill={color} fillOpacity={0.16} />
+      </pattern>
     )
   }
   if (fill === "hatch") return <ChartPattern id={id} color={color} texture="hatch" theme={theme} />

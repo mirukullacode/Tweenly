@@ -321,11 +321,6 @@ function BarSvg({
           <circle cx="1" cy="1" r="0.6" fill="#fff" fillOpacity="0.3" />
           <circle cx="3" cy="3" r="0.6" fill="#000" fillOpacity="0.16" />
         </pattern>
-        <linearGradient id={`${id}-shade`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" style={{ stopColor: `color-mix(in oklab, ${color} 72%, white)` }} />
-          <stop offset="0.55" stopColor={color} />
-          <stop offset="1" style={{ stopColor: `color-mix(in oklab, ${color} 78%, black)` }} />
-        </linearGradient>
         <clipPath id={`${id}-fill`}>
           <motion.rect x="0" y={y0} height={T} rx={r} width={fillLen} />
         </clipPath>
@@ -357,7 +352,7 @@ function BarSvg({
               ))}
             </g>
           ) : (
-            <rect x="0" y={y0} width={L} height={T} fill={texture === "solid" ? color : `url(#${id}-shade)`} />
+            <rect x="0" y={y0} width={L} height={T} fill={color} />
           )}
           {texture === "wave" && (
             <>

@@ -44,7 +44,7 @@ export interface ScrollFocusProps {
 }
 
 const tint = (i: number) =>
-  `linear-gradient(135deg, hsl(${(i * 47) % 360} 45% 62% / 0.45), hsl(${(i * 47 + 40) % 360} 40% 38% / 0.3))`
+  `hsl(${(i * 47) % 360} 42% 52% / 0.4)`
 const hideBroken = (e: React.SyntheticEvent<HTMLImageElement>) => (e.currentTarget.style.visibility = "hidden")
 
 function ratio(aspect: string) {

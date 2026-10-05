@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tweenly-font",
+  "title": "tweenly display font",
+  "description": "Barlow Condensed, the display face tweenly uses for big numerals and wordmarks.",
+  "type": "registry:font",
+  "font": {
+    "family": "Barlow Condensed",
+    "provider": "google",
+    "import": "Barlow_Condensed",
+    "variable": "--font-display",
+    "weight": [
+      "700"
+    ],
+    "subsets": [
+      "latin"
+    ]
+  }
+}

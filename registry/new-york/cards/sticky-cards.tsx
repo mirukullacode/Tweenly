@@ -45,7 +45,7 @@ export interface StickyCardsProps {
   scrollLengthPerCard?: number
   /** Animate the last card away too. When false it stays on screen as the pin releases. Default: false */
   exitLast?: boolean
-  /** Section background. Default: "#111111" */
+  /** Section background. Follows the theme by default. Default: "var(--background)" */
   background?: string
   /** Scroll container to track instead of the window (selector or element). */
   scroller?: string | HTMLElement
@@ -89,7 +89,7 @@ function CardImage({ src, alt }: { src?: string; alt: string }) {
           className="absolute inset-0 size-full object-cover"
         />
       ) : (
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_20%,rgb(255_255_255/0.18),transparent_60%)]" />
+        <div className="absolute inset-0 bg-current/5" />
       )}
     </div>
   )
@@ -131,7 +131,7 @@ export function StickyCards({
   stepDuration = 1,
   scrollLengthPerCard = 1.8,
   exitLast = false,
-  background = "#111111",
+  background = "var(--background)",
   scroller,
   height = "100vh",
 }: StickyCardsProps) {

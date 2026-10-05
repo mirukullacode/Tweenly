@@ -84,15 +84,10 @@ export function SetupSteps() {
       </ol>
 
       <div className="relative">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 scale-110 opacity-50 blur-3xl"
-          style={{ background: `radial-gradient(50% 50% at 50% 50%, ${ACCENT}22, transparent 70%)` }}
-        />
         <div className="relative h-[340px] overflow-hidden rounded-3xl border bg-card/80 sm:h-[380px]">
           <div
             aria-hidden
-            className="absolute inset-0 opacity-[0.5] [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px]"
+            className="mc-dots absolute inset-0 opacity-70"
           />
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div

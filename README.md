@@ -33,15 +33,15 @@ Every component has a docs page with a live demo. You can adjust its props in th
 Your project needs shadcn set up (`npx shadcn@latest init`). Then add any component by its registry URL:
 
 ```bash
-npx shadcn@latest add https://<your-domain>/r/text-reveal.json
+npx shadcn@latest add https://trytweenly.vercel.app/r/text-reveal.json
 ```
 
 The command is the same with other package managers:
 
 ```bash
-pnpm dlx shadcn@latest add https://<your-domain>/r/text-reveal.json
-yarn dlx shadcn@latest add https://<your-domain>/r/text-reveal.json
-bunx --bun shadcn@latest add https://<your-domain>/r/text-reveal.json
+pnpm dlx shadcn@latest add https://trytweenly.vercel.app/r/text-reveal.json
+yarn dlx shadcn@latest add https://trytweenly.vercel.app/r/text-reveal.json
+bunx --bun shadcn@latest add https://trytweenly.vercel.app/r/text-reveal.json
 ```
 
 Each docs page shows its full install command, ready to copy.
@@ -183,11 +183,10 @@ public/r/                   Built registry output
 
 1. Deploy the site, for example to Vercel.
 2. Set `NEXT_PUBLIC_SITE_URL` to the production URL. The registry build replaces `http://localhost:3000` with this value in every registry dependency URL.
-3. Run `npm run build`. Components are then available at `https://<your-domain>/r/<name>.json`.
+3. Run `npm run build`. Components are then available at `https://trytweenly.vercel.app/r/<name>.json`.
 
-Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups). Sponsorships through [Dodo Payments](https://dodopayments.com) use `DODO_PAYMENTS_API_KEY`, `DODO_PAYMENTS_ENVIRONMENT`, `DODO_PAYMENTS_WEBHOOK_KEY` and four product IDs; see [PUBLISHING.md](PUBLISHING.md). Enable Vercel Analytics in your project settings to collect page views and events.
+Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups), `FEEDBACK_WEBHOOK_URL` (in-site feedback), and `NEXT_PUBLIC_ENABLE_SPONSORS` with the `DODO_PAYMENTS_*` keys (sponsorships, off by default). Enable Vercel Analytics in your project settings to collect page views and events.
 
-[PUBLISHING.md](PUBLISHING.md) covers the full process: testing the registry, setting up a namespace (`@tweenly/<name>`), and listing it in the official shadcn registry directory.
 
 ## Using tweenly with AI agents
 

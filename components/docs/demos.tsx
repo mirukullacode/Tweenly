@@ -226,14 +226,14 @@ const baseDemos: Record<string, (props: DemoProps) => React.ReactNode> = {
 
   "tilt-card": ({ values }) => (
     <TiltCard {...as<Omit<TiltCardProps, "children">>(values)} className="border border-white/10">
-      <div className="relative flex h-80 w-60 flex-col justify-between overflow-hidden bg-[radial-gradient(120%_90%_at_20%_0%,#3a2a22_0%,#161616_55%,#0c0c0c_100%)] p-5 text-white">
+      <div className="relative flex h-80 w-60 flex-col justify-between overflow-hidden bg-[#161616] p-5 text-white">
         <div className="mc-dots absolute inset-0 opacity-60 [--foreground:#fff]" />
         <div className="relative flex items-center justify-between text-xs text-white/60">
           <span className="font-mono">MC—01</span>
           <Box className="size-4" />
         </div>
         <div className="relative">
-          <div className="mb-4 size-14 rounded-full bg-gradient-to-br from-[#ff8a4c] to-[#ff5a1f] shadow-[0_0_60px_-5px_#ff6a2b]" />
+          <div className="mb-4 size-14 rounded-full bg-[#ff5a1f]" />
           <p className="text-lg font-semibold">Depth, on hover.</p>
           <p className="text-sm text-white/55">Move your cursor across the card.</p>
         </div>
