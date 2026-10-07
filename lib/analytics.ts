@@ -18,6 +18,7 @@ export type AnalyticsEvent =
   | { name: "tour"; props: { action: "start" | "complete" | "skip"; step?: number } }
   | { name: "sponsor_checkout"; props: { tier: string; amount: number } }
   | { name: "sponsor_click"; props: { from: string } }
+  | { name: "runner_game"; props: { score: number } }
 
 export function track<E extends AnalyticsEvent>(name: E["name"], props?: E["props"]) {
   // Respect "Decline" in the cookie banner
