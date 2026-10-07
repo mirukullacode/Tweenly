@@ -17,6 +17,8 @@ const STORAGE = [
   { key: "tweenly:lib", kind: "Local storage", purpose: "Your Motion or GSAP sidebar filter.", lasts: "Until you clear it" },
   { key: "tweenly:recent", kind: "Local storage", purpose: "Recently viewed components, shown in search.", lasts: "Until you clear it" },
   { key: "tweenly:star-prompt", kind: "Local storage", purpose: "So the GitHub star prompt appears only once.", lasts: "Until you clear it" },
+  { key: "tweenly:runner-best", kind: "Local storage", purpose: "Your best score in the footer runner game.", lasts: "Until you clear it" },
+  { key: "tweenly:runner-character", kind: "Local storage", purpose: "The runner you picked: dino, cat or tweenly.", lasts: "Until you clear it" },
   { key: "tweenly:stars:*", kind: "Session storage", purpose: "Caches the GitHub star count for 30 minutes.", lasts: "Until you close the tab" },
 ]
 

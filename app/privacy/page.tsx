@@ -30,6 +30,10 @@ export default function PrivacyPage() {
             only if you add it, your email so we can reply.
           </li>
           <li>
+            <strong className="text-foreground">Game records, if you submit one.</strong> Your name, email and score, used
+            to send you your card and, only if you tick the box, to feature you on the site.
+          </li>
+          <li>
             <strong className="text-foreground">Server logs.</strong> Our host, Vercel, keeps standard request logs (such as IP
             address and browser) for security and reliability.
           </li>

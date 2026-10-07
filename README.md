@@ -185,7 +185,7 @@ public/r/                   Built registry output
 2. Set `NEXT_PUBLIC_SITE_URL` to the production URL. The registry build replaces `http://localhost:3000` with this value in every registry dependency URL.
 3. Run `npm run build`. Components are then available at `https://trytweenly.vercel.app/r/<name>.json`.
 
-Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups), `FEEDBACK_WEBHOOK_URL` (in-site feedback), and `NEXT_PUBLIC_ENABLE_SPONSORS` with the `DODO_PAYMENTS_*` keys (sponsorships, off by default). Enable Vercel Analytics in your project settings to collect page views and events.
+Optional environment variables: `NEXT_PUBLIC_GITHUB_REPO` (star button), `NEXT_PUBLIC_TWITTER_HANDLE` (share cards), `NEWSLETTER_WEBHOOK_URL` and `NEWSLETTER_WEBHOOK_SECRET` (newsletter signups), `FEEDBACK_WEBHOOK_URL` (in-site feedback), `ACHIEVEMENT_WEBHOOK_URL`, `RESEND_API_KEY` and `ACHIEVEMENT_FROM_EMAIL` (runner game record cards by email), and `NEXT_PUBLIC_ENABLE_SPONSORS` with the `DODO_PAYMENTS_*` keys (sponsorships, off by default). Enable Vercel Analytics in your project settings to collect page views and events.
 
 
 ## Using tweenly with AI agents

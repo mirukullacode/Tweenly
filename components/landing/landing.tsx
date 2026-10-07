@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, Copy, Play, SlidersHorizontal } from "lucide-react"
 import { CopyButton } from "@/components/docs/copy-button"
@@ -14,6 +15,11 @@ import { features } from "@/lib/features"
 import { LogoMark } from "@/components/site/logo-mark"
 import { GithubStars } from "@/components/site/github-stars"
 import { NewsletterForm } from "@/components/site/newsletter-form"
+import { RunnerGame } from "@/components/site/runner-game"
+import { isCharacter } from "@/components/site/runner-sprites"
+import { currentRecord } from "@/lib/hall-of-fame"
+import { AchievementDialog } from "@/components/site/achievement-dialog"
+import { HallOfFame } from "@/components/site/hall-of-fame"
 import { FadeIn } from "@/registry/new-york/fade-in/fade-in"
 import { Footer } from "@/registry/new-york/footer/footer"
 import { Marquee } from "@/registry/new-york/marquee/marquee"
@@ -24,6 +30,9 @@ import { Marquee } from "@/registry/new-york/marquee/marquee"
  */
 
 export function Landing() {
+  const [achievement, setAchievement] = useState<{ score: number; character: string } | null>(null)
+  const record = currentRecord()
+
   return (
     <div className="relative bg-background">
       <Header />
@@ -35,54 +44,68 @@ export function Landing() {
         <Install />
         <FinalCta />
       </main>
-      <Footer
-        variant="columns"
-        brand="tweenly"
-        logo={<LogoMark tile={false} className="size-5" />}
-        description="Animated React components you install with the shadcn CLI and own forever."
-        background="var(--background)"
-        color="var(--foreground)"
-        muted="var(--muted-foreground)"
-        columns={[
-          {
-            title: "Library",
-            links: [
-              { label: "Components", href: "/docs/components/fade-in" },
-              { label: "Playground", href: "/playground" },
-              { label: "Installation", href: "/docs/installation" },
-              { label: "Changelog", href: "/changelog" },
-              ...(features.sponsors ? [{ label: "Sponsor", href: "/sponsor" }] : []),
-            ],
-          },
-          {
-            title: "Resources",
-            links: [
-              { label: "Docs", href: "/docs" },
-              { label: "Use with AI agents", href: "/docs/ai-agents" },
-              { label: "Landing template", href: "/templates/forge" },
-              { label: "llms.txt", href: "/llms.txt" },
-            ],
-          },
-          {
-            title: "Community",
-            links: [
-              { label: "GitHub", href: githubUrl },
-              { label: "Contributing", href: `${githubUrl}/blob/main/CONTRIBUTING.md` },
-              { label: "Request a component", href: `${githubUrl}/issues/new?template=component_request.yml` },
-            ],
-          },
-        ]}
-        socials={[
-          { label: "GitHub", href: githubUrl },
-          { label: "X", href: "https://x.com/MIrukulla" },
-          { label: "LinkedIn", href: "https://www.linkedin.com/in/irumanjunath/" },
-        ]}
-        newsletter={false}
-        copyright="tweenly. MIT licensed."
-        legal={[
-          { label: "Privacy", href: "/privacy" },
-          { label: "Cookies", href: "/cookies" },
-        ]}
+      {/* The last screen: footer and game share the full viewport, no dividers */}
+      <section id="runner" className="flex min-h-dvh flex-col">
+        <Footer
+          className="shrink-0 border-t-0"
+          variant="columns"
+          brand="tweenly"
+          logo={<LogoMark tile={false} className="size-5" />}
+          description="Animated React components you install with the shadcn CLI and own forever."
+          background="var(--background)"
+          color="var(--foreground)"
+          muted="var(--muted-foreground)"
+          columns={[
+            {
+              title: "Library",
+              links: [
+                { label: "Components", href: "/docs/components/fade-in" },
+                { label: "Playground", href: "/playground" },
+                { label: "Installation", href: "/docs/installation" },
+                { label: "Changelog", href: "/changelog" },
+                ...(features.sponsors ? [{ label: "Sponsor", href: "/sponsor" }] : []),
+              ],
+            },
+            {
+              title: "Resources",
+              links: [
+                { label: "Docs", href: "/docs" },
+                { label: "Use with AI agents", href: "/docs/ai-agents" },
+                { label: "Landing template", href: "/templates/forge" },
+                { label: "llms.txt", href: "/llms.txt" },
+              ],
+            },
+            {
+              title: "Community",
+              links: [
+                { label: "GitHub", href: githubUrl },
+                { label: "Contributing", href: `${githubUrl}/blob/main/CONTRIBUTING.md` },
+                { label: "Request a component", href: `${githubUrl}/issues/new?template=component_request.yml` },
+              ],
+            },
+          ]}
+          socials={[
+            { label: "GitHub", href: githubUrl },
+            { label: "X", href: "https://x.com/MIrukulla" },
+            { label: "LinkedIn", href: "https://www.linkedin.com/in/irumanjunath/" },
+          ]}
+          newsletter={false}
+          copyright="tweenly. MIT licensed."
+          legal={[
+            { label: "Privacy", href: "/privacy" },
+            { label: "Cookies", href: "/cookies" },
+          ]}
+        />
+        <HallOfFame />
+        <div className="relative grid min-h-[300px] flex-1 px-4 pb-6 sm:px-6">
+          <RunnerGame record={record} onRecord={(score, character) => setAchievement({ score, character })} />
+        </div>
+      </section>
+      <AchievementDialog
+        open={achievement !== null}
+        score={achievement?.score ?? 0}
+        character={isCharacter(achievement?.character) ? achievement.character : undefined}
+        onClose={() => setAchievement(null)}
       />
       <CommandMenu />
     </div>
